@@ -1,13 +1,13 @@
-.centralizar {
-    min-height: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    width: 80%;
-
-}
 body{
     background-color: #DC2C35;
     color: #f4f4f4;
+}
+.centralizar-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.subtitulo{
+    margin-left: 0.5rem;
 }

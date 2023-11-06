@@ -14,10 +14,10 @@ export default function SingupBeneficiario() {
                     <Container>
                         <Row>
                             <Col className='mt-5'>
-                            <Image src="img/ImgBeneficiario.png" fluid />
+
                             </Col>
                             <Col className='mt-5'>
-                                <h2>Formulário de Cadastro do Beneficiario</h2>
+                                <h2>Formulário de Cadastro do Usuário</h2>
                                 <br />
                                 <Form>
                                     <Form.Group className="mb-3" controlId="nome">
@@ -29,18 +29,19 @@ export default function SingupBeneficiario() {
                                         <Form.Control type="email" placeholder="Email@email.com" />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="cpf">
-                                        <Form.Label>CPF</Form.Label>
-                                        <Form.Control type="number" placeholder="000.000.000-00" />
+                                        <Form.Label>Telefone</Form.Label>
+                                        <Form.Control type="phone" placeholder="(00) 99999-9999" />
                                     </Form.Group>
                                     <Form.Group className="mb-3">
                                         <Form.Label>Tipo</Form.Label>
                                         <Form.Select>
-                                            <option>Beneficiário</option>
+                                            <option>Cadastrador</option>
+                                            <option>Administrador</option>
                                         </Form.Select>
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="senha">
                                         <Form.Label>Senha</Form.Label>
-                                        <Form.Control type="password" placeholder="Password" />
+                                        <Form.Control type="password" placeholder="Senha" />
                                     </Form.Group>
                                     <Button variant="danger" type="submit">Salvar</Button>
                                     <Button variant="secondary" className='botao-cancelar'>Cancelar</Button>
