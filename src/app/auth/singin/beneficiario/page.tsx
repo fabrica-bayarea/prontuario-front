@@ -5,12 +5,7 @@ import './style.css'
 
 export default function Login() {
   return (
-    <div>
-      <div className="centralizar">
-        <Col>
-          <Image src="img/logo-iesb.png" thumbnail />
-          <h2>Printuario Eletrônico</h2>
-        </Col>
+    <div className="centralizar">
         <Col xs={6}>
           <Form>
             <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -26,7 +21,6 @@ export default function Login() {
             </Button>
           </Form>
         </Col>
-      </div>
     </div>
   )
 }
