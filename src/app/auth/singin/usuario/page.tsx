@@ -1,13 +1,24 @@
 "use client"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button, Image, Col } from "react-bootstrap"
+import { Form, Button } from "react-bootstrap"
+import { BiLogIn } from 'react-icons/bi';
 import './style.css'
+import Image from 'next/image';
+import LogoIESB from './img/LogoIESB.png'
 
-export default function LoginUsuario() {
+export default function Login() {
   return (
     <div className="centralizar-div">
+      <Image
+       src={LogoIESB}
+       alt="Logo IESB"
+       width={150}
+      height={150}
+      className='centralizar-img'
+      />
       <h3>Prontuário de Atendimento</h3>
-      <Form className='mt-5'>
+      <p className="subtitulo">Página do Cadastrador de Atendimentos IESB</p>
+      <Form className='mt-3'>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>E-mail</Form.Label>
           <Form.Control type="email" placeholder="Insira seu e-mail" />
@@ -19,15 +30,12 @@ export default function LoginUsuario() {
           <Form.Control type="password" placeholder="Insira sua senha" />
         </Form.Group>
         <div className="d-grid gap-2">
-          <Button  variant="dark" size="md">
-            Entrar
+          <Button variant="dark" size="md">
+             Entrar 
+            <BiLogIn/>
           </Button>
         </div>
       </Form>
-
-      <div className="d-grid gap-2 mt-5">
-        <Button variant="outline-light margin-botao" size="md"> Sou Cadastrador</Button>
-      </div>
     </div>
   )
 }

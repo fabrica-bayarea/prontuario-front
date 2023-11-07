@@ -1,13 +1,22 @@
-body{
-    background-color: #DC2C35;
-    color: #f4f4f4;
-}
 .centralizar-div {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.subtitulo{
-    margin-left: 0.5rem;
+
+.centralizar-img {
+    position: relative;
+    margin-top: 5rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+body {
+    background-color: #DC2C35;
+    color: #f4f4f4;
+}
+
+.margin-botao{
+    margin-top: 5rem;
 }

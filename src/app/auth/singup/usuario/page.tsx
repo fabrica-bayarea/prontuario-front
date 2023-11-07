@@ -1,8 +1,14 @@
 "use client"
+
+import { useRouter } from 'next/navigation'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css'
 import Menu from '@/components/Menu';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { BiSave } from 'react-icons/bi';
+import Image from 'next/image';
+import ImgUsuario from './img/ImgUsuario.svg'
+import Link from 'next/link';
 
 export default function SingupUsuario() {
     return (
@@ -13,10 +19,19 @@ export default function SingupUsuario() {
                     <Container>
                         <Row>
                             <Col className='mt-5'>
-
+                                <Image
+                                    src={ImgUsuario}
+                                    alt="Picture of the author"
+                                    width={500}
+                                    height={500}
+                                />
+                                <Card.Text>
+                                    Preencha o formulário ao lado para cadastrar um novo usuário <br />
+                                    administrador ou cadastrador no sistema de Prontuário de Atendimento IESB.
+                                </Card.Text>
                             </Col>
                             <Col className='mt-5'>
-                                <h2>Formulário de Cadastro do Usuário</h2>
+                                <h3>Formulário de Cadastro do Usuário</h3>
                                 <br />
                                 <Form>
                                     <Form.Group className="mb-3" controlId="nome">
@@ -42,7 +57,7 @@ export default function SingupUsuario() {
                                         <Form.Label>Senha</Form.Label>
                                         <Form.Control type="password" placeholder="Senha" />
                                     </Form.Group>
-                                    <Button variant="danger" type="submit">Salvar</Button>
+                                    <Button variant="danger" type="submit"> <BiSave/> Salvar</Button>
                                     <Button variant="secondary" className='botao-cancelar'>Cancelar</Button>
                                 </Form>
                             </Col>

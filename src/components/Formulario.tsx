@@ -5,18 +5,18 @@ import './style.css'
 function Formulario() {
     return (
         <div style={{ width: '60%' }}>
-            <Table striped bordered hover variant="danger" >
+            <Table striped bordered hover variant="danger">
                 <thead>
                     <tr>
-                        <th>id</th>
+                        <th>ID</th>
                         <th>Curso</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>Analise e Des. de Sistemas</td>
+                        <td>01</td>
+                        <td>Analise e Desenvolvimento de Sistemas</td>
                         <td>
                             <Button variant="success" className="margin-botao"><BiSearch/> Ver Programas</Button> 
                             <Button variant="secondary" className="margin-botao"> <BiEdit/> Editar</Button>
