@@ -45,4 +45,5 @@ Abaixo temos uma lista de pessoas que participaram deste projeto ao longo dos an
 ### Equipe 1º/2023
 
 | E-mail | Nome | Função |
-| ------ | ---- | ------ |
+| mayara.ceet@gmail.com | Mayara Vieira | |
+| crisfaria@leandrofaria.com | Cristina Faria |  |
