@@ -10,7 +10,6 @@ import { BiAddToQueue } from "react-icons/bi";
 export default function Cursos() {
   return (
     <div>
-      <Menu />
       <h2 className="mt-3 mx-3">Cursos Cadastrados</h2>
 
       <Button className="mt-3 mx-3" variant="success">

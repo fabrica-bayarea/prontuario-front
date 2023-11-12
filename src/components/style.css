@@ -1,11 +1,18 @@
 .margin-botao {
-    margin-left: 0.5rem;
+  margin-left: 0.5rem;
 }
 
-.texto-nav{
-    color: azure;
+.texto-nav {
+  color: azure;
 }
 
-.margin-icon{
- margin-right: 0.5rem;
+.nav-link {
+  color: azure !important;
+}
+
+.dropdown-text {
+  color: black !important;
+}
+.margin-icon {
+  margin-right: 0.5rem;
 }
