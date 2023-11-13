@@ -57,7 +57,9 @@ export default function SingupUsuario() {
   };
 
   const onSubmit: SubmitHandler<userData> = async (form_data) => {
-    await signUpUsuario(devUrl, form_data);
+    await signUpUsuario(devUrl, form_data)
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -89,7 +91,7 @@ export default function SingupUsuario() {
                     <Form.Control
                       type="text"
                       placeholder="Digite seu nome completo"
-                      //@ts-ignore
+                      // @ts-ignore
                       name="nome"
                       {...register("nome", validadores.validaNome)}
                     />

@@ -28,8 +28,8 @@ const signUpUsuario = async (url: string, body: usuarioDto) => {
   await axios
     .post(url, body)
     .then((res) => console.log(res))
-    .catch(({ response }) => {
-      console.log(response.message);
+    .catch((error) => {
+      return error.response?.data.message;
     });
 };
 
