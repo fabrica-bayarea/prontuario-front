@@ -18,8 +18,8 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
   async function loginUsuario(email: string, senha: string) {
     await axios
       .post(email, senha)
-      .then((res) => console.log(res.data))
-      .catch((error) => console.log(error.message));
+      .then(res => console.log(res.data))
+      .catch(error => console.log(error.message));
   }
 
   const context = {

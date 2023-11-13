@@ -25,12 +25,12 @@ const signUpBeneficiario = async (url: string, body: beneficiarioDto) => {
 };
 
 const signUpUsuario = async (url: string, body: usuarioDto) => {
-  await axios
-    .post(url, body)
-    .then((res) => console.log(res))
-    .catch((error) => {
-      return error.response?.data.message;
-    });
+  try {
+    const res = await axios.post(url, body);
+    return res;
+  } catch (err) {
+    throw new Error(err?.response.data.message);
+  }
 };
 
 export { signUpBeneficiario, signUpUsuario };

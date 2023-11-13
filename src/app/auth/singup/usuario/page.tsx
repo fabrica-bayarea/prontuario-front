@@ -56,10 +56,14 @@ export default function SingupUsuario() {
     },
   };
 
-  const onSubmit: SubmitHandler<userData> = async (form_data) => {
+  const onSubmit: SubmitHandler<userData> = async form_data => {
     await signUpUsuario(devUrl, form_data)
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
