@@ -1,6 +1,6 @@
 import axios from "axios";
 
-type beneficiarioDto = {
+export type beneficiarioDto = {
   nome: string;
   cpf: string;
   email: string;
@@ -9,10 +9,10 @@ type beneficiarioDto = {
   senha: string;
 };
 
-type usuarioDto = {
+export type usuarioDto = {
   nome: string;
   email: string;
-  telefone: string;
+  telefone?: string;
   tipo: string;
   senha: string;
 };
@@ -25,6 +25,7 @@ const signUpBeneficiario = async (url: string, body: beneficiarioDto) => {
 };
 
 const signUpUsuario = async (url: string, body: usuarioDto) => {
+  console.log(body);
   await axios
     .post(url, body)
     .then((res) => console.log(res.data))
