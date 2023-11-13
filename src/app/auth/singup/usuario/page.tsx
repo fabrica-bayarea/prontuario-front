@@ -53,19 +53,11 @@ export default function SingupUsuario() {
     },
     validaSenha: {
       required: { value: true, message: "O campo senha deve ser preenchido" },
-      pattern: {
-        value:
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        message:
-          "A senha deve conter no mínimo 8 caracteres, 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caracter especial",
-      },
     },
   };
 
   const onSubmit: SubmitHandler<userData> = async (form_data) => {
-    await signUpUsuario(devUrl, form_data)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    await signUpUsuario(devUrl, form_data);
   };
 
   return (

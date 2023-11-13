@@ -20,16 +20,17 @@ export type usuarioDto = {
 const signUpBeneficiario = async (url: string, body: beneficiarioDto) => {
   await axios
     .post(url, body)
-    .then((res) => console.log(res.data))
-    .catch((error) => console.log(error.message));
+    .then((res) => console.log("Usuário cadastrado com sucesso", res.data))
+    .catch((error) => console.log("Alguma coisa deu errado", error.message));
 };
 
 const signUpUsuario = async (url: string, body: usuarioDto) => {
-  console.log(body);
   await axios
     .post(url, body)
-    .then((res) => console.log(res.data))
-    .catch((error) => console.log(error.message));
+    .then((res) => console.log(res))
+    .catch(({ response }) => {
+      console.log(response.message);
+    });
 };
 
 export { signUpBeneficiario, signUpUsuario };
