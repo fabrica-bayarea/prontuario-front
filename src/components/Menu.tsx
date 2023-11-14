@@ -27,14 +27,17 @@ function Menu() {
             <Link href="/programas" className="text-white nav-link">
               Programas Sociais
             </Link>
-            <NavDropdown title="Cadastro">
+            <Link href="/cadastro" className="text-white nav-link">
+              Cadastro
+            </Link>
+            {/* <NavDropdown title="Cadastro">
               <NavDropdown.Item href="/auth/singup/beneficiario">
                 Cadastro Beneficiário
               </NavDropdown.Item>
               <NavDropdown.Item href="/auth/singup/usuario">
                 Cadastro Usuário
               </NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
       </Container>
