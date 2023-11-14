@@ -9,7 +9,7 @@ import { BiSave } from "react-icons/bi";
 import Image from "next/image";
 import ImgUsuario from "./img/ImgUsuario.svg";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { signUpUsuario } from "@/controllers/signUpContoller";
+import { signUpUsuario, usuarioDto } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -34,18 +34,16 @@ const schema = yup.object().shape(
       .string()
       .nullable()
       .notRequired()
-      .when("telefone", val => {
-        if ((val.length = 0)) {
-          return yup
-            .string()
+      .when("telefone", {
+        is: (val: any) => val?.length > 0,
+        then: rule =>
+          rule
             .min(11, "Adicione o DDD da sua região. Ex: 61")
             .max(
               14,
               "O telefone deve ter até 14 caracteres. + Código do país e DDD",
-            );
-        } else {
-          return yup.string().notRequired();
-        }
+            ),
+        otherwise: field => field.notRequired(),
       }),
     tipo: yup.string(),
     senha: yup
@@ -69,15 +67,22 @@ export default function SingupUsuario() {
   });
 
   const onSubmit = async (form_data: any) => {
-    const telefoneTratado =
-      form_data.telefone === "" ? null : form_data.telefone;
-    form_data = {
-      nome: form_data.nome,
-      email: form_data.email,
-      telefone: telefoneTratado,
-      tipo: form_data.tipo,
-      senha: form_data.senha,
-    };
+    if (form_data.telefone === "" || null || undefined) {
+      form_data = {
+        nome: form_data.nome,
+        email: form_data.email,
+        tipo: form_data.tipo,
+        senha: form_data.senha,
+      };
+    } else {
+      form_data = {
+        nome: form_data.nome,
+        email: form_data.email,
+        telefone: form_data.telefone,
+        tipo: form_data.tipo,
+        senha: form_data.senha,
+      };
+    }
     await signUpUsuario(devUrl, form_data)
       .then(res => {
         console.log(res.data);
@@ -149,8 +154,8 @@ export default function SingupUsuario() {
                     <Form.Label>Tipo</Form.Label>
                     {/* @ts-ignore */}
                     <Form.Select name="tipo" {...register("tipo")}>
-                      <option>CADASTRADOR</option>
-                      <option>ADMINISTRADOR</option>
+                      <option value="CADASTRADOR">CADASTRADOR</option>
+                      <option value="ADMINISTRADOR">ADMINISTRADOR</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="senha">
