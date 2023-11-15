@@ -13,9 +13,6 @@ import { signUpBeneficiario } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-// TODO: #24 Criar lógica para funcionamento correto do formulário com React Hook Form @Kievv
-// TODO: #25 Criar contexto para salvar informações do usuário e envolver aplicação com contexto @Kievv
-
 const devUrl = "http://localhost:3000/auth/signup/beneficiario";
 
 const schema = yup.object().shape(
