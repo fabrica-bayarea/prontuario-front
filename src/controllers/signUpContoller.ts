@@ -18,10 +18,12 @@ export type usuarioDto = {
 };
 
 const signUpBeneficiario = async (url: string, body: beneficiarioDto) => {
-  await axios
-    .post(url, body)
-    .then(res => console.log("Usuário cadastrado com sucesso", res.data))
-    .catch(error => console.log("Alguma coisa deu errado", error.message));
+  try {
+    const res = await axios.post(url, body);
+    return res;
+  } catch (err: any) {
+    throw new Error(err?.response.data.message);
+  }
 };
 
 const signUpUsuario = async (url: string, body: usuarioDto) => {

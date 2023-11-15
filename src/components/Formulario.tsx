@@ -1,6 +1,6 @@
 import { Button, Table } from "react-bootstrap";
 import { BiSearch, BiEdit, BiTrash } from "react-icons/bi";
-import "./style.css";
+// import "./style.css";
 
 function Formulario() {
   return (
