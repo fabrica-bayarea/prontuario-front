@@ -1,19 +1,23 @@
 body {
-    background-color: #f4f4f4;
-    color: #1E1E1E;
+  background-color: #f4f4f4;
+  color: #1e1e1e;
 }
 
-.centralizar-div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.arrow-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.margin-tabela {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
+.cursor-router {
+  cursor: pointer;
 }
 
+.container-margin {
+  margin-top: 5em;
+}
+
+.row-mobile-order {
+  flex-wrap: wrap-reverse;
+}

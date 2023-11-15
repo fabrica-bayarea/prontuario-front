@@ -2,8 +2,7 @@
 
 import Formulario from "@/components/Formulario";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../style.css";
-
+import "./styles.css";
 import { Button } from "react-bootstrap";
 import { BiAddToQueue } from "react-icons/bi";
 

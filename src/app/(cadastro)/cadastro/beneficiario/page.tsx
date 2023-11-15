@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { signUpBeneficiario } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { FaArrowLeft } from "react-icons/fa";
 
 const devUrl = "http://localhost:3000/auth/signup/beneficiario";
 
@@ -48,6 +49,7 @@ const schema = yup.object().shape(
 );
 
 export default function SingupBeneficiario() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -77,96 +79,95 @@ export default function SingupBeneficiario() {
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          <Container>
-            <Row>
-              <Col className="mt-5">
-                <Image
-                  src={ImgBeneficiario}
-                  alt="Picture of the author"
-                  width={500}
-                  height={500}
-                />
-                <Card.Text>
-                  Preencha o formulário ao lado para cadastrar um novo
-                  beneficiário.
-                </Card.Text>
-              </Col>
-              <Col className="mt-5">
-                <h3>Formulário de Cadastro do Usuário</h3>
-                <br />
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Form.Group className="mb-3" controlId="nome">
-                    <Form.Label>Nome Completo</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Digite seu nome completo"
-                      // @ts-ignore
-                      name="nome"
-                      {...register("nome")}
-                    />
-                    <p style={{ color: "red" }}>{errors.nome?.message}</p>
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="cpf">
-                    <Form.Label>CPF</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Digite seu CPF"
-                      // @ts-ignore
-                      name="cpf"
-                      {...register("cpf")}
-                    />
-                    <p style={{ color: "red" }}>{errors.cpf?.message}</p>
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="Email">
-                    <Form.Label>E-mail</Form.Label>
-                    <Form.Control
-                      type="email"
-                      //@ts-ignore
-                      name="email"
-                      placeholder="Email@email.com"
-                      {...register("email")}
-                    />
-                    <p style={{ color: "red" }}>{errors.email?.message}</p>
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="telefone">
-                    <Form.Label>Telefone</Form.Label>
-                    <Form.Control
-                      type="phone"
-                      //@ts-ignore
-                      name="telefone"
-                      placeholder="(00) 99999-9999"
-                      {...register("telefone")}
-                    />
-                    <p style={{ color: "red" }}>{errors.telefone?.message}</p>
-                  </Form.Group>
+    <Container className="container-margin">
+      <Row>
+        <Col md={1} className="arrow-col">
+          <div className="cursor-router" onClick={() => router.back()}>
+            <FaArrowLeft size={40} />
+            <p>Voltar</p>
+          </div>
+        </Col>
+        <Col className="mt-5">
+          <Image
+            src={ImgBeneficiario}
+            alt="Picture of the author"
+            width={500}
+            height={500}
+          />
+          <Card.Text>
+            Preencha o formulário ao lado para cadastrar um novo beneficiário.
+          </Card.Text>
+        </Col>
+        <Col className="mt-5">
+          <h3>Formulário de Cadastro do Usuário</h3>
+          <br />
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form.Group className="mb-3" controlId="nome">
+              <Form.Label>Nome Completo</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Digite seu nome completo"
+                // @ts-ignore
+                name="nome"
+                {...register("nome")}
+              />
+              <p style={{ color: "red" }}>{errors.nome?.message}</p>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="cpf">
+              <Form.Label>CPF</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Digite seu CPF"
+                // @ts-ignore
+                name="cpf"
+                {...register("cpf")}
+              />
+              <p style={{ color: "red" }}>{errors.cpf?.message}</p>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="Email">
+              <Form.Label>E-mail</Form.Label>
+              <Form.Control
+                type="email"
+                //@ts-ignore
+                name="email"
+                placeholder="Email@email.com"
+                {...register("email")}
+              />
+              <p style={{ color: "red" }}>{errors.email?.message}</p>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="telefone">
+              <Form.Label>Telefone</Form.Label>
+              <Form.Control
+                type="phone"
+                //@ts-ignore
+                name="telefone"
+                placeholder="(00) 99999-9999"
+                {...register("telefone")}
+              />
+              <p style={{ color: "red" }}>{errors.telefone?.message}</p>
+            </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="senha">
-                    <Form.Label>Senha</Form.Label>
-                    <Form.Control
-                      //@ts-ignore
-                      name="senha"
-                      type="password"
-                      placeholder="Senha"
-                      {...register("senha")}
-                    />
-                    <p style={{ color: "red" }}>{errors.senha?.message}</p>
-                  </Form.Group>
+            <Form.Group className="mb-3" controlId="senha">
+              <Form.Label>Senha</Form.Label>
+              <Form.Control
+                //@ts-ignore
+                name="senha"
+                type="password"
+                placeholder="Senha"
+                {...register("senha")}
+              />
+              <p style={{ color: "red" }}>{errors.senha?.message}</p>
+            </Form.Group>
 
-                  <Button variant="danger" type="submit">
-                    <BiSave /> Salvar
-                  </Button>
-                  <Button variant="secondary" className="botao-cancelar">
-                    Cancelar
-                  </Button>
-                </Form>
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      </div>
-    </div>
+            <Button variant="danger" type="submit">
+              <BiSave /> Salvar
+            </Button>
+            <Button variant="secondary" className="botao-cancelar">
+              Cancelar
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 }
