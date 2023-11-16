@@ -14,9 +14,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FaArrowLeft } from "react-icons/fa";
 
-// TODO: #24 Criar lógica para funcionamento correto do formulário com React Hook Form @Kievv
-// TODO: #25 Criar contexto para salvar informações do usuário e envolver aplicação com contexto @Kievv
-
 const devUrl = "http://localhost:3000/auth/signup/usuario";
 
 const schema = yup.object().shape(

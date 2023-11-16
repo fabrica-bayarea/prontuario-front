@@ -4,7 +4,6 @@ import { createContext, useState, ReactNode } from "react";
 const AuthContext = createContext({
   userId: null,
   logado: false,
-  loginUsuario: (email: string, senha: string) => {},
 });
 
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
@@ -15,17 +14,9 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
     logado: false,
   });
 
-  async function loginUsuario(email: string, senha: string) {
-    await axios
-      .post(email, senha)
-      .then(res => console.log(res.data))
-      .catch(error => console.log(error.message));
-  }
-
   const context = {
     userId: currentUser.userId,
     logado: currentUser.logado,
-    loginUsuario,
   };
 
   return (

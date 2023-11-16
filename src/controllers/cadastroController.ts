@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const userId: string; // Aqui utilizar contexto de usuario
+//const userId: string; // Aqui utilizar contexto de usuario
 
 export type criarCursoDto = {
   nome: string;
