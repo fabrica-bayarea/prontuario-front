@@ -11,14 +11,14 @@ function Menu() {
     <Navbar expand="lg" className="text-white bg-danger">
       <Container>
         <Navbar.Brand>
-          <Link href={"/"} className="text-white nav-link">
+          <Link href={"/home"} className="text-white nav-link">
             Prontuario Eletrônico
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link href="/" className="text-white nav-link">
+            <Link href="/home" className="text-white nav-link">
               Home
             </Link>
             <Link href="/cursos" className="text-white nav-link">
@@ -42,7 +42,7 @@ function Menu() {
         </Navbar.Collapse>
       </Container>
       <Col xs="auto" className="margin-icon">
-        <Button variant="dark" href="/auth/singin/beneficiario">
+        <Button variant="dark" href="/auth/signin/usuario">
           <ImExit className="text-white" />{" "}
         </Button>
       </Col>

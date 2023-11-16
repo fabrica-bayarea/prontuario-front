@@ -4,8 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Home() {
   return (
-    <main>
-      <h1>Pagina Home</h1>
-    </main>
+    <div>
+      <h1>Home</h1>
+    </div>
   );
 }

@@ -9,9 +9,9 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import Image from "next/image";
 import LogoIESB from "./img/LogoIESB.png";
-import { useContext, useState } from "react";
-import AuthContext from "@/state/authContext";
-import { signInUsuario } from "@/controllers/signInController";
+import { useContext, useEffect, useState } from "react";
+import { useAuth } from "@/state/authContext";
+import { useRouter } from "next/navigation";
 
 const devUrl = "http://localhost:3000/auth/signin/usuario";
 
@@ -25,6 +25,8 @@ const schema = yup.object().shape({
 
 export default function Login() {
   const [errorLogin, setErrorLogin] = useState<string>("");
+  const { login, accessToken } = useAuth();
+  const router = useRouter();
 
   const {
     register,
@@ -34,10 +36,13 @@ export default function Login() {
 
   const onSubmit = async (form_data: any) => {
     try {
-      const res = await signInUsuario(devUrl, form_data);
-      console.log(res);
+      await login(devUrl, form_data);
+      console.log(accessToken);
+      if (accessToken) {
+        router.push("/");
+      }
     } catch (error: any) {
-      setErrorLogin(error.response.data.message);
+      setErrorLogin(error);
     }
   };
 
@@ -62,6 +67,7 @@ export default function Login() {
             name="email"
             {...register("email")}
           />
+          <p>{errors.email?.message}</p>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -73,6 +79,7 @@ export default function Login() {
             name="senha"
             {...register("senha")}
           />
+          <p>{errors.senha?.message}</p>
         </Form.Group>
 
         {errorLogin && <p>{errorLogin}</p>}

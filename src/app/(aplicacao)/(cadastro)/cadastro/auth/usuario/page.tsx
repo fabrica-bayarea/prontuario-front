@@ -2,19 +2,20 @@
 
 import { useRouter } from "next/navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles.css";
+import "./style.css";
 
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { BiSave } from "react-icons/bi";
+import { BiArrowToLeft, BiSave } from "react-icons/bi";
 import Image from "next/image";
-import ImgBeneficiario from "./img/ImgBeneficiario.svg";
-import { useForm } from "react-hook-form";
-import { signUpBeneficiario } from "@/controllers/signUpContoller";
+import ImgUsuario from "./img/ImgUsuario.svg";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { signUpUsuario, usuarioDto } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FaArrowLeft } from "react-icons/fa";
+import { useAuth } from "@/state/authContext";
 
-const devUrl = "http://localhost:3000/auth/signup/beneficiario";
+const devUrl = "http://localhost:3000/auth/signup/usuario";
 
 const schema = yup.object().shape(
   {
@@ -24,19 +25,26 @@ const schema = yup.object().shape(
       .trim()
       .min(3, "O campo nome deve ter pelo menos 3 caracteres")
       .max(50, "O campo nome deve ter no máximo 50 caracteres"),
-    cpf: yup
-      .string()
-      .required("O campo CPF deve ser preenchido")
-      .matches(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/, "CPF inválido"),
     email: yup
       .string()
       .required("O campo email deve ser preenchido")
       .matches(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i, "Email inválido"),
     telefone: yup
       .string()
-      .required()
-      .min(11, "Adicione o DDD da sua região. Ex: 61")
-      .max(14, "O telefone deve ter até 14 caracteres. + Código do país e DDD"),
+      .nullable()
+      .notRequired()
+      .when("telefone", {
+        is: (val: any) => val?.length > 0,
+        then: rule =>
+          rule
+            .min(11, "Adicione o DDD da sua região. Ex: 61")
+            .max(
+              14,
+              "O telefone deve ter até 14 caracteres. + Código do país e DDD",
+            ),
+        otherwise: field => field.notRequired(),
+      }),
+    tipo: yup.string(),
     senha: yup
       .string()
       .required("O campo senha deve ser preenchido")
@@ -48,8 +56,10 @@ const schema = yup.object().shape(
   [["telefone", "telefone"]],
 );
 
-export default function SingupBeneficiario() {
+export default function SingupUsuario() {
+  const { accessToken } = useAuth();
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -59,17 +69,23 @@ export default function SingupBeneficiario() {
   });
 
   const onSubmit = async (form_data: any) => {
-    form_data = {
-      nome: form_data.nome,
-      cpf: form_data.cpf,
-      email: form_data.email,
-      telefone: form_data.telefone,
-      tipo: "BENEFICIARIO",
-      senha: form_data.senha,
-    };
-
-    console.log(form_data);
-    await signUpBeneficiario(devUrl, form_data)
+    if (form_data.telefone === "" || null || undefined) {
+      form_data = {
+        nome: form_data.nome,
+        email: form_data.email,
+        tipo: form_data.tipo,
+        senha: form_data.senha,
+      };
+    } else {
+      form_data = {
+        nome: form_data.nome,
+        email: form_data.email,
+        telefone: form_data.telefone,
+        tipo: form_data.tipo,
+        senha: form_data.senha,
+      };
+    }
+    await signUpUsuario(devUrl, form_data)
       .then(res => {
         console.log(res.data);
       })
@@ -89,13 +105,16 @@ export default function SingupBeneficiario() {
         </Col>
         <Col className="mt-5">
           <Image
-            src={ImgBeneficiario}
+            src={ImgUsuario}
             alt="Picture of the author"
             width={500}
             height={500}
+            className=""
           />
           <Card.Text>
-            Preencha o formulário ao lado para cadastrar um novo beneficiário.
+            Preencha o formulário ao lado para cadastrar um novo usuário <br />
+            administrador ou cadastrador no sistema de Prontuário de Atendimento
+            IESB.
           </Card.Text>
         </Col>
         <Col className="mt-5">
@@ -113,17 +132,7 @@ export default function SingupBeneficiario() {
               />
               <p style={{ color: "red" }}>{errors.nome?.message}</p>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="cpf">
-              <Form.Label>CPF</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Digite seu CPF"
-                // @ts-ignore
-                name="cpf"
-                {...register("cpf")}
-              />
-              <p style={{ color: "red" }}>{errors.cpf?.message}</p>
-            </Form.Group>
+
             <Form.Group className="mb-3" controlId="Email">
               <Form.Label>E-mail</Form.Label>
               <Form.Control
@@ -146,7 +155,14 @@ export default function SingupBeneficiario() {
               />
               <p style={{ color: "red" }}>{errors.telefone?.message}</p>
             </Form.Group>
-
+            <Form.Group className="mb-3">
+              <Form.Label>Tipo</Form.Label>
+              {/* @ts-ignore */}
+              <Form.Select name="tipo" {...register("tipo")}>
+                <option value="CADASTRADOR">CADASTRADOR</option>
+                <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+              </Form.Select>
+            </Form.Group>
             <Form.Group className="mb-3" controlId="senha">
               <Form.Label>Senha</Form.Label>
               <Form.Control

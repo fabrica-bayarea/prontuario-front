@@ -10,7 +10,9 @@ export default function IconesCadastro(props: Props) {
     <div>
       <Image
         className="icon-size"
-        src={require(`../app/(cadastro)/cadastro/${props.url}`).default}
+        src={
+          require(`../app/(aplicacao)/(cadastro)/cadastro/${props.url}`).default
+        }
         alt={`${props.nome}`}
       />
       <p style={{ textDecoration: "none", color: "black" }}>
