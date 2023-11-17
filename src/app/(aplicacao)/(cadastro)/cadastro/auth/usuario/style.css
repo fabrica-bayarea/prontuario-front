@@ -1,0 +1,23 @@
+body {
+  background-color: #f4f4f4;
+  color: #1e1e1e;
+}
+
+.arrow-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cursor-router {
+  cursor: pointer;
+}
+
+.container-margin {
+  margin-top: 5em;
+}
+
+.row-mobile-order {
+  flex-wrap: wrap-reverse;
+}

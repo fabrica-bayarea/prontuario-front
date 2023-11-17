@@ -1,0 +1,37 @@
+body {
+  background-color: #f4f4f4;
+  color: #1e1e1e;
+}
+
+.margin-top {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: space-evenly;
+}
+
+.link-style {
+  text-decoration: none;
+}
+
+.icon-size {
+  height: 80px;
+  width: 80px;
+}
+
+.icon-container {
+  margin: 0;
+}
+.icon-row {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.spacer {
+  margin: 1em 0 1em 0;
+}
+
+.botao-cancelar {
+  margin-left: 5px;
+}

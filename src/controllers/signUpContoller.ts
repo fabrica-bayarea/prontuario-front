@@ -18,18 +18,21 @@ export type usuarioDto = {
 };
 
 const signUpBeneficiario = async (url: string, body: beneficiarioDto) => {
-  await axios
-    .post(url, body)
-    .then((res) => console.log(res.data))
-    .catch((error) => console.log(error.message));
+  try {
+    const res = await axios.post(url, body);
+    console.log(res);
+  } catch (err: any) {
+    console.log(err?.response.data.message);
+  }
 };
 
 const signUpUsuario = async (url: string, body: usuarioDto) => {
-  console.log(body);
-  await axios
-    .post(url, body)
-    .then((res) => console.log(res.data))
-    .catch((error) => console.log(error.message));
+  try {
+    const res = await axios.post(url, body);
+    return res;
+  } catch (err: any) {
+    throw new Error(err?.response.data.message);
+  }
 };
 
 export { signUpBeneficiario, signUpUsuario };
