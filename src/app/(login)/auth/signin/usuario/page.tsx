@@ -25,7 +25,7 @@ const schema = yup.object().shape({
 
 export default function Login() {
   const [errorLogin, setErrorLogin] = useState<string>("");
-  const { login, accessToken } = useAuth();
+  const { login } = useAuth();
   const router = useRouter();
 
   const {
@@ -36,9 +36,8 @@ export default function Login() {
 
   const onSubmit = async (form_data: any) => {
     try {
-      await login(devUrl, form_data);
-      console.log(accessToken);
-      if (accessToken) {
+      const res = await login(devUrl, form_data);
+      if (res) {
         router.push("/");
       }
     } catch (error: any) {

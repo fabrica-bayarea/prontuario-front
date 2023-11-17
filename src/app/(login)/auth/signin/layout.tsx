@@ -1,5 +1,4 @@
 "use client";
-import { AuthContextProvider } from "@/state/authContext";
 
 export default function LoginLayout({
   children,
@@ -8,9 +7,7 @@ export default function LoginLayout({
 }) {
   return (
     <>
-      <main>
-        <AuthContextProvider>{children}</AuthContextProvider>
-      </main>
+      <main>{children}</main>
     </>
   );
 }

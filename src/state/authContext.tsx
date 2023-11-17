@@ -3,7 +3,7 @@ import { createContext, useState, ReactNode, useContext } from "react";
 
 interface AuthContextType {
   accessToken: string | null;
-  login: (url: string, body: usuarioType) => void;
+  login: (url: string, body: usuarioType) => Promise<string>;
   logout: (access_token: string) => void;
 }
 type usuarioType = {
@@ -29,6 +29,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const res = await axios.post(url, body);
       setAccessToken(res.data.access_token);
+      return res.data.access_token;
     } catch (error: any) {
       throw error?.response.data.message;
     }

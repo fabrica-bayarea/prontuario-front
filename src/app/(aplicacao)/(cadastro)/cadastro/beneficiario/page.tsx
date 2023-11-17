@@ -51,14 +51,7 @@ const schema = yup.object().shape(
 );
 
 export default function SingupBeneficiario() {
-  const { accessToken } = useAuth();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!accessToken) {
-      router.push("/auth/signin/usuario");
-    }
-  }, [accessToken, router]);
 
   const {
     register,
