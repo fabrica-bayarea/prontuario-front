@@ -4,7 +4,6 @@ import axios from "axios";
 
 export type criarCursoDto = {
   nome: string;
-  idUsuario: number;
 };
 
 export type atualizarCursoDto = {
@@ -13,7 +12,7 @@ export type atualizarCursoDto = {
   nome: string;
 };
 
-const cadastrarCurso = async (url: string, body: criarCursoDto) => {
+const criarCurso = async (url: string, body: criarCursoDto) => {
   try {
     const res = await axios.post(url, body);
     return res;

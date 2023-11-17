@@ -29,6 +29,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const res = await axios.post(url, body);
       setAccessToken(res.data.access_token);
+      console.log(res);
       return res.data.access_token;
     } catch (error: any) {
       throw error?.response.data.message;
