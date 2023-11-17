@@ -71,14 +71,12 @@ export default function SingupBeneficiario() {
       senha: form_data.senha,
     };
 
-    console.log(form_data);
-    await signUpBeneficiario(devUrl, form_data)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    try {
+      await signUpBeneficiario(devUrl, form_data);
+      router.back();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -102,14 +100,14 @@ export default function SingupBeneficiario() {
           </Card.Text>
         </Col>
         <Col className="mt-5">
-          <h3>Formulário de Cadastro do Usuário</h3>
+          <h3>Formulário de Cadastro do Beneficiário</h3>
           <br />
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3" controlId="nome">
               <Form.Label>Nome Completo</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Digite seu nome completo"
+                placeholder="Digite o nome completo do beneficiário"
                 // @ts-ignore
                 name="nome"
                 {...register("nome")}
@@ -120,7 +118,7 @@ export default function SingupBeneficiario() {
               <Form.Label>CPF</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Digite seu CPF"
+                placeholder="Digite CPF do beneficiário"
                 // @ts-ignore
                 name="cpf"
                 {...register("cpf")}
@@ -128,18 +126,18 @@ export default function SingupBeneficiario() {
               <p style={{ color: "red" }}>{errors.cpf?.message}</p>
             </Form.Group>
             <Form.Group className="mb-3" controlId="Email">
-              <Form.Label>E-mail</Form.Label>
+              <Form.Label>E-mail do beneficiário</Form.Label>
               <Form.Control
                 type="email"
                 //@ts-ignore
                 name="email"
-                placeholder="Email@email.com"
+                placeholder="email@gmail.com"
                 {...register("email")}
               />
               <p style={{ color: "red" }}>{errors.email?.message}</p>
             </Form.Group>
             <Form.Group className="mb-3" controlId="telefone">
-              <Form.Label>Telefone</Form.Label>
+              <Form.Label>Telefone do Beneficiário</Form.Label>
               <Form.Control
                 type="phone"
                 //@ts-ignore
