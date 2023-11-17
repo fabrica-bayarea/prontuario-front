@@ -2,11 +2,21 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { Container, Col, Row } from "react-bootstrap";
-import React from "react";
+import React, { useEffect } from "react";
 import IconesCadastro from "@/components/IconesCadastro";
 import Link from "next/link";
+import { useAuth } from "@/state/authContext";
+import { useRouter } from "next/navigation";
 
 export default function Cadastro() {
+  const { accessToken } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!accessToken) {
+      router.push("/auth/signin/usuario");
+    }
+  }, [accessToken, router]);
   return (
     <Container className="margin-top">
       <Row className="text-center">

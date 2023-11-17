@@ -5,8 +5,20 @@ import Navbar from "react-bootstrap/Navbar";
 import "./style.css";
 import { ImExit } from "react-icons/im";
 import Link from "next/link";
+import { useAuth } from "@/state/authContext";
+import { useRouter } from "next/navigation";
 
 function Menu() {
+  const { logout, accessToken } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    if (accessToken) {
+      await logout(accessToken);
+      router.push("/auth/signin/usuario");
+    }
+  };
+
   return (
     <Navbar expand="lg" className="text-white bg-danger">
       <Container>
@@ -42,8 +54,12 @@ function Menu() {
         </Navbar.Collapse>
       </Container>
       <Col xs="auto" className="margin-icon">
-        <Button variant="dark" href="/auth/signin/usuario">
-          <ImExit className="text-white" />{" "}
+        <Button
+          variant="dark"
+          href="/auth/signin/usuario"
+          onClick={handleLogout}
+        >
+          <ImExit className="text-white" />
         </Button>
       </Col>
     </Navbar>

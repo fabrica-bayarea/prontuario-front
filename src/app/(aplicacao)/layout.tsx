@@ -2,11 +2,7 @@
 import Menu from "@/components/Menu";
 import { AuthContextProvider } from "@/state/authContext";
 
-export default function LoginLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Menu />

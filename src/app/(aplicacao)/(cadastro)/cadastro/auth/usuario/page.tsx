@@ -14,6 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FaArrowLeft } from "react-icons/fa";
 import { useAuth } from "@/state/authContext";
+import { useEffect } from "react";
 
 const devUrl = "http://localhost:3000/auth/signup/usuario";
 
@@ -59,6 +60,12 @@ const schema = yup.object().shape(
 export default function SingupUsuario() {
   const { accessToken } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!accessToken) {
+      router.push("/auth/signin/usuario");
+    }
+  }, [accessToken, router]);
 
   const {
     register,
