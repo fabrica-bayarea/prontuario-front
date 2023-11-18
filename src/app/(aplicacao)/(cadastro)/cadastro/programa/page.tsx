@@ -68,11 +68,12 @@ export default function CadastroPrograma() {
             height={500}
           />
           <Card.Text>
-            Preencha o formulário ao lado para cadastrar um novo atendimento.
+            Preencha o formulário ao lado para cadastrar um novo programa
+            social.
           </Card.Text>
         </Col>
         <Col className="mt-5">
-          <h3>Formulário de Cadastro de Atendimento</h3>
+          <h3>Formulário de Cadastro de Programas</h3>
           <br />
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3" controlId="data">

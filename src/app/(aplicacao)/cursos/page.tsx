@@ -3,7 +3,7 @@
 import Formulario from "@/components/Formulario";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
-import { Button } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { BiAddToQueue } from "react-icons/bi";
 import { useAuth } from "@/state/authContext";
 import { useRouter } from "next/navigation";
@@ -19,15 +19,18 @@ export default function Cursos() {
     }
   }, [accessToken, router]);
   return (
-    <div>
-      <h2 className="mt-3 mx-3">Cursos Cadastrados</h2>
-
-      <Button className="mt-3 mx-3" variant="success">
-        <BiAddToQueue /> Adicionar Curso
-      </Button>
+    <Container>
+      <Row className="mt-5 mb-5">
+        <h2 className="mt-3 mx-3">Cursos Cadastrados</h2>
+        <Col>
+          <Button className="mt-3 mb-3" variant="success">
+            <BiAddToQueue /> Adicionar Curso
+          </Button>
+        </Col>
+      </Row>
       <div className="margin-tabela">
         <Formulario />
       </div>
-    </div>
+    </Container>
   );
 }

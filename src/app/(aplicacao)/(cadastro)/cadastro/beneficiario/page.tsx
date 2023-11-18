@@ -13,8 +13,6 @@ import { signUpBeneficiario } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FaArrowLeft } from "react-icons/fa";
-import { useAuth } from "@/state/authContext";
-import { useEffect } from "react";
 
 const devUrl = "http://localhost:3000/auth/signup/beneficiario";
 
