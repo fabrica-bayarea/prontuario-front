@@ -13,8 +13,10 @@ import { signUpBeneficiario } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FaArrowLeft } from "react-icons/fa";
+import { criarAtendimento } from "@/controllers/atendimentosController";
+import { useAuth } from "@/state/authContext";
 
-const devUrl = "http://localhost:3000/auth/signup/beneficiario";
+const devUrl = "http://localhost:3000/atendimentos";
 
 const schema = yup.object().shape({
   data: yup.date().required("O campo data deve ser preenchido"),
@@ -31,7 +33,12 @@ const schema = yup.object().shape({
 });
 
 export default function CreateAtendimento() {
+  const { accessToken } = useAuth();
   const router = useRouter();
+
+  const headerConfig = {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  };
 
   const {
     register,
@@ -49,7 +56,7 @@ export default function CreateAtendimento() {
     };
 
     try {
-      //await signUpBeneficiario(devUrl, form_data);
+      await criarAtendimento(devUrl, form_data, headerConfig);
       router.back();
     } catch (error) {
       console.log(error);

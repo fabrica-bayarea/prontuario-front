@@ -24,7 +24,7 @@ export default function Cadastro() {
           <Link className="link-style" href={"/cadastro/beneficiario"}>
             <IconesCadastro url={"img/beneficiario.svg"} nome="Beneficiário" />
           </Link>
-          <Link className="link-style" href={"/cadastro/cursos"}>
+          <Link className="link-style" href={"/cadastro/curso"}>
             <IconesCadastro url={"img/curso.svg"} nome="Curso" />
           </Link>
           <Link className="link-style" href={"/cadastro/atendimento"}>
