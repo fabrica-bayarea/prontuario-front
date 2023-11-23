@@ -1,14 +1,13 @@
 "use client";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "./styles.css";
+import "../style.css";
 
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiSave } from "react-icons/bi";
 import Image from "next/image";
 import ImgProgramas from "./img/ImgProgramas.svg";
 import { useForm } from "react-hook-form";
-import { signUpBeneficiario } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";

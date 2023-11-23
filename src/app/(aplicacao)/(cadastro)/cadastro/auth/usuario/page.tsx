@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./style.css";
+import "../../style.css";
 
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiArrowToLeft, BiSave } from "react-icons/bi";
@@ -13,8 +13,6 @@ import { signUpUsuario, usuarioDto } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FaArrowLeft } from "react-icons/fa";
-import { useAuth } from "@/state/authContext";
-import { useEffect } from "react";
 
 const devUrl = "http://localhost:3000/auth/signup/usuario";
 
@@ -96,13 +94,13 @@ export default function SingupUsuario() {
   return (
     <Container className="container-margin">
       <Row>
-        <Col md={1} className="arrow-col">
+        <Col md={1} className="item-col">
           <div className="cursor-router" onClick={() => router.back()}>
             <FaArrowLeft size={40} />
             <p>Voltar</p>
           </div>
         </Col>
-        <Col className="mt-5">
+        <Col className="item-col">
           <Image
             src={ImgUsuario}
             alt="Picture of the author"
@@ -116,7 +114,7 @@ export default function SingupUsuario() {
             IESB.
           </Card.Text>
         </Col>
-        <Col className="mt-5">
+        <Col className=" item-col-form">
           <h3>Formulário de Cadastro do Usuário</h3>
           <br />
           <Form onSubmit={handleSubmit(onSubmit)}>

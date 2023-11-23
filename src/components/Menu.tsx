@@ -52,16 +52,16 @@ function Menu() {
             </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
+        <Col xs="auto" className="margin-icon">
+          <Button
+            variant="dark"
+            href="/auth/signin/usuario"
+            onClick={handleLogout}
+          >
+            <ImExit className="text-white" />
+          </Button>
+        </Col>
       </Container>
-      <Col xs="auto" className="margin-icon">
-        <Button
-          variant="dark"
-          href="/auth/signin/usuario"
-          onClick={handleLogout}
-        >
-          <ImExit className="text-white" />
-        </Button>
-      </Col>
     </Navbar>
   );
 }

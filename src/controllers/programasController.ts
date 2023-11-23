@@ -15,7 +15,7 @@ const criarPrograma = async (url: string, body: programaDto, config: any) => {
     const res = await axios.post(url, body, config);
     console.log(res);
   } catch (error: any) {
-    console.log(error?.response.data.message);
+    throw error?.response.data.message;
   }
 };
 
@@ -24,8 +24,8 @@ const listarProgramas = async (url: string) => {
     const res = await axios.get(url);
     console.log(res);
     return res;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw error?.response.data.message;
   }
 };
 
@@ -34,8 +34,8 @@ const listarProgramaPorId = async (url: string, id: number) => {
     const res = await axios.get(url, { params: { ID: id } });
     console.log(res);
     return res;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw error?.response.data.message;
   }
 };
 
@@ -47,8 +47,8 @@ const filtrarProgramaPorNome = async (url: string, nome: string) => {
       },
     });
     console.log(res);
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw error?.response.data.message;
   }
 };
 
@@ -64,8 +64,8 @@ const atualizarPrograma = async (
       },
     });
     console.log(res);
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw error?.response.data.message;
   }
 };
 
@@ -81,8 +81,8 @@ const adicionarCursoPrograma = async (
       },
     });
     console.log(res);
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw error?.response.data.message;
   }
 };
 
@@ -94,15 +94,19 @@ const removerCursoPrograma = async (url: string, curso: string, id: number) => {
       },
     });
     console.log(res);
-  } catch (error) {}
+  } catch (error: any) {
+    throw error?.response.data.message;
+  }
 };
-
 const removerPrograma = async (url: string, id: number) => {
   try {
     const res = await axios.delete(url, { params: { ID: id } });
     console.log(res);
-  } catch (error) {}
+  } catch (error: any) {
+    throw error?.response.data.message;
+  }
 };
+
 export {
   criarPrograma,
   listarProgramas,

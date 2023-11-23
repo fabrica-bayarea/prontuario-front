@@ -3,13 +3,19 @@ body {
   color: #1e1e1e;
 }
 
-.arrow-col {
+.item-col {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.item-col-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
 .cursor-router {
   cursor: pointer;
 }

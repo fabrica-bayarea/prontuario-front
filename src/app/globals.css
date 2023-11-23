@@ -6,15 +6,17 @@
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 }
 
-nav {
-  flex: 1;
+* {
+  outline: solid 1px red;
+}
+html,
+body {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0;
 }
 
 body {
   height: 100vh;
   box-sizing: border-box;
-}
-
-footer {
-  flex: 1;
 }

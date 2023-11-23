@@ -2,16 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "./styles.css";
-
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiSave } from "react-icons/bi";
 import Image from "next/image";
 import ImgAtendimentos from "./img/ImgAtendimentos.svg";
 import { useForm } from "react-hook-form";
-import { signUpBeneficiario } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import "../style.css";
 import { FaArrowLeft } from "react-icons/fa";
 import { criarAtendimento } from "@/controllers/atendimentosController";
 import { useAuth } from "@/state/authContext";
@@ -72,7 +70,7 @@ export default function CreateAtendimento() {
             <p>Voltar</p>
           </div>
         </Col>
-        <Col className="mt-5">
+        <Col className="mt-5 form-container">
           <Image
             src={ImgAtendimentos}
             alt="Picture of the author"

@@ -25,6 +25,7 @@ body {
 .icon-row {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   flex-wrap: wrap;
   width: 100%;
 }
@@ -34,4 +35,10 @@ body {
 
 .botao-cancelar {
   margin-left: 5px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
