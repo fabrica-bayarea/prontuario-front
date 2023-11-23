@@ -11,7 +11,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "../../../../globals.css";
 import { FaArrowLeft } from "react-icons/fa";
-import { criarAtendimento } from "@/controllers/atendimentosController";
+import {
+  atendimentoDto,
+  criarAtendimento,
+} from "@/controllers/atendimentosController";
 import { useAuth } from "@/state/authContext";
 
 const devUrl = "http://localhost:3000/atendimentos";
@@ -47,12 +50,12 @@ export default function CreateAtendimento() {
   });
 
   const onSubmit = async (form_data: any) => {
+    console.log("Chega aqui");
     form_data = {
       data: form_data.data,
-      cpfBeneficiario: form_data.cpfBeneficiario,
-      nomePrograma: form_data.nomePrograma,
+      cpfBeneficiario: form_data.cpfBeneficiario.toLowerCase(),
+      nomePrograma: form_data.nomePrograma.toLowerCase(),
     };
-
     try {
       await criarAtendimento(devUrl, form_data, headerConfig);
       router.back();

@@ -68,15 +68,15 @@ export default function SingupUsuario() {
   const onSubmit = async (form_data: any) => {
     if (form_data.telefone === "" || null || undefined) {
       form_data = {
-        nome: form_data.nome,
-        email: form_data.email,
+        nome: form_data.nome.toLowerCase(),
+        email: form_data.email.toLowerCase(),
         tipo: form_data.tipo,
         senha: form_data.senha,
       };
     } else {
       form_data = {
-        nome: form_data.nome,
-        email: form_data.email,
+        nome: form_data.nome.toLowerCase(),
+        email: form_data.email.toLowerCase(),
         telefone: form_data.telefone,
         tipo: form_data.tipo,
         senha: form_data.senha,

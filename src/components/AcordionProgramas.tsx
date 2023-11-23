@@ -7,6 +7,7 @@ interface programaProps {
   curso: string;
   cursoId: number;
 }
+//TODO: #44 Implementar listagem de Cursos associados a programas @Kievv
 
 export function AcordionProgramas({
   programaId,

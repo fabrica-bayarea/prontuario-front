@@ -42,8 +42,12 @@ export default function CadastroPrograma() {
   });
 
   const onSubmit = async (form_data: any) => {
+    const form_data_tratada = {
+      nome: form_data.nome.toLowerCase(),
+      curso: form_data.curso.toLowerCase(),
+    };
     try {
-      await criarPrograma(devUrl, form_data, headerConfig);
+      await criarPrograma(devUrl, form_data_tratada, headerConfig);
       router.back();
     } catch (error) {
       console.log(error);

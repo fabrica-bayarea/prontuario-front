@@ -61,9 +61,9 @@ export default function SingupBeneficiario() {
 
   const onSubmit = async (form_data: any) => {
     form_data = {
-      nome: form_data.nome,
+      nome: form_data.nome.toLowerCase(),
       cpf: form_data.cpf,
-      email: form_data.email,
+      email: form_data.email.toLowerCase(),
       telefone: form_data.telefone,
       tipo: "BENEFICIARIO",
       senha: form_data.senha,

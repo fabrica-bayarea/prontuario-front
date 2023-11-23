@@ -35,8 +35,12 @@ export default function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (form_data: any) => {
+    const form_data_tratada = {
+      email: form_data.email.toLowerCase(),
+      senha: form_data.senha,
+    };
     try {
-      const res = await login(devUrl, form_data);
+      const res = await login(devUrl, form_data_tratada);
       if (res) {
         router.push("/");
       }

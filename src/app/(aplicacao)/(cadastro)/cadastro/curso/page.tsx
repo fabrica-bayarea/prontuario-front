@@ -47,7 +47,7 @@ export default function CadastroCursos() {
 
   const onSubmit = async (form_data: any) => {
     form_data = {
-      nome: form_data.nome,
+      nome: form_data.nome.toLowerCase(),
     };
 
     try {
