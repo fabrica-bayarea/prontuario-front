@@ -1,5 +1,9 @@
-import { Button, Table } from "react-bootstrap";
+"use client";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { Button, Row, Table } from "react-bootstrap";
 import { BiSearch, BiEdit, BiTrash } from "react-icons/bi";
+import { AcordionProgramas } from "./AcordionProgramas";
 // import "./style.css";
 
 interface cursoProps {
@@ -8,7 +12,29 @@ interface cursoProps {
   programas: Array<object>;
 }
 
-function Formulario({ cursoId, nome }: cursoProps) {
+function Formulario({ cursoId, nome, programas }: cursoProps) {
+  const [show, setShow] = useState<boolean>();
+
+  const handleShow = () => {
+    setShow(!show);
+  };
+  const renderProgramas = (programas: any) => {
+    if (programas.length === 0 && show === true) {
+      return <p>Nenhum programa cadastrado</p>;
+    } else if (programas.length > 0 && show === true) {
+      console.log(programas);
+      return programas.map((programa: { id: number; nome: string }) => (
+        <AcordionProgramas
+          key={programa.id}
+          programaId={programa.id}
+          nome={programa.nome}
+          curso={nome}
+          cursoId={cursoId}
+        />
+      ));
+    }
+  };
+
   return (
     <div style={{ width: "60%" }}>
       <Table striped bordered hover variant="danger">
@@ -30,7 +56,11 @@ function Formulario({ cursoId, nome }: cursoProps) {
             <td colSpan={1}>{cursoId}</td>
             <td colSpan={3}>{nome}</td>
             <td colSpan={3} className="column-botao">
-              <Button variant="success" className="margin-botao">
+              <Button
+                variant="success"
+                className="margin-botao"
+                onClick={handleShow}
+              >
                 <BiSearch /> Ver Programas
               </Button>
               <Button variant="secondary" className="margin-botao">
@@ -43,6 +73,7 @@ function Formulario({ cursoId, nome }: cursoProps) {
           </tr>
         </tbody>
       </Table>
+      <Row className="mt-4 mb-4">{renderProgramas(programas)}</Row>
     </div>
   );
 }

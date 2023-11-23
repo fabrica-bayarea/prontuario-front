@@ -66,6 +66,15 @@ main {
   display: table-cell;
 }
 
+.accordion-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.accordion-text-item {
+  margin: 0;
+}
+
 /* Login page Css */
 
 .body-login {
@@ -93,9 +102,6 @@ main {
 }
 
 /* Styles Cadastro */
-
-.body-aplicacao {
-}
 
 .margin-top {
   display: flex;
