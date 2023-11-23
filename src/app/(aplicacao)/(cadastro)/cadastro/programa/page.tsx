@@ -53,13 +53,13 @@ export default function CadastroPrograma() {
   return (
     <Container className="container-margin">
       <Row>
-        <Col md={1} className="arrow-col">
+        <Col md={1} className="item-col">
           <div className="cursor-router" onClick={() => router.back()}>
             <FaArrowLeft size={40} />
             <p>Voltar</p>
           </div>
         </Col>
-        <Col className="mt-5">
+        <Col className="item-col">
           <Image
             src={ImgProgramas}
             alt="Picture of the author"
@@ -71,7 +71,7 @@ export default function CadastroPrograma() {
             social.
           </Card.Text>
         </Col>
-        <Col className="mt-5">
+        <Col className="item-col-form">
           <h3>Formulário de Cadastro de Programas</h3>
           <br />
           <Form onSubmit={handleSubmit(onSubmit)}>
