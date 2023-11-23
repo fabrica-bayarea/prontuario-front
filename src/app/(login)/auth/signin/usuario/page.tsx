@@ -1,9 +1,9 @@
 "use client";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row } from "react-bootstrap";
 import { BiLogIn } from "react-icons/bi";
-import "./style.css";
+import "../../../../globals.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -46,14 +46,16 @@ export default function Login() {
   };
 
   return (
-    <div className="centralizar-div">
-      <Image
-        src={LogoIESB}
-        alt="Logo IESB"
-        width={150}
-        height={150}
-        className="centralizar-img"
-      />
+    <Container className="centralizar-div-login">
+      <Row>
+        <Image
+          src={LogoIESB}
+          alt="Logo IESB"
+          width={150}
+          height={150}
+          className="centralizar-img"
+        />
+      </Row>
       <h3>Prontuário de Atendimento</h3>
       <p className="subtitulo">Página do Cadastrador de Atendimentos IESB</p>
       <Form className="mt-3" onSubmit={handleSubmit(onSubmit)}>
@@ -90,6 +92,6 @@ export default function Login() {
           </Button>
         </div>
       </Form>
-    </div>
+    </Container>
   );
 }

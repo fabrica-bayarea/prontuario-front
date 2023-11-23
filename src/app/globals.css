@@ -6,17 +6,170 @@
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 }
 
-* {
-  outline: solid 1px red;
-}
 html,
 body {
   max-width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
   margin: 0;
 }
 
 body {
   height: 100vh;
   box-sizing: border-box;
+}
+main {
+  height: 100%;
+}
+
+/* Css Aplicação */
+
+.section {
+  background-color: #f4f4f4;
+  color: #1e1e1e;
+}
+
+.centralizar-div {
+  text-align: center;
+  height: 80%;
+}
+
+.fileira-cadastrar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.botao-cadastrar {
+  width: fit-content;
+}
+
+.margin-tabela {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.column-botao {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+/* Login page Css */
+
+.body-login {
+  background-color: #dc2c35;
+  color: #f4f4f4;
+  display: flex;
+}
+
+.centralizar-div-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.centralizar-img {
+  position: relative;
+  margin-top: 5rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.subtitulo {
+  margin-left: 0.5rem;
+}
+
+/* Styles Cadastro */
+
+.body-aplicacao {
+  background-color: #f4f4f4;
+  color: #1e1e1e;
+}
+
+.margin-top {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: space-evenly;
+}
+
+.link-style {
+  text-decoration: none;
+}
+
+.icon-size {
+  height: 80px;
+  width: 80px;
+}
+
+.icon-container {
+  margin: 0;
+}
+.icon-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.spacer {
+  margin: 1em 0 1em 0;
+}
+
+.botao-cancelar {
+  margin-left: 5px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.item-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-col-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+.cursor-router {
+  cursor: pointer;
+}
+
+.container-margin {
+  margin-top: 5em;
+}
+
+.row-mobile-order {
+  flex-wrap: wrap-reverse;
+}
+
+/* Styles Home */
+
+.container-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.espacamento {
+  margin-bottom: 2em;
+  margin-top: 5em;
 }

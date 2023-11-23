@@ -9,7 +9,7 @@ import ImgAtendimentos from "./img/ImgAtendimentos.svg";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import "../style.css";
+import "../../../../globals.css";
 import { FaArrowLeft } from "react-icons/fa";
 import { criarAtendimento } from "@/controllers/atendimentosController";
 import { useAuth } from "@/state/authContext";

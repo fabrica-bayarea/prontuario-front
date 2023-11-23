@@ -4,7 +4,7 @@ import { useAuth } from "@/state/authContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useRouter } from "next/navigation";
 import { Container, Row } from "react-bootstrap";
-import "../home/styles.css";
+import "../../globals.css";
 
 export default function Home() {
   return (

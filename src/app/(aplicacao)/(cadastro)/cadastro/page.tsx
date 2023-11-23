@@ -1,6 +1,6 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./style.css";
+import "../../../globals.css";
 import { Container, Col, Row } from "react-bootstrap";
 import React, { useEffect } from "react";
 import IconesCadastro from "@/components/IconesCadastro";

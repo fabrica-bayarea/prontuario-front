@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../style.css";
+import "../../../../../globals.css";
 
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiArrowToLeft, BiSave } from "react-icons/bi";

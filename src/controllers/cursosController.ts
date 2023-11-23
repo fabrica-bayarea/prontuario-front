@@ -23,9 +23,9 @@ export const criarCurso = async (
   }
 };
 
-export const listarCursos = async (url: string) => {
+export const listarCursos = async (url: string, config: any) => {
   try {
-    const res = await axios.get(url);
+    const res = await axios.get(url, config);
     if (res) return res;
   } catch (error: any) {
     throw error?.response.data.message;

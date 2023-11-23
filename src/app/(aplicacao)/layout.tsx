@@ -17,8 +17,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Menu />
-      <main>{children}</main>
+      <main className="body-aplicacao">
+        <Menu />
+        <section>{children}</section>
+      </main>
     </>
   );
 }
