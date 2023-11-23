@@ -5,6 +5,8 @@ import { BiSearch, BiEdit, BiTrash } from "react-icons/bi";
 interface programaProps {
   programaId: number;
   nome: string;
+  cursos: Array<object>;
+  atendimentos: Array<object>;
 }
 
 function Formulario({ programaId, nome }: programaProps) {
