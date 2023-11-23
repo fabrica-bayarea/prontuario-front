@@ -19,10 +19,10 @@ const criarPrograma = async (url: string, body: programaDto, config: any) => {
   }
 };
 
-const listarProgramas = async (url: string) => {
+const listarProgramas = async (url: string, config: any) => {
   try {
-    const res = await axios.get(url);
-    console.log(res);
+    const res = await axios.get(url, config);
+    if (res) return res;
     return res;
   } catch (error: any) {
     throw error?.response.data.message;

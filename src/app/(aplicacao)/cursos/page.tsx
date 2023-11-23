@@ -1,6 +1,6 @@
 "use client";
 
-import Formulario from "@/components/Formulario";
+import FormularioCursos from "@/components/FormularioCursos";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../globals.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
@@ -43,8 +43,14 @@ export default function Cursos() {
     }
 
     if (cursos.length > 0) {
+      console.log(cursos);
       return cursos.map((curso: any) => (
-        <Formulario key={curso.id} cursoId={curso.id} nome={curso.nome} />
+        <FormularioCursos
+          key={curso.id}
+          cursoId={curso.id}
+          nome={curso.nome}
+          programas={curso.programas}
+        />
       ));
     } else {
       return <h1>Nenhum curso cadastrado ainda</h1>;

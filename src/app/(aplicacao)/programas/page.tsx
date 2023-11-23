@@ -1,23 +1,78 @@
 "use client";
 
-import { useAuth } from "@/state/authContext";
-
+import FormularioProgramas from "@/components/FormularioProgramas";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../../globals.css";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { BiAddToQueue } from "react-icons/bi";
+import { useAuth } from "@/state/authContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { listarProgramas } from "@/controllers/programasController";
+import React from "react";
+
+const devUrl = "http://localhost:3000/programas";
 
 export default function Programas() {
   const { accessToken } = useAuth();
+  const [programas, setProgramas] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
-  useEffect(() => {
-    if (!accessToken) {
-      router.push("/auth/signin/usuario");
+  const headerConfig = {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  };
+
+  React.useEffect(() => {
+    const listProgramas = async () => {
+      try {
+        const res = await listarProgramas(devUrl, headerConfig);
+        setProgramas([...res?.data]);
+      } catch (error) {
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    };
+    listProgramas();
+  }, []);
+
+  const renderProgramas = (programas: any) => {
+    if (loading) {
+      return <p>Carregando...</p>;
     }
-  }, [accessToken, router]);
+
+    if (programas.length > 0) {
+      console.log(programas);
+      return programas.map((programa: any) => (
+        <FormularioProgramas
+          key={programa.id}
+          programaId={programa.id}
+          nome={programa.nome}
+        />
+      ));
+    } else {
+      return <h1>Nenhum programa cadastrado ainda</h1>;
+    }
+  };
+
   return (
-    <div>
-      <h1>Página de Programas Sociais</h1>
-    </div>
+    <Container className="centralizar-div">
+      <Row className="mt-5 mb-5 fileira-cadastrar">
+        <h2>Programas Cadastrados</h2>
+        <Row className="fileira-cadastrar botao-cadastrar">
+          <Button
+            className="mt-3"
+            variant="success"
+            onClick={() => router.push("/cadastro/programa")}
+          >
+            <BiAddToQueue /> Adicionar Programa
+          </Button>
+        </Row>
+      </Row>
+      <Row>
+        <div className="margin-tabela">{renderProgramas(programas)}</div>
+      </Row>
+    </Container>
   );
 }

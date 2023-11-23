@@ -11,6 +11,8 @@ body {
   max-width: 100%;
   overflow-x: hidden;
   margin: 0;
+  background-color: #f4f4f4;
+  color: #1e1e1e;
 }
 
 body {
@@ -55,7 +57,13 @@ main {
 .column-botao {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   flex-wrap: wrap;
+  height: 100%;
+}
+
+.column-botao-programa {
+  display: table-cell;
 }
 
 /* Login page Css */
@@ -87,8 +95,6 @@ main {
 /* Styles Cadastro */
 
 .body-aplicacao {
-  background-color: #f4f4f4;
-  color: #1e1e1e;
 }
 
 .margin-top {
