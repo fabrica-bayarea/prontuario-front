@@ -50,7 +50,6 @@ export default function CreateAtendimento() {
   });
 
   const onSubmit = async (form_data: any) => {
-    console.log("Chega aqui");
     form_data = {
       data: form_data.data,
       cpfBeneficiario: form_data.cpfBeneficiario.toLowerCase(),
@@ -60,7 +59,7 @@ export default function CreateAtendimento() {
       await criarAtendimento(devUrl, form_data, headerConfig);
       router.back();
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 

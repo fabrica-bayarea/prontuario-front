@@ -39,6 +39,9 @@ function Menu() {
             <Link href="/programas" className="text-white nav-link">
               Programas Sociais
             </Link>
+            <Link href="/atendimentos" className="text-white nav-link">
+              Atendimentos
+            </Link>
             <Link href="/cadastro" className="text-white nav-link">
               Cadastro
             </Link>

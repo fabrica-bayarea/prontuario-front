@@ -28,9 +28,9 @@ export const criarAtendimento = async (
   }
 };
 
-export const listarAtendimentos = async (url: string) => {
+export const listarAtendimentos = async (url: string, config: any) => {
   try {
-    const res = await axios.get(url);
+    const res = await axios.get(url, config);
     if (res) return res;
   } catch (error: any) {
     throw error?.response.data.message;
@@ -90,9 +90,9 @@ export const atualizarDataAtendimento = async (
   }
 };
 
-export const removerAtendimento = async (url: string, id: number) => {
+export const removerAtendimento = async (url: string, config: any) => {
   try {
-    await axios.delete(url, { params: { ID: id } });
+    await axios.delete(url, config);
   } catch (error: any) {
     throw error?.response.data.message;
   }
