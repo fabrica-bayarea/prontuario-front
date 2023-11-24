@@ -39,7 +39,7 @@ function Formulario({
     headers: { Authorization: `Bearer ${accessToken}` },
   };
 
-  const deleteUrl = `http://localhost:3000/atendimentos/${atendimentoId}`;
+  const deleteUrl = `${process.env.NEXT_PUBLIC_BASE_ATENDIMENTOS}/${atendimentoId}`;
 
   const handleShow = () => {
     setShow(!show);

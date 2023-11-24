@@ -41,9 +41,26 @@ main {
   align-items: center;
   justify-content: center;
 }
+.coluna-pesquisar {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.coluna-pesquisar-formulario {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
 
 .botao-cadastrar {
   width: fit-content;
+}
+.centralizar-div-programas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .margin-tabela {

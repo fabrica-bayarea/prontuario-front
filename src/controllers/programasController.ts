@@ -38,11 +38,16 @@ const listarProgramaPorId = async (url: string, id: number) => {
   }
 };
 
-const filtrarProgramaPorNome = async (url: string, nome: string) => {
+const filtrarProgramaPorNome = async (
+  url: string,
+  nome: string,
+  config: any,
+) => {
   try {
     const res = await axios.get(url, {
+      headers: { Authorization: `Bearer ${config.token}` },
       params: {
-        name: nome,
+        nome,
       },
     });
     return res;

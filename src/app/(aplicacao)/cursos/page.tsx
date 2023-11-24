@@ -1,6 +1,6 @@
 "use client";
 
-import FormularioCursos from "@/components/FormularioCursos";
+import Formulario from "./components/FormularioCursos";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../globals.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
@@ -44,7 +44,7 @@ export default function Cursos() {
 
     if (cursos.length > 0) {
       return cursos.map((curso: any) => (
-        <FormularioCursos
+        <Formulario
           key={curso.id}
           cursoId={curso.id}
           nome={curso.nome}

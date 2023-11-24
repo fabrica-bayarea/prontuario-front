@@ -75,12 +75,8 @@ export const atualizarCurso = async (
   }
 };
 
-export const removerCurso = async (url: string, id: number) => {
+export const removerCurso = async (url: string, config: any) => {
   try {
-    await axios.delete(url, {
-      params: {
-        ID: id,
-      },
-    });
+    await axios.delete(url, config);
   } catch (error) {}
 };

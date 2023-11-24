@@ -3,7 +3,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Row, Table } from "react-bootstrap";
 import { BiSearch, BiEdit, BiTrash } from "react-icons/bi";
-import { AcordionProgramas } from "./AcordionProgramas";
+import { AcordionProgramas } from "../../../../components/AcordionProgramas";
+import { useAuth } from "@/state/authContext";
+import { removerCurso } from "@/controllers/cursosController";
 // import "./style.css";
 
 interface cursoProps {
@@ -14,10 +16,31 @@ interface cursoProps {
 
 function Formulario({ cursoId, nome, programas }: cursoProps) {
   const [show, setShow] = useState<boolean>();
+  const [deleted, setDeleted] = useState<boolean>(false);
+  const { accessToken } = useAuth();
+
+  const deleteUrl = `${process.env.NEXT_PUBLIC_BASE_CURSO}/${cursoId}`;
+  const deleteConfig = {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  };
 
   const handleShow = () => {
     setShow(!show);
   };
+
+  const handleDelete = async () => {
+    try {
+      await removerCurso(deleteUrl, deleteConfig);
+      setDeleted(true);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  if (deleted) {
+    return <p>Parece que você deletou este curso</p>;
+  }
+
   const renderProgramas = (programas: any) => {
     if (programas.length === 0 && show === true) {
       return <p>Nenhum programa cadastrado</p>;
@@ -66,7 +89,11 @@ function Formulario({ cursoId, nome, programas }: cursoProps) {
               <Button variant="secondary" className="margin-botao">
                 <BiEdit /> Editar
               </Button>
-              <Button variant="danger" className="margin-botao">
+              <Button
+                variant="danger"
+                className="margin-botao"
+                onClick={handleDelete}
+              >
                 <BiTrash /> Deletar
               </Button>
             </td>
@@ -77,4 +104,5 @@ function Formulario({ cursoId, nome, programas }: cursoProps) {
     </div>
   );
 }
+
 export default Formulario;
