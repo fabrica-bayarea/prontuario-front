@@ -7,11 +7,11 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { BiAddToQueue } from "react-icons/bi";
 import { useAuth } from "@/state/authContext";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { listarCursos } from "@/controllers/cursosController";
 import React from "react";
 
-const devUrl = "http://localhost:3000/cursos";
+const cursoUrl = `${process.env.NEXT_PUBLIC_BASE_CURSO}`;
 
 export default function Cursos() {
   const { accessToken } = useAuth();
@@ -26,7 +26,7 @@ export default function Cursos() {
   React.useEffect(() => {
     const listCursos = async () => {
       try {
-        const res = await listarCursos(devUrl, headerConfig);
+        const res = await listarCursos(cursoUrl, headerConfig);
         setCursos([...res?.data]);
       } catch (error) {
         throw error;

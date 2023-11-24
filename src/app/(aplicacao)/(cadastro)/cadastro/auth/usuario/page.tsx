@@ -7,14 +7,14 @@ import "../../../../../globals.css";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiArrowToLeft, BiSave } from "react-icons/bi";
 import Image from "next/image";
-import ImgUsuario from "./img/ImgUsuario.svg";
+import ImgUsuario from "../../../../../../../public/assets/ImgUsuario.svg";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { signUpUsuario, usuarioDto } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FaArrowLeft } from "react-icons/fa";
 
-const devUrl = "http://localhost:3000/auth/signup/usuario";
+const signUpUserUrl = `${process.env.NEXT_PUBLIC_SIGNUP_USUARIO}`;
 
 const schema = yup.object().shape(
   {
@@ -83,7 +83,7 @@ export default function SignUpUsuario() {
       };
     }
     try {
-      await signUpUsuario(devUrl, form_data);
+      await signUpUsuario(signUpUserUrl, form_data);
       router.back();
     } catch (error) {
       throw error;

@@ -6,7 +6,7 @@ import "../../../../globals.css";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiSave } from "react-icons/bi";
 import Image from "next/image";
-import ImgProgramas from "./img/ImgProgramas.svg";
+import ImgProgramas from "../../../../../../public/assets/ImgProgramas.svg";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -15,7 +15,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useAuth } from "@/state/authContext";
 import { criarPrograma } from "@/controllers/programasController";
 
-const devUrl = "http://localhost:3000/programas";
+const programasUrl = `${process.env.NEXT_PUBLIC_BASE_PROGRAMAS}`;
 
 const schema = yup.object().shape({
   nome: yup.string().required("O campo nome deve ser preenchido").trim(),
@@ -47,7 +47,7 @@ export default function CadastroPrograma() {
       curso: form_data.curso.toLowerCase(),
     };
     try {
-      await criarPrograma(devUrl, form_data_tratada, headerConfig);
+      await criarPrograma(programasUrl, form_data_tratada, headerConfig);
       router.back();
     } catch (error) {
       throw error;

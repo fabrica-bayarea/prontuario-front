@@ -7,14 +7,14 @@ import "../../../../globals.css";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiSave } from "react-icons/bi";
 import Image from "next/image";
-import ImgBeneficiario from "./img/ImgBeneficiario.svg";
+import ImgBeneficiario from "../../../../../../public/assets/ImgBeneficiario.svg";
 import { useForm } from "react-hook-form";
 import { signUpBeneficiario } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FaArrowLeft } from "react-icons/fa";
 
-const devUrl = "http://localhost:3000/auth/signup/beneficiario";
+const signUpBeneficiarioUrl = `${process.env.NEXT_PUBLIC_SIGNUP_BENEFICIARIO}`;
 
 const schema = yup.object().shape(
   {
@@ -70,7 +70,8 @@ export default function SingupBeneficiario() {
     };
 
     try {
-      await signUpBeneficiario(devUrl, form_data);
+      console.log(signUpBeneficiarioUrl);
+      await signUpBeneficiario(signUpBeneficiarioUrl, form_data);
       router.back();
     } catch (error) {
       throw error;

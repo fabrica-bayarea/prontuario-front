@@ -14,7 +14,7 @@ import {
 } from "@/controllers/atendimentosController";
 import React from "react";
 
-const devUrl = "http://localhost:3000/atendimentos";
+const atendimentoUrl = `${process.env.NEXT_PUBLIC_BASE_ATENDIMENTOS}`;
 
 export default function Atendimentos() {
   const { accessToken } = useAuth();
@@ -29,7 +29,7 @@ export default function Atendimentos() {
   React.useEffect(() => {
     const listAtendimentos = async () => {
       try {
-        const res = await listarAtendimentos(devUrl, headerConfig);
+        const res = await listarAtendimentos(atendimentoUrl, headerConfig);
 
         setAtendimentos([...res?.data]);
       } catch (error) {

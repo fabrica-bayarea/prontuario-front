@@ -31,8 +31,10 @@ export const criarAtendimento = async (
 export const listarAtendimentos = async (url: string, config: any) => {
   try {
     const res = await axios.get(url, config);
+    console.log(res);
     if (res) return res;
   } catch (error: any) {
+    console.log(error);
     throw error?.response.data.message;
   }
 };

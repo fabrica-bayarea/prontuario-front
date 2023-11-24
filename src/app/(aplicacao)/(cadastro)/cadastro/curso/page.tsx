@@ -7,7 +7,7 @@ import "../../../../globals.css";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiSave } from "react-icons/bi";
 import Image from "next/image";
-import ImgCurso from "./img/ImgCurso.svg";
+import ImgCurso from "../../../../../../public/assets/ImgCurso.svg";
 import { useForm } from "react-hook-form";
 import { signUpBeneficiario } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,7 +16,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { criarCurso } from "@/controllers/cursosController";
 import { useAuth } from "@/state/authContext";
 
-const devUrl = "http://localhost:3000/cursos";
+const cursoUrl = `${process.env.NEXT_PUBLIC_BASE_CURSO}`;
 
 const schema = yup.object().shape(
   {
@@ -51,7 +51,7 @@ export default function CadastroCursos() {
     };
 
     try {
-      await criarCurso(devUrl, form_data, headerConfig);
+      await criarCurso(cursoUrl, form_data, headerConfig);
       router.back();
     } catch (error) {
       throw error;

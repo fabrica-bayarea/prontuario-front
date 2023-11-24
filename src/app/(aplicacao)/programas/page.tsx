@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { listarProgramas } from "@/controllers/programasController";
 import React from "react";
 
-const devUrl = "http://localhost:3000/programas";
+const programasUrl = `${process.env.NEXT_PUBLIC_BASE_PROGRAMAS}`;
 
 export default function Programas() {
   const { accessToken } = useAuth();
@@ -26,7 +26,7 @@ export default function Programas() {
   React.useEffect(() => {
     const listProgramas = async () => {
       try {
-        const res = await listarProgramas(devUrl, headerConfig);
+        const res = await listarProgramas(programasUrl, headerConfig);
         setProgramas([...res?.data]);
       } catch (error) {
         throw error;

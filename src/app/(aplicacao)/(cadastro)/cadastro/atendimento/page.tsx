@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiSave } from "react-icons/bi";
 import Image from "next/image";
-import ImgAtendimentos from "./img/ImgAtendimentos.svg";
+import ImgAtendimentos from "../../../../../../public/assets/ImgAtendimentos.svg";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -17,7 +17,7 @@ import {
 } from "@/controllers/atendimentosController";
 import { useAuth } from "@/state/authContext";
 
-const devUrl = "http://localhost:3000/atendimentos";
+const atendimentosUrl = `${process.env.NEXT_PUBLIC_BASE_ATENDIMENTOS}`;
 
 const schema = yup.object().shape({
   data: yup.date().required("O campo data deve ser preenchido"),
@@ -56,7 +56,7 @@ export default function CreateAtendimento() {
       nomePrograma: form_data.nomePrograma.toLowerCase(),
     };
     try {
-      await criarAtendimento(devUrl, form_data, headerConfig);
+      await criarAtendimento(atendimentosUrl, form_data, headerConfig);
       router.back();
     } catch (error) {
       throw error;

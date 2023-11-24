@@ -8,12 +8,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import Image from "next/image";
-import LogoIESB from "./img/LogoIESB.png";
-import { useContext, useEffect, useState } from "react";
+import loginIesb from "../../../../../../public/assets/loginIesb.png";
+import { useState } from "react";
 import { useAuth } from "@/state/authContext";
 import { useRouter } from "next/navigation";
 
-const devUrl = "http://localhost:3000/auth/signin/usuario";
+const loginUrl = `${process.env.NEXT_PUBLIC_SIGNIN_USUARIO}`;
 
 const schema = yup.object().shape({
   email: yup
@@ -40,7 +40,7 @@ export default function Login() {
       senha: form_data.senha,
     };
     try {
-      const res = await login(devUrl, form_data_tratada);
+      const res = await login(loginUrl, form_data_tratada);
       if (res) {
         router.push("/");
       }
@@ -53,8 +53,9 @@ export default function Login() {
     <Container className="centralizar-div-login">
       <Row>
         <Image
-          src={LogoIESB}
-          alt="Logo IESB"
+          priority={true}
+          src={loginIesb}
+          alt="Logo IESB Login"
           width={150}
           height={150}
           className="centralizar-img"
