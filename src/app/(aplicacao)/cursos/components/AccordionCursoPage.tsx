@@ -9,7 +9,7 @@ interface programaProps {
 }
 //TODO: #44 Implementar listagem de Cursos associados a programas @Kievv
 
-export function AcordionProgramas({
+export function AccordionCursoPage({
   programaId,
   nome,
   curso,

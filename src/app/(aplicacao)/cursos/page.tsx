@@ -42,17 +42,19 @@ export default function Cursos() {
       return <p>Carregando...</p>;
     }
 
-    if (cursos.length > 0) {
-      return cursos.map((curso: any) => (
-        <Formulario
-          key={curso.id}
-          cursoId={curso.id}
-          nome={curso.nome}
-          programas={curso.programas}
-        />
-      ));
-    } else {
-      return <h1>Nenhum curso cadastrado ainda</h1>;
+    if (cursos) {
+      if (cursos.length > 0) {
+        return cursos.map((curso: any) => (
+          <Formulario
+            key={curso.id}
+            cursoId={curso.id}
+            nome={curso.nome}
+            programas={curso.programas}
+          />
+        ));
+      } else {
+        return <h1>Nenhum curso cadastrado ainda</h1>;
+      }
     }
   };
 
@@ -70,6 +72,7 @@ export default function Cursos() {
           </Button>
         </Row>
       </Row>
+
       <Row>
         <div className="margin-tabela">{renderCursos(cursos)}</div>
       </Row>

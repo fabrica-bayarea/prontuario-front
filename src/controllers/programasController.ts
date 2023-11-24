@@ -99,9 +99,9 @@ const removerCursoPrograma = async (url: string, curso: string, id: number) => {
     throw error?.response.data.message;
   }
 };
-const removerPrograma = async (url: string, id: number) => {
+const removerPrograma = async (url: string, config: any) => {
   try {
-    await axios.delete(url, { params: { ID: id } });
+    await axios.delete(url, config);
   } catch (error: any) {
     throw error?.response.data.message;
   }

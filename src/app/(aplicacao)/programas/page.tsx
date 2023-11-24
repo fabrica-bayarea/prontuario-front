@@ -107,17 +107,19 @@ export default function Programas() {
       return <p>Carregando...</p>;
     }
 
-    if (programas.length > 0) {
-      return programas.map((programa: any) => (
-        <Formulario
-          key={programa.id}
-          programaId={programa.id}
-          nome={programa.nome}
-          cursos={programa.cursos}
-          atendimentos={programa.atendimentos}
-        />
-      ));
-    } else {
+    if (programas) {
+      if (programas.length > 0) {
+        return programas.map((programa: any) => (
+          <Formulario
+            key={programa.id}
+            programaId={programa.id}
+            nome={programa.nome}
+            cursos={programa.cursos}
+            atendimentos={programa.atendimentos}
+          />
+        ));
+      } else {
+      }
       return <h1>Nenhum programa cadastrado ainda</h1>;
     }
   };

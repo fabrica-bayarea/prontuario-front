@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Row, Table } from "react-bootstrap";
 import { BiSearch, BiEdit, BiTrash } from "react-icons/bi";
-import { AcordionProgramas } from "../../../../components/AcordionProgramas";
+import { AccordionCursoPage } from "./AccordionCursoPage";
 import { useAuth } from "@/state/authContext";
 import { removerCurso } from "@/controllers/cursosController";
 // import "./style.css";
@@ -45,9 +45,8 @@ function Formulario({ cursoId, nome, programas }: cursoProps) {
     if (programas.length === 0 && show === true) {
       return <p>Nenhum programa cadastrado</p>;
     } else if (programas.length > 0 && show === true) {
-      console.log(programas);
       return programas.map((programa: { id: number; nome: string }) => (
-        <AcordionProgramas
+        <AccordionCursoPage
           key={programa.id}
           programaId={programa.id}
           nome={programa.nome}
