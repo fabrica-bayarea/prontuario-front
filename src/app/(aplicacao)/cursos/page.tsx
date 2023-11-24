@@ -43,7 +43,6 @@ export default function Cursos() {
     }
 
     if (cursos.length > 0) {
-      console.log(cursos);
       return cursos.map((curso: any) => (
         <FormularioCursos
           key={curso.id}

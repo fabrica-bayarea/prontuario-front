@@ -55,7 +55,7 @@ const schema = yup.object().shape(
   [["telefone", "telefone"]],
 );
 
-export default function SingupUsuario() {
+export default function SignUpUsuario() {
   const router = useRouter();
   const {
     register,
@@ -82,15 +82,13 @@ export default function SingupUsuario() {
         senha: form_data.senha,
       };
     }
-    await signUpUsuario(devUrl, form_data)
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
+    try {
+      await signUpUsuario(devUrl, form_data);
+      router.back();
+    } catch (error) {
+      throw error;
+    }
+  }; //TODO: #45 Implementar operação de Remover Atendimentos @Kievv//TODO: #45 Implementar operação de Remover Atendimentos @Kievv
   return (
     <Container className="container-margin">
       <Row>

@@ -30,7 +30,7 @@ export default function Atendimentos() {
     const listAtendimentos = async () => {
       try {
         const res = await listarAtendimentos(devUrl, headerConfig);
-        // console.log(res?.data);
+
         setAtendimentos([...res?.data]);
       } catch (error) {
         throw error;

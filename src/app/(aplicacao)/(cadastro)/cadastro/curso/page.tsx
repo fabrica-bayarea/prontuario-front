@@ -54,7 +54,7 @@ export default function CadastroCursos() {
       await criarCurso(devUrl, form_data, headerConfig);
       router.back();
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 

@@ -29,7 +29,6 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const res = await axios.post(url, body);
       setAccessToken(res.data.access_token);
-      console.log(res);
       return res.data.access_token;
     } catch (error: any) {
       throw error?.response.data.message;
@@ -40,7 +39,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
     try {
       setAccessToken(null);
     } catch (error) {
-      console.log("Error removing access_token");
+      throw "Error removing access_token";
     }
   };
 

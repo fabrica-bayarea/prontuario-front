@@ -1,6 +1,6 @@
 "use client";
 
-import FormularioProgramas from "@/components/FormularioProgramas";
+import Formulario from "./components/FormularioProgramas";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../globals.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
@@ -43,12 +43,13 @@ export default function Programas() {
     }
 
     if (programas.length > 0) {
-      console.log(programas);
       return programas.map((programa: any) => (
-        <FormularioProgramas
+        <Formulario
           key={programa.id}
           programaId={programa.id}
           nome={programa.nome}
+          cursos={programa.cursos}
+          atendimentos={programa.atendimentos}
         />
       ));
     } else {

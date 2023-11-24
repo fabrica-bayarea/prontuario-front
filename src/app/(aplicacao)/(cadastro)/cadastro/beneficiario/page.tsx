@@ -73,7 +73,7 @@ export default function SingupBeneficiario() {
       await signUpBeneficiario(devUrl, form_data);
       router.back();
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 

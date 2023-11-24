@@ -50,7 +50,7 @@ export default function CadastroPrograma() {
       await criarPrograma(devUrl, form_data_tratada, headerConfig);
       router.back();
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 
