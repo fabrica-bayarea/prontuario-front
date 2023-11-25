@@ -9,12 +9,33 @@ import { useAuth } from "@/state/authContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
+  filtarAtendimentoPorData,
   listarAtendimentos,
   removerAtendimento,
 } from "@/controllers/atendimentosController";
 import React from "react";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
 const atendimentoUrl = `${process.env.NEXT_PUBLIC_BASE_ATENDIMENTOS}`;
+const atendimentosPorDataURL = `${process.env.NEXT_PUBLIC_BASE_ATENDIMENTOS_BYDATE}`;
+
+const schema = yup.object().shape({
+  dataInicio: yup.date().required().typeError("Data inicial inválida"),
+  dataFim: yup
+    .date()
+    .required()
+    .typeError("Data final inválida")
+    .when("dataInicio", (dataInicio, schema) => {
+      return dataInicio
+        ? schema.min(
+            dataInicio,
+            "A data final deve ser maior ou igual à data inicial",
+          )
+        : schema;
+    }),
+});
 
 export default function Atendimentos() {
   const { accessToken } = useAuth();
@@ -24,6 +45,38 @@ export default function Atendimentos() {
 
   const headerConfig = {
     headers: { Authorization: `Bearer ${accessToken}` },
+  };
+
+  const filterConfig = {
+    token: `${accessToken}`,
+  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (form_data: any) => {
+    const form_data_tratada = {
+      dataInicio: new Date(form_data.dataInicio).toISOString(),
+      dataFim: new Date(form_data.dataFim).toISOString(),
+    };
+
+    try {
+      await schema.validate(form_data, { abortEarly: false });
+
+      const res = await filtarAtendimentoPorData(
+        atendimentosPorDataURL,
+        form_data_tratada,
+        filterConfig,
+      );
+      console.log(res);
+      setAtendimentos([...res?.data]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   React.useEffect(() => {
@@ -68,16 +121,61 @@ export default function Atendimentos() {
 
   return (
     <Container className="centralizar-div">
-      <Row className="mt-5 mb-5 fileira-cadastrar">
+      <Row className="mt-5 mb-5 fileira-cadastrar" style={{ width: "100%" }}>
         <h2>Seus Atendimentos Cadastrados</h2>
-        <Row className="fileira-cadastrar botao-cadastrar">
-          <Button
-            className="mt-3"
-            variant="success"
-            onClick={() => router.push("/cadastro/atendimento")}
-          >
-            <BiAddToQueue /> Adicionar Atendimento
-          </Button>
+        <Row className="fileira-cadastrar ">
+          <Col className="coluna-pesquisar">
+            <Button
+              className="mt-3"
+              variant="success"
+              onClick={() => router.push("/cadastro/atendimento")}
+            >
+              <BiAddToQueue /> Adicionar Atendimento
+            </Button>
+          </Col>
+          <Col>
+            <Form
+              onSubmit={handleSubmit(onSubmit)}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Row style={{ width: "70%" }}>
+                <Form.Group className="" controlId="data">
+                  <Form.Control
+                    type="date"
+                    //@ts-ignore
+                    name="dataInicio"
+                    placeholder="De:"
+                    {...register("dataInicio")}
+                  />
+                  <p style={{ color: "red" }}>{errors.dataInicio?.message}</p>
+                  <Form.Control
+                    type="date"
+                    //@ts-ignore
+                    name="dataFim"
+                    placeholder="De:"
+                    {...register("dataFim")}
+                  />
+                  <p style={{ color: "red" }}>{errors.dataFim?.message}</p>
+                </Form.Group>
+              </Row>
+              <Row style={{ width: "50%" }}>
+                <Form.Group>
+                  <Button
+                    variant="success"
+                    type="submit"
+                    style={{ width: "100%" }}
+                  >
+                    Pesquisar
+                  </Button>
+                </Form.Group>
+              </Row>
+            </Form>
+          </Col>
         </Row>
       </Row>
       <Row>

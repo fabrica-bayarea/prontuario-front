@@ -42,18 +42,20 @@ function Formulario({ cursoId, nome, programas }: cursoProps) {
   }
 
   const renderProgramas = (programas: any) => {
-    if (programas.length === 0 && show === true) {
-      return <p>Nenhum programa cadastrado</p>;
-    } else if (programas.length > 0 && show === true) {
-      return programas.map((programa: { id: number; nome: string }) => (
-        <AccordionCursoPage
-          key={programa.id}
-          programaId={programa.id}
-          nome={programa.nome}
-          curso={nome}
-          cursoId={cursoId}
-        />
-      ));
+    if (programas) {
+      if (programas.length === 0 && show === true) {
+        return <p>Nenhum programa cadastrado</p>;
+      } else if (programas.length > 0 && show === true) {
+        return programas.map((programa: { id: number; nome: string }) => (
+          <AccordionCursoPage
+            key={programa.id}
+            programaId={programa.id}
+            nome={programa.nome}
+            curso={nome}
+            cursoId={cursoId}
+          />
+        ));
+      }
     }
   };
 
@@ -99,7 +101,9 @@ function Formulario({ cursoId, nome, programas }: cursoProps) {
           </tr>
         </tbody>
       </Table>
-      <Row className="mt-4 mb-4">{renderProgramas(programas)}</Row>
+      {programas !== undefined && (
+        <Row className="mt-4 mb-4">{renderProgramas(programas)}</Row>
+      )}
     </div>
   );
 }

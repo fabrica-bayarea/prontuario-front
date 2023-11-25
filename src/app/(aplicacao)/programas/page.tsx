@@ -32,7 +32,7 @@ export default function Programas() {
   const { accessToken } = useAuth();
   const [programas, setProgramas] = useState<any>([]);
   const [programasNome, setProgramasNome] = useState<any>([]);
-  const [filter, setFilter] = useState<any>([false]);
+  const [filter, setFilter] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
@@ -68,24 +68,8 @@ export default function Programas() {
     }
   };
 
-  const renderProgramasFiltrados = (programasFiltrados: any) => {
-    if (loading) {
-      return <p>Carregando...</p>;
-    }
-
-    if (programasFiltrados.length > 0) {
-      return programasFiltrados.map((programa: any) => (
-        <Formulario
-          key={programa.id}
-          programaId={programa.id}
-          nome={programa.nome}
-          cursos={programa.cursos}
-          atendimentos={programa.atendimentos}
-        />
-      ));
-    } else {
-      return <h1>Nenhum programa cadastrado ainda</h1>;
-    }
+  const handleClickFilter = () => {
+    setFilter(false);
   };
 
   React.useEffect(() => {
@@ -107,9 +91,15 @@ export default function Programas() {
       return <p>Carregando...</p>;
     }
 
-    if (programas) {
-      if (programas.length > 0) {
-        return programas.map((programa: any) => (
+    const programasToRender = filter
+      ? programas.filter((programa: any) =>
+          programasNome.some((item: any) => item.id === programa.id),
+        )
+      : programas;
+
+    if (programasToRender) {
+      if (programasToRender.length > 0) {
+        return programasToRender.map((programa: any) => (
           <Formulario
             key={programa.id}
             programaId={programa.id}
@@ -119,8 +109,8 @@ export default function Programas() {
           />
         ));
       } else {
+        return <h1>Nenhum programa cadastrado ainda</h1>;
       }
-      return <h1>Nenhum programa cadastrado ainda</h1>;
     }
   };
 
@@ -147,7 +137,7 @@ export default function Programas() {
         </Col>
         {filter && (
           <Col className="coluna-pesquisar">
-            <Button variant="danger" onClick={() => setFilter(false)}>
+            <Button variant="danger" onClick={handleClickFilter}>
               Todos aos programas
             </Button>
           </Col>
@@ -172,9 +162,7 @@ export default function Programas() {
       </Row>
       <Row style={{ width: "100%" }}>
         <div className="margin-tabela" style={{ width: "100%" }}>
-          {filter === true
-            ? renderProgramasFiltrados(programasNome)
-            : renderProgramas(programas)}
+          {renderProgramas(programas)}
         </div>
       </Row>
     </Container>

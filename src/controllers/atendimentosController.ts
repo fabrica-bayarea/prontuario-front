@@ -41,11 +41,17 @@ export const listarAtendimentos = async (url: string, config: any) => {
 
 export const filtarAtendimentoPorData = async (
   url: string,
-  body: atendimentoDataDto,
+  body: any,
+  config: any,
 ) => {
   try {
+    console.log(body.dataInicio);
     const res = await axios.get(url, {
-      params: { dataInicio: body.dataInicio, dataFim: body.dataFim },
+      headers: { Authorization: `Bearer ${config.token}` },
+      params: {
+        dataInicio: body.dataInicio,
+        dataFim: body.dataFim,
+      },
     });
     if (res) return res;
   } catch (error: any) {

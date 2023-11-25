@@ -23,33 +23,36 @@ function Formulario({ programaId, nome, cursos }: programaProps) {
     headers: { Authorization: `Bearer ${accessToken}` },
   };
 
+  const handleShow = () => {
+    setShow(!show);
+  };
+
   const handleDelete = async () => {
     try {
       await removerPrograma(deleteUrl, deleteConfig);
+      setDeleted(true);
     } catch (error) {
       throw error;
     }
   };
 
-  const handleShow = () => {
-    setShow(!show);
-  };
   if (deleted) {
     return <p>Parece que você deletou este Programa</p>;
   }
 
   const renderCursos = (cursos: any) => {
-    if (cursos.length === 0 && show === true) {
-      return <p>Nenhum curso cadastrado</p>;
-    } else if (cursos.length > 0 && show === true) {
-      console.log(cursos);
-      return cursos.map((curso: { id: number; nome: string }) => (
-        <AccordionProgramaPage
-          key={curso.id}
-          curso={curso.nome}
-          cursoId={curso.id}
-        />
-      ));
+    if (cursos) {
+      if (cursos.length === 0 && show === true) {
+        return <p>Nenhum curso cadastrado</p>;
+      } else if (cursos.length > 0 && show === true) {
+        return cursos.map((curso: { id: number; nome: string }) => (
+          <AccordionProgramaPage
+            key={curso.id}
+            curso={curso.nome}
+            cursoId={curso.id}
+          />
+        ));
+      }
     }
   };
   return (
@@ -83,7 +86,11 @@ function Formulario({ programaId, nome, cursos }: programaProps) {
               <Button variant="secondary" className="margin-botao">
                 <BiEdit /> Editar
               </Button>
-              <Button variant="danger" className="margin-botao">
+              <Button
+                variant="danger"
+                className="margin-botao"
+                onClick={handleDelete}
+              >
                 <BiTrash /> Deletar
               </Button>
             </td>

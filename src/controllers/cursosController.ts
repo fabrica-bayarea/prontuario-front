@@ -45,14 +45,19 @@ export const filtrarCursosPorId = async (url: string, id: number) => {
   }
 };
 
-export const filtrarCursoPorNome = async (url: string, nome: string) => {
+export const filtrarCursoPorNome = async (
+  url: string,
+  nome: string,
+  config: any,
+) => {
   try {
     const res = axios.get(url, {
+      headers: { Authorization: `Bearer ${config.token}` },
       params: {
-        nome: nome,
+        nome,
       },
     });
-    if (res) return res;
+    return res;
   } catch (error: any) {
     throw error?.response.data.message;
   }
@@ -78,5 +83,7 @@ export const atualizarCurso = async (
 export const removerCurso = async (url: string, config: any) => {
   try {
     await axios.delete(url, config);
-  } catch (error) {}
+  } catch (error: any) {
+    throw error?.response.data.message;
+  }
 };

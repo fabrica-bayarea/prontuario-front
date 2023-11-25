@@ -12,7 +12,7 @@ export type atualizarProgramaDto = {
 
 const criarPrograma = async (url: string, body: programaDto, config: any) => {
   try {
-    const res = await axios.post(url, body, config);
+    await axios.post(url, body, config);
   } catch (error: any) {
     throw error?.response.data.message;
   }
@@ -103,6 +103,7 @@ const removerPrograma = async (url: string, config: any) => {
   try {
     await axios.delete(url, config);
   } catch (error: any) {
+    console.log(error);
     throw error?.response.data.message;
   }
 };
