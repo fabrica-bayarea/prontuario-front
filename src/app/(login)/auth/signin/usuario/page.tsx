@@ -1,19 +1,19 @@
 "use client";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row } from "react-bootstrap";
 import { BiLogIn } from "react-icons/bi";
-import "./style.css";
+import "../../../../globals.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import Image from "next/image";
-import LogoIESB from "./img/LogoIESB.png";
-import { useContext, useEffect, useState } from "react";
+import loginIesb from "../../../../../../public/assets/loginIesb.png";
+import { useState } from "react";
 import { useAuth } from "@/state/authContext";
 import { useRouter } from "next/navigation";
 
-const devUrl = "http://localhost:3000/auth/signin/usuario";
+const loginUrl = `${process.env.NEXT_PUBLIC_SIGNIN_USUARIO}`;
 
 const schema = yup.object().shape({
   email: yup
@@ -25,7 +25,7 @@ const schema = yup.object().shape({
 
 export default function Login() {
   const [errorLogin, setErrorLogin] = useState<string>("");
-  const { login, accessToken } = useAuth();
+  const { login } = useAuth();
   const router = useRouter();
 
   const {
@@ -35,10 +35,13 @@ export default function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (form_data: any) => {
+    const form_data_tratada = {
+      email: form_data.email.toLowerCase(),
+      senha: form_data.senha,
+    };
     try {
-      await login(devUrl, form_data);
-      console.log(accessToken);
-      if (accessToken) {
+      const res = await login(loginUrl, form_data_tratada);
+      if (res) {
         router.push("/");
       }
     } catch (error: any) {
@@ -47,14 +50,17 @@ export default function Login() {
   };
 
   return (
-    <div className="centralizar-div">
-      <Image
-        src={LogoIESB}
-        alt="Logo IESB"
-        width={150}
-        height={150}
-        className="centralizar-img"
-      />
+    <Container className="centralizar-div-login">
+      <Row>
+        <Image
+          priority={true}
+          src={loginIesb}
+          alt="Logo IESB Login"
+          width={150}
+          height={150}
+          className="centralizar-img"
+        />
+      </Row>
       <h3>Prontuário de Atendimento</h3>
       <p className="subtitulo">Página do Cadastrador de Atendimentos IESB</p>
       <Form className="mt-3" onSubmit={handleSubmit(onSubmit)}>
@@ -91,6 +97,6 @@ export default function Login() {
           </Button>
         </div>
       </Form>
-    </div>
+    </Container>
   );
 }

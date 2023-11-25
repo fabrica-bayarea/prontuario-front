@@ -1,42 +1,38 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../../globals.css";
 
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiSave } from "react-icons/bi";
 import Image from "next/image";
-import ImgCurso from "../../../../../../public/assets/ImgCurso.svg";
+import ImgProgramas from "../../../../../../public/assets/ImgProgramas.svg";
 import { useForm } from "react-hook-form";
-import { signUpBeneficiario } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
-import { criarCurso } from "@/controllers/cursosController";
 import { useAuth } from "@/state/authContext";
+import { criarPrograma } from "@/controllers/programasController";
 
-const cursoUrl = `${process.env.NEXT_PUBLIC_BASE_CURSO}`;
+const programasUrl = `${process.env.NEXT_PUBLIC_BASE_PROGRAMAS}`;
 
-const schema = yup.object().shape(
-  {
-    nome: yup
-      .string()
-      .required("O campo nome deve ser preenchido")
-      .trim()
-      .min(3, "O campo nome deve ter pelo menos 3 caracteres")
-      .max(50, "O campo nome deve ter no máximo 50 caracteres"),
-  },
-  [],
-);
+const schema = yup.object().shape({
+  nome: yup.string().required("O campo nome deve ser preenchido").trim(),
+  curso: yup
+    .string()
+    .required("O campo curso deve ser preenchido")
+    .trim()
+    .min(3, "O campo deve conter no mínimo 3 caracteres"),
+});
 
-export default function CadastroCursos() {
+export default function CadastroPrograma() {
+  const router = useRouter();
   const { accessToken } = useAuth();
+
   const headerConfig = {
     headers: { Authorization: `Bearer ${accessToken}` },
   };
-  const router = useRouter();
-
   const {
     register,
     handleSubmit,
@@ -46,12 +42,12 @@ export default function CadastroCursos() {
   });
 
   const onSubmit = async (form_data: any) => {
-    form_data = {
+    const form_data_tratada = {
       nome: form_data.nome.toLowerCase(),
+      curso: form_data.curso.toLowerCase(),
     };
-
     try {
-      await criarCurso(cursoUrl, form_data, headerConfig);
+      await criarPrograma(programasUrl, form_data_tratada, headerConfig);
       router.back();
     } catch (error) {
       throw error;
@@ -69,29 +65,42 @@ export default function CadastroCursos() {
         </Col>
         <Col className="item-col">
           <Image
-            src={ImgCurso}
+            src={ImgProgramas}
             alt="Picture of the author"
             width={500}
             height={500}
           />
           <Card.Text>
-            Preencha o formulário ao lado para cadastrar um novo curso.
+            Preencha o formulário ao lado para cadastrar um novo programa
+            social.
           </Card.Text>
         </Col>
         <Col className="item-col-form">
-          <h3>Formulário de Cadastro de Cursos</h3>
+          <h3>Formulário de Cadastro de Programas</h3>
           <br />
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <Form.Group className="mb-3" controlId="nome">
-              <Form.Label>Nome do curso</Form.Label>
+            <Form.Group className="mb-3" controlId="data">
+              <Form.Label>Nome do Programa</Form.Label>
+              <Form.Control
+                type="text"
+                //@ts-ignore
+                name="nome"
+                placeholder="Digite o nome do programa"
+                {...register("nome")}
+              />
+              <p style={{ color: "red" }}>{errors.nome?.message}</p>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="Curso">
+              <Form.Label>Nome do Curso</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Digite o nome do curso"
                 // @ts-ignore
-                name="nome"
-                {...register("nome")}
+                name="curso"
+                {...register("curso")}
               />
-              <p style={{ color: "red" }}>{errors.nome?.message}</p>
+              <p style={{ color: "red" }}>{errors.curso?.message}</p>
             </Form.Group>
 
             <Button variant="danger" type="submit">

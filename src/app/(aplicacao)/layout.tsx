@@ -1,17 +1,25 @@
 "use client";
 import Menu from "@/components/Menu";
-import { AuthContextProvider } from "@/state/authContext";
+import { useAuth } from "@/state/authContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export default function LoginLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
+  const { accessToken } = useAuth();
+  const router = useRouter();
+
+  //Ativar em produção
+  // useEffect(() => {
+  //   if (!accessToken) {
+  //     router.push("/auth/signin/usuario");
+  //   }
+  // }, [accessToken, router]);
+
   return (
     <>
-      <Menu />
-      <main>
-        <AuthContextProvider>{children}</AuthContextProvider>
+      <main className="body-aplicacao">
+        <Menu />
+        <section>{children}</section>
       </main>
     </>
   );

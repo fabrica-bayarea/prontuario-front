@@ -19,10 +19,9 @@ export type usuarioDto = {
 
 const signUpBeneficiario = async (url: string, body: beneficiarioDto) => {
   try {
-    const res = await axios.post(url, body);
-    console.log(res);
+    await axios.post(url, body);
   } catch (err: any) {
-    console.log(err?.response.data.message);
+    throw err?.response.data.message;
   }
 };
 

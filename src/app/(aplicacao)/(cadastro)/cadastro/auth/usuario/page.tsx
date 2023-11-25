@@ -2,20 +2,19 @@
 
 import { useRouter } from "next/navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./style.css";
+import "../../../../../globals.css";
 
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiArrowToLeft, BiSave } from "react-icons/bi";
 import Image from "next/image";
-import ImgUsuario from "./img/ImgUsuario.svg";
+import ImgUsuario from "../../../../../../../public/assets/ImgUsuario.svg";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { signUpUsuario, usuarioDto } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FaArrowLeft } from "react-icons/fa";
-import { useAuth } from "@/state/authContext";
 
-const devUrl = "http://localhost:3000/auth/signup/usuario";
+const signUpUserUrl = `${process.env.NEXT_PUBLIC_SIGNUP_USUARIO}`;
 
 const schema = yup.object().shape(
   {
@@ -56,10 +55,8 @@ const schema = yup.object().shape(
   [["telefone", "telefone"]],
 );
 
-export default function SingupUsuario() {
-  const { accessToken } = useAuth();
+export default function SignUpUsuario() {
   const router = useRouter();
-
   const {
     register,
     handleSubmit,
@@ -71,39 +68,37 @@ export default function SingupUsuario() {
   const onSubmit = async (form_data: any) => {
     if (form_data.telefone === "" || null || undefined) {
       form_data = {
-        nome: form_data.nome,
-        email: form_data.email,
+        nome: form_data.nome.toLowerCase(),
+        email: form_data.email.toLowerCase(),
         tipo: form_data.tipo,
         senha: form_data.senha,
       };
     } else {
       form_data = {
-        nome: form_data.nome,
-        email: form_data.email,
+        nome: form_data.nome.toLowerCase(),
+        email: form_data.email.toLowerCase(),
         telefone: form_data.telefone,
         tipo: form_data.tipo,
         senha: form_data.senha,
       };
     }
-    await signUpUsuario(devUrl, form_data)
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
+    try {
+      await signUpUsuario(signUpUserUrl, form_data);
+      router.back();
+    } catch (error) {
+      throw error;
+    }
+  }; //TODO: #45 Implementar operação de Remover Atendimentos @Kievv//TODO: #45 Implementar operação de Remover Atendimentos @Kievv
   return (
     <Container className="container-margin">
       <Row>
-        <Col md={1} className="arrow-col">
+        <Col md={1} className="item-col">
           <div className="cursor-router" onClick={() => router.back()}>
             <FaArrowLeft size={40} />
             <p>Voltar</p>
           </div>
         </Col>
-        <Col className="mt-5">
+        <Col className="item-col">
           <Image
             src={ImgUsuario}
             alt="Picture of the author"
@@ -117,7 +112,7 @@ export default function SingupUsuario() {
             IESB.
           </Card.Text>
         </Col>
-        <Col className="mt-5">
+        <Col className=" item-col-form">
           <h3>Formulário de Cadastro do Usuário</h3>
           <br />
           <Form onSubmit={handleSubmit(onSubmit)}>

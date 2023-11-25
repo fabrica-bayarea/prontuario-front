@@ -2,19 +2,19 @@
 
 import { useRouter } from "next/navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles.css";
+import "../../../../globals.css";
 
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { BiSave } from "react-icons/bi";
 import Image from "next/image";
-import ImgBeneficiario from "./img/ImgBeneficiario.svg";
+import ImgBeneficiario from "../../../../../../public/assets/ImgBeneficiario.svg";
 import { useForm } from "react-hook-form";
 import { signUpBeneficiario } from "@/controllers/signUpContoller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FaArrowLeft } from "react-icons/fa";
 
-const devUrl = "http://localhost:3000/auth/signup/beneficiario";
+const signUpBeneficiarioUrl = `${process.env.NEXT_PUBLIC_SIGNUP_BENEFICIARIO}`;
 
 const schema = yup.object().shape(
   {
@@ -50,6 +50,7 @@ const schema = yup.object().shape(
 
 export default function SingupBeneficiario() {
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -60,28 +61,27 @@ export default function SingupBeneficiario() {
 
   const onSubmit = async (form_data: any) => {
     form_data = {
-      nome: form_data.nome,
+      nome: form_data.nome.toLowerCase(),
       cpf: form_data.cpf,
-      email: form_data.email,
+      email: form_data.email.toLowerCase(),
       telefone: form_data.telefone,
       tipo: "BENEFICIARIO",
       senha: form_data.senha,
     };
 
-    console.log(form_data);
-    await signUpBeneficiario(devUrl, form_data)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    try {
+      console.log(signUpBeneficiarioUrl);
+      await signUpBeneficiario(signUpBeneficiarioUrl, form_data);
+      router.back();
+    } catch (error) {
+      throw error;
+    }
   };
 
   return (
     <Container className="container-margin">
       <Row>
-        <Col md={1} className="arrow-col">
+        <Col md={1} className="item-col">
           <div className="cursor-router" onClick={() => router.back()}>
             <FaArrowLeft size={40} />
             <p>Voltar</p>
@@ -98,15 +98,15 @@ export default function SingupBeneficiario() {
             Preencha o formulário ao lado para cadastrar um novo beneficiário.
           </Card.Text>
         </Col>
-        <Col className="mt-5">
-          <h3>Formulário de Cadastro do Usuário</h3>
+        <Col className="item-col-form">
+          <h3>Formulário de Cadastro do Beneficiário</h3>
           <br />
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3" controlId="nome">
               <Form.Label>Nome Completo</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Digite seu nome completo"
+                placeholder="Digite o nome completo do beneficiário"
                 // @ts-ignore
                 name="nome"
                 {...register("nome")}
@@ -117,7 +117,7 @@ export default function SingupBeneficiario() {
               <Form.Label>CPF</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Digite seu CPF"
+                placeholder="Digite CPF do beneficiário"
                 // @ts-ignore
                 name="cpf"
                 {...register("cpf")}
@@ -125,18 +125,18 @@ export default function SingupBeneficiario() {
               <p style={{ color: "red" }}>{errors.cpf?.message}</p>
             </Form.Group>
             <Form.Group className="mb-3" controlId="Email">
-              <Form.Label>E-mail</Form.Label>
+              <Form.Label>E-mail do beneficiário</Form.Label>
               <Form.Control
                 type="email"
                 //@ts-ignore
                 name="email"
-                placeholder="Email@email.com"
+                placeholder="email@gmail.com"
                 {...register("email")}
               />
               <p style={{ color: "red" }}>{errors.email?.message}</p>
             </Form.Group>
             <Form.Group className="mb-3" controlId="telefone">
-              <Form.Label>Telefone</Form.Label>
+              <Form.Label>Telefone do Beneficiário</Form.Label>
               <Form.Control
                 type="phone"
                 //@ts-ignore

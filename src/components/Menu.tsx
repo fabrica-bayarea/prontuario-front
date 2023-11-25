@@ -5,8 +5,20 @@ import Navbar from "react-bootstrap/Navbar";
 import "./style.css";
 import { ImExit } from "react-icons/im";
 import Link from "next/link";
+import { useAuth } from "@/state/authContext";
+import { useRouter } from "next/navigation";
 
 function Menu() {
+  const { logout, accessToken } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    if (accessToken) {
+      await logout(accessToken);
+      router.push("/auth/signin/usuario");
+    }
+  };
+
   return (
     <Navbar expand="lg" className="text-white bg-danger">
       <Container>
@@ -27,6 +39,9 @@ function Menu() {
             <Link href="/programas" className="text-white nav-link">
               Programas Sociais
             </Link>
+            <Link href="/atendimentos" className="text-white nav-link">
+              Atendimentos
+            </Link>
             <Link href="/cadastro" className="text-white nav-link">
               Cadastro
             </Link>
@@ -40,12 +55,16 @@ function Menu() {
             </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
+        <Col xs="auto" className="margin-icon">
+          <Button
+            variant="dark"
+            href="/auth/signin/usuario"
+            onClick={handleLogout}
+          >
+            <ImExit className="text-white" />
+          </Button>
+        </Col>
       </Container>
-      <Col xs="auto" className="margin-icon">
-        <Button variant="dark" href="/auth/signin/usuario">
-          <ImExit className="text-white" />{" "}
-        </Button>
-      </Col>
     </Navbar>
   );
 }
