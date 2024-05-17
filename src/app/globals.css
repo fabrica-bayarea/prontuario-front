@@ -1,7 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+
+  --font-inter: "Inter", sans-serif;
+
+  --pink-100:#FCE8E8;
+  --pink-200:#FBDCDC;
+  --pink-300:#F6B6B6;
+  --pink-400:#E21515;
+  --pink-500:#CB1313;
+  --pink-600:#B51111;
+  --pink-700:#AA1010;
+  --pink-800:#880D0D;
+  --pink-900:#660909;
+  --pink-1000:#4F0707;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+strong {
+  font-weight: 700;
+  color: var(--pink-500);
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  color: var(--pink-1000);
 }

@@ -1,5 +1,4 @@
 "use client";
-import Menu from "@/components/Menu";
 import "./globals.css";
 
 import { Inter } from "next/font/google";
@@ -14,12 +13,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className={inter.className} lang="pt-br">
-      <body className={inter.className}>
-        <main>
-          <AuthContextProvider>{children}</AuthContextProvider>
-        </main>
-      </body>
-    </html>
+    <>
+      <Head/>
+      <html className={inter.className} lang="pt-br">
+        <body className={inter.className}>
+          <main>
+            <AuthContextProvider>{children}</AuthContextProvider>
+          </main>
+        </body>
+      </html>
+    </>
   );
 }
