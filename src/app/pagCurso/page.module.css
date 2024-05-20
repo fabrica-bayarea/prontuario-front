@@ -1,0 +1,155 @@
+.header {
+  background-color: #e33737;
+  color: white;
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header_left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header_right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.header_right h3:first-child {
+  color: #4f0707;
+}
+
+.section {
+  height: 280px;
+  background-color: #ffff;
+  color: #4f0707;
+  position: relative;
+}
+
+.section h1 {
+  font-size: 23px;
+}
+
+.red {
+  color: #e21515;
+}
+
+.section div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 635px;
+  padding: 2rem;
+  position: absolute;
+  bottom: 0;
+  margin-left: 30px;
+}
+
+.section p {
+  color: #000000;
+  font-size: 19px;
+}
+
+.btnAddProgram {
+  width: 319px;
+  height: 43px;
+  background-color: #aa1010;
+  color: #fce8e8;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.main {
+  background-color: #ffffff;
+  max-height: 500px;
+  padding: 1rem;
+}
+
+.search {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search h1 {
+  color: #4f0707;
+  font-size: 18px;
+}
+
+.searchInput {
+  width: 392px;
+  height: 40px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 1rem 2rem 1rem 3rem;
+  background-image: url("/Icone-Lupa.svg");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+.eventInfo {
+  padding: 1rem;
+  margin-top: 75px;
+  display: flex;
+  justify-content: space-between;
+  color: #4f0707;
+  font-size: 16px;
+  max-width: 1350px;
+  margin: 0 auto;
+}
+
+.programsList li {
+  max-width: 1350px;
+  margin: 0 auto;
+}
+
+.programInfo {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-top: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.programName {
+  font-weight: bold;
+}
+
+.programName,
+.programPeriod,
+.programTime {
+  font-size: 12px;
+  color: #4f0707;
+}
+
+.divBtn {
+  display: flex;
+  gap: 1rem;
+}
+
+.btnEdit,
+.btnDelete,
+.btnView {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.btnEdit {
+  background-image: url("/edit.svg");
+}
+
+.btnDelete {
+  background-image: url("/delet.svg");
+}
+
+.btnView {
+  background-image: url("/view.svg");
+}

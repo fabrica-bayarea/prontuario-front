@@ -1,95 +1,100 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import styles from "./page.module.css";
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <header className={styles.header}>
+        <div className={styles.header_left}>
+          <h2>Prontuário</h2>
+          <Image
+            src="/Logo_Vetorizada.svg"
+            alt="Coração"
+            width={40}
+            height={60}
+          />
         </div>
-      </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        <div className={styles.header_right}>
+          <h3>Programas</h3>
+          <h3>Cursos</h3>
+          <Image
+            src="/Menu_user.svg"
+            alt="Menu de usuário"
+            width={40}
+            height={60}
+          />
+        </div>
+      </header>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+      <main className={styles.main}>
+        <div className={styles.right}>
+          <button>
+            <Image
+              src="/btn_voltar.svg"
+              alt="Botão de voltar"
+              width={38}
+              height={38}
+            />
+          </button>
+          <h3>Prontuário</h3>
+          <h1>
+            Crie ou edite um novo{" "}
+            <span className={styles.redText} style={{ display: "block" }}>
+              Programa
+            </span>
+          </h1>
+          <Image
+            src="/Illustração.svg"
+            alt="Imagem de um homem com um caderno"
+            width={500}
+            height={500}
+          />
+        </div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+        <div className={styles.left}>
+          <h2>Informações</h2>
+          <form>
+            <input type="text" id="name" name="name" placeholder="Nome" />
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
+            <input
+              type="text"
+              id="periodo"
+              name="periodo"
+              placeholder="Período do evento"
+            />
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+            <input
+              type="text"
+              id="publicoAlvo"
+              name="publicoAlvo"
+              placeholder="Público alvo"
+            />
+
+            <input
+              type="text"
+              id="horario"
+              name="horario"
+              placeholder="Horário"
+            />
+
+            <textarea
+              id="informacoes"
+              name="informacoes"
+              placeholder="Informações sobre o evento"
+            ></textarea>
+
+            <select name="" id="">
+              <option value="">Exemplo</option>
+              <option value="">Exemplo</option>
+              <option value="">Exemplo</option>
+              <option value="">Exemplo</option>
+            </select>
+
+            <button type="submit">Adicionar</button>
+          </form>
+        </div>
+      </main>
+    </>
+  );
 }
