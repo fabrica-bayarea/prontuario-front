@@ -138,10 +138,14 @@
 .envolve__input__errors{
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     gap:0.5rem;
     margin: 0;
     padding: 0;
+}
+
+.error{
+    color:var(--pink-500)
 }
 
 @media(max-width: 1080px) {

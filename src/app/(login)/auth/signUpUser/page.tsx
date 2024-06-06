@@ -2,7 +2,7 @@
 import style from "./style.module.css";
 import Image from "next/image";
 import React, { useState } from 'react';
-import {MultiStepForm} from "../../../hooks/stepForm/multStepForm"
+import {MultiStepForm} from "../../../../hooks/stepForm/multStepForm"
 import UserForm from "../../../../components/formMultSteps/userForm";
 import AddressForm from "@/components/formMultSteps/addressForm";
 import { FormProvider, useForm } from 'react-hook-form';
@@ -51,6 +51,7 @@ export default function SignUpUser() {
   ])
 
   const onSubmit = (formData: FormData) => {
+    console.log("teste")
     if (currentStepIndex < steps.length - 1) {
       next();
     } else {
@@ -100,7 +101,7 @@ export default function SignUpUser() {
             <button type = "submit" className={style.buttonContinuar}>
               {isLastStep ? "Finalizar" : "Continuar"}
             </button>
-            <a>
+            <a href = "/auth/signin/usuario">
               Já tem uma conta?<strong> Entrar</strong>
             </a>
           </div>
