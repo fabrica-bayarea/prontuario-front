@@ -16,8 +16,31 @@ type AddresFormProps = AddressData & {
 
 export default function AddressForm({cidade, cep, endereco, telefone, atualizaCampos}: AddresFormProps) {
 
-  //hook form
-  const { register, formState: { errors } } = useFormContext<AddressData>();
+  //BUSCA CEP
+  const checkCEP = (e: { target: { value: string } }) => {
+    const cep = e.target.value.replace(/\D/g, "");
+    console.log(cep);
+
+    try {
+      if (cep.length === 8) {
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            setValue("endereco", data.bairro);
+            setValue("cidade", data.localidade);
+            atualizaCampos({
+              endereco: data.logradouro,
+              cidade: data.localidade,
+            });
+          });
+      }
+    } catch (err) {
+      console.log("Erro ao buscar CEP", err);
+    }
+  };
+
+  const { register, formState: { errors }, setValue } = useFormContext<AddressData>();
 
   return (
 
@@ -33,7 +56,7 @@ export default function AddressForm({cidade, cep, endereco, telefone, atualizaCa
           })}
           className={style.formulario__input}
           value={cidade}
-          onChange={ e => atualizaCampos({cidade: e.target.value})}
+          onChange={e => atualizaCampos({ cidade: e.target.value })}
           type="text"
           placeholder="Cidade"
         />
@@ -46,10 +69,15 @@ export default function AddressForm({cidade, cep, endereco, telefone, atualizaCa
             required: "CEP é obrigatório",
             pattern:{value: /^\d{5}-?\d{3}$/, message: "Seu CEP deve conter apenas números"}
           })}
+          onBlur={checkCEP}
           mask="99999-999"
           className={style.formulario__input}
           value={cep}
-          onChange={ e => atualizaCampos({cep: e.target.value})}
+          onChange={e => {
+            const cepValue = e.target.value;
+            setValue("cep", cepValue);
+            atualizaCampos({ cep: cepValue });
+          }}
           type="text"
           placeholder="CEP"
         />
