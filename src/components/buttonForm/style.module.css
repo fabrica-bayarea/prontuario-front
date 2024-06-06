@@ -1,0 +1,70 @@
+.flatButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    height: 3.75rem;
+    width: 24.25rem;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--pink-700);
+    color: var(--pink-100);
+    font-family: var(--font-inter);
+    font-weight: 600;
+    font-size: 1.10rem;
+    max-width: 100%;
+}
+
+.flatButton:hover{
+    transition: background-color 0.3s ease-out;
+    background-color: var(--pink-900);
+}
+
+.outlineButton {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    height: 3.75rem;
+    width: 26.25rem;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--pink-200);
+    color: var(--pink-900);
+    font-family: var(--font-inter);
+    font-weight: 600;
+    font-size: 1.10rem;
+    max-width: 100%;
+}
+
+.outlineButton:hover{
+    transition: background-color 0.3s ease-out;
+    background-color: var(--pink-300);
+}
+
+@media(max-width: 720px){
+
+    .outlineButton {
+        height: 2.5rem;
+        font-size: 0.8rem;
+    }
+
+    .flatButton {
+        height: 2.5rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media(min-width: 730px) and (max-width: 1080px){
+
+    .outlineButton {
+        width: 20rem;
+        height: 3.75rem;
+    }
+
+    .flatButton {
+        width: 20rem;
+        height: 3.75rem;
+    }
+}
