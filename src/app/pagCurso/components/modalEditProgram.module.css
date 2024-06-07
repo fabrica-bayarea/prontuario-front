@@ -1,0 +1,67 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 100%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.modal h2 {
+  color: #4f0707;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.modal label {
+  margin-top: 15px;
+  color: #4f0707;
+}
+
+.modal input {
+  background-color: #ffffff;
+  color: #4f0707;
+  border: 1px solid #4f0707;
+  border-radius: 5px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.btnSave {
+  background-color: #aa1010;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.closeButton {
+  color: #4f0707;
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}

@@ -1,7 +1,126 @@
+"use client";
+
+import React, { useState } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
+import ModalAddProgram from "./components/modalAddProgram";
+import Programa from "./components/programa";
+import ModalDelete from "./components/modalDelete";
+import ModalEdit from "./components/modalEditProgram";
+import { toast } from "react-toastify";
 
-export default function pagCurso() {
+interface Programa {
+  id: number;
+  nome: string;
+  periodo: string;
+  horario: string;
+}
+
+export default function PagCurso() {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editProgram, setEditProgram] = useState<Programa | null>(null);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+
+  const [programas, setProgramas] = useState([
+    {
+      id: 1,
+      nome: "Programa 1",
+      periodo: "12/04/2024",
+      horario: "12:00",
+    },
+
+    {
+      id: 2,
+      nome: "Programa 2",
+      periodo: "12/04/2024",
+      horario: "12:00",
+    },
+
+    {
+      id: 3,
+      nome: "Programa 3",
+      periodo: "12/04/2024",
+      horario: "12:00",
+    },
+  ]);
+
+  const openAddModal = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const closeAddModal = () => {
+    setIsAddModalOpen(false);
+  };
+
+  const openDeleteModal = (id: number) => {
+    setDeleteId(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setDeleteId(null);
+  };
+
+  const openEditModal = (program: {
+    id: number;
+    nome: string;
+    periodo: string;
+    horario: string;
+  }) => {
+    setEditProgram(program);
+    setIsEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+    setEditProgram(null);
+  };
+
+  const handleSave = (name: string, date: string, time: string) => {
+    setProgramas([
+      ...programas,
+      {
+        id: programas.length + 1,
+        nome: name,
+        periodo: date,
+        horario: time,
+      },
+    ]);
+    closeAddModal();
+
+    toast.success("Programa adicionado com sucesso!");
+  };
+
+  const handleConfirmDelete = () => {
+    if (deleteId !== null) {
+      setProgramas(programas.filter((programa) => programa.id !== deleteId));
+    }
+    closeDeleteModal();
+
+    toast.success("Programa excluído com sucesso!");
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteId(null);
+    closeDeleteModal();
+  };
+
+  const handleEdit = (id: number, name: string, date: string, time: string) => {
+    setProgramas(
+      programas.map((programa) =>
+        programa.id === id
+          ? { id, nome: name, periodo: date, horario: time }
+          : programa
+      )
+    );
+    closeEditModal();
+
+    toast.success("Programa editado com sucesso!");
+  };
+
   return (
     <>
       <header className={styles.header}>
@@ -33,7 +152,7 @@ export default function pagCurso() {
             Olá <span className={styles.red}>Admin</span>
           </h1>
           <p>Gerencie e cadastre novos programas</p>
-          <button className={styles.btnAddProgram}>
+          <button className={styles.btnAddProgram} onClick={openAddModal}>
             Adicionar novo Programa
           </button>
         </div>
@@ -57,20 +176,34 @@ export default function pagCurso() {
         </div>
 
         <ul className={styles.programsList}>
-          <li>
-            <div className={styles.programInfo}>
-              <p className={styles.programName}>Nome do Programa 1</p>
-              <p className={styles.programPeriod}>12/04/2024 - 12/04/2024</p>
-              <p className={styles.programTime}>12:00</p>
-              <div className={styles.divBtn}>
-                <button className={styles.btnEdit}></button>
-                <button className={styles.btnDelete}></button>
-                <button className={styles.btnView}></button>
-              </div>
-            </div>
-          </li>
+          {programas.map((programa) => (
+            <Programa
+              key={programa.id}
+              onDelete={() => openDeleteModal(programa.id)}
+              onEdit={() => openEditModal(programa)}
+              {...programa}
+            />
+          ))}
         </ul>
       </main>
+
+      <ModalAddProgram
+        isOpen={isAddModalOpen}
+        onClose={closeAddModal}
+        onSubmit={handleSave}
+      />
+      <ModalDelete
+        isOpen={isDeleteModalOpen}
+        onClose={closeDeleteModal}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+      />
+      <ModalEdit
+        isOpen={isEditModalOpen}
+        onClose={closeEditModal}
+        onSubmit={handleEdit}
+        program={editProgram}
+      />
     </>
   );
 }
