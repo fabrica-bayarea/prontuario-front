@@ -1,10 +1,8 @@
-"use client";
-import Menu from "@/components/Menu";
 import "./globals.css";
-
 import { Inter } from "next/font/google";
-import { AuthContextProvider } from "@/state/authContext";
-import Head from "./head";
+import Link from "next/link";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,11 +12,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className={inter.className} lang="pt-br">
+    <html lang="en">
+      <ToastContainer />
       <body className={inter.className}>
-        <main>
-          <AuthContextProvider>{children}</AuthContextProvider>
-        </main>
+        <nav>
+          <ul>
+            <li>
+              <Link href="/">Programa</Link>
+            </li>
+            <li>
+              <Link href="/pagCurso">Curso</Link>
+            </li>
+          </ul>
+        </nav>
+        {children}
       </body>
     </html>
   );
