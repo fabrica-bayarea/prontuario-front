@@ -1,8 +1,7 @@
-import "./globals.css";
 import { Inter } from "next/font/google";
-import Link from "next/link";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../../../(aplicacao)/glo"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <ToastContainer /> */}
+      <ToastContainer />
       <body className={inter.className}>
         {/* <nav>
           <ul>

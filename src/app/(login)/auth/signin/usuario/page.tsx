@@ -10,7 +10,7 @@ import * as yup from "yup";
 import Image from "next/image";
 import LogoIESB from "./img/LogoIESB.png";
 import { useContext, useEffect, useState } from "react";
-import { useAuth } from "@/state/authContext";
+import { useAuth } from "@/Context/authContext";
 import { useRouter } from "next/navigation";
 
 const devUrl = "http://localhost:3000/auth/signin/usuario";

@@ -67,7 +67,7 @@
 
 .main {
   background-color: #ffffff;
-  max-height: 500px;
+  height: 100vh;
   padding: 1rem;
 }
 

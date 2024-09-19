@@ -1,5 +1,5 @@
 "use client";
-import { AuthContextProvider } from "@/state/authContext";
+import { AuthContextProvider } from "@/Context/authContext";
 
 export default function LoginLayout({
   children,
