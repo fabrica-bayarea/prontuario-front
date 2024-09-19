@@ -1,96 +1,80 @@
-"use client";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button } from "react-bootstrap";
-import { BiLogIn } from "react-icons/bi";
-import "./style.css";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
+'use client'
+import ButtonForm from "@/components/buttonForm/buttonForm";
+import styles from "./style.module.css";
 import Image from "next/image";
-import LogoIESB from "./img/LogoIESB.png";
-import { useContext, useEffect, useState } from "react";
-import { useAuth } from "@/state/authContext";
-import { useRouter } from "next/navigation";
+import { useContext, useState  } from "react";
+import {AuthContext} from "../../../../../contexts/AuthContext";
+import { useRouter } from 'next/navigation';
+import { SubmitHandler, useForm } from "react-hook-form";
 
-const devUrl = "http://localhost:3000/auth/signin/usuario";
+interface LoginFormInputs {
+    email: string;
+    password: string;
+}
 
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .required("O campo email deve ser preenchido")
-    .matches(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i, "Email inválido"),
-  senha: yup.string().required("O campo senha deve ser preenchido"),
-});
+export default function Sigin(){
+    const { signIn } = useContext(AuthContext);
+    const router = useRouter();
 
-export default function Login() {
-  const [errorLogin, setErrorLogin] = useState<string>("");
-  const { login, accessToken } = useAuth();
-  const router = useRouter();
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
+    const [error, setError] = useState<string | null>(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+    const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => { 
+        try {
+            await signIn(data);
+            router.push('/home');
+        } catch (error: any) {
+            console.log('Erro ao fazer login:', error);
+            setError(error.message);
+        }
+    };
 
-  const onSubmit = async (form_data: any) => {
-    try {
-      await login(devUrl, form_data);
-      console.log(accessToken);
-      if (accessToken) {
-        router.push("/");
-      }
-    } catch (error: any) {
-      setErrorLogin(error);
-    }
-  };
+    const SignUpPage = () => {
+        router.push("/auth/signUpUser");
+    };
 
-  return (
-    <div className="centralizar-div">
-      <Image
-        src={LogoIESB}
-        alt="Logo IESB"
-        width={150}
-        height={150}
-        className="centralizar-img"
-      />
-      <h3>Prontuário de Atendimento</h3>
-      <p className="subtitulo">Página do Cadastrador de Atendimentos IESB</p>
-      <Form className="mt-3" onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>E-mail</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Insira seu e-mail"
-            // @ts-ignore
-            name="email"
-            {...register("email")}
-          />
-          <p>{errors.email?.message}</p>
-        </Form.Group>
+    return (
+        <div className = {styles.container}>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Senha</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Insira sua senha"
-            // @ts-ignore
-            name="senha"
-            {...register("senha")}
-          />
-          <p>{errors.senha?.message}</p>
-        </Form.Group>
+            <form onSubmit={handleSubmit(onSubmit)} className = {styles.modal__container__form}>
+                <div className = {styles.modal__envolve__form}>
+                <h1><strong>Login</strong></h1>
+                    
+                    <input 
+                    placeholder="Email"
+                    type="email"
+                    {...register("email", { required: "Email é obrigatório", pattern: { value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/, message: "Email inválido"}})}
+                    />
+                    {errors.email && <p className={styles.error}>{errors.email.message}</p>}
+                    
+                    <input 
+                    placeholder="Senha"
+                    type="password"
+                    {...register ("password", {required: "Senha obrigatoria", minLength:{value: 8, message: "A senha deve conter pelo menos 8 caracteres"}
+                  })}
+                    />
+                    {errors.password && <p className={styles.error}>{errors.password.message}</p>}
+                    {error && <p className={styles.error}>{error}</p>}
 
-        {errorLogin && <p>{errorLogin}</p>}
+                </div>
 
-        <div className="d-grid gap-2">
-          <Button variant="dark" size="sm" type="submit">
-            Entrar
-            <BiLogIn />
-          </Button>
+                <div className={styles.modal__envolve__buttons}>
+                    <ButtonForm variant="flatButton" type = "submit">Entrar</ButtonForm>
+                    <ButtonForm variant = "outline" type="button" onClick = {SignUpPage}>Cadastre-se</ButtonForm>
+                </div>
+            </form>
+
+            <div className = {styles.modal__container}>
+                <div className = {styles.envolve__conteudo__modal}>
+                    <Image
+                        src="/illustração_Recepção.svg"
+                        alt="Illustração"
+                        width={500}
+                        height={500}
+                        className={styles.image} />
+                    <p>Crie agendamentos, gerencie suas consultas, e faça parte do <strong>IESB em Ação!</strong></p>
+                </div>
+            </div>
         </div>
-      </Form>
-    </div>
-  );
+    )
 }

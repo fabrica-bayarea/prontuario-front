@@ -1,0 +1,202 @@
+.container {
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    background-color: white;
+    box-sizing: border-box;
+    
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.modal__container{
+    width: 50%;
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:10px;
+    align-items: center;
+    background-color: var(--pink-300);
+}
+
+.modal__texto {
+    font-size: 1.063rem;
+    font-weight: 800;
+}
+
+.modal__titulo {
+    font-size: 2.187rem;
+    font-weight: 600;
+}
+
+
+.modal__container__form{
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF;
+}
+
+.envolve__formulario{
+    max-width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.19rem;
+
+    max-width: 100%;
+}
+
+.envolve__titulo__formulario{
+    display: flex;
+    flex-direction: column;
+}
+
+.texto__etapa {
+    font-weight: 300;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.formulario__input{
+    width: 26.25rem;
+    height: 3.75rem;
+    border: 2px solid var(--pink-300);
+    border-radius: 10px;
+    padding: 17px;
+    font-size: 1.2rem;
+    color: var(--pink-900);
+    font-family: var(--font-inter);
+    font-weight: 470;
+}
+
+.formulario__input::placeholder{
+    font-family: var(--font-inter);
+    font-weight: 300;
+    font-size: 1.2rem;
+    justify-content: center;
+    padding: 17px;
+}
+
+.envolve__button{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+    gap: 1.25rem;
+    font-weight: 400;
+    font-size: 1.06rem;
+    margin-top: 40px;
+}
+
+.buttonContinuar{
+    height: 3.75rem;
+    width: 26.25rem;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--pink-700);
+    color: var(--pink-100);
+    font-family: var(--font-inter);
+    font-weight: 600;
+    font-size: 1.10rem;
+}
+
+.buttonContinuar:hover{
+    transition: background-color 0.3s ease-out;
+    background-color: var(--pink-900);
+}
+
+.buttonVoltar{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 3.75rem;
+    width: 26.25rem;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--pink-200);
+    color: var(--pink-900);
+    font-family: var(--font-inter);
+    font-weight: 600;
+    font-size: 1.10rem;
+}
+
+.buttonVoltar:hover{
+    transition: background-color 0.3s ease-out;
+    background-color: var(--pink-300);
+}
+
+.envolve__input__errors{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:0.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.error{
+    color:var(--pink-500)
+}
+
+@media(max-width: 1080px) {
+    .modal__container{
+        padding: 20px;
+    }
+
+    .modal__titulo{
+        font-size: 150%;
+    }
+
+    .image{
+        width: 85%;
+        height: 85%;
+    }
+
+    .modal__container__form{
+        padding: 20px;
+        gap: 0px;
+        font-size: 80%;
+    }
+
+    .envolve__titulo__formulario{
+        font-size: 95%;
+    }
+
+    .formulario__input {
+      width: 95%;
+      height: 12%;
+      font-size: 120%;
+    }
+
+    .formulario__input::placeholder{
+        font-size: 80%;
+    }
+
+    .buttonContinuar{
+        height: 2.7rem;
+        width: 95%;
+        font-size: 100%;
+    }
+
+    .buttonVoltar{
+        height: 2.7rem;
+        width: 95%;
+        font-size: 100%;
+    }
+
+    .envolve__button{
+        font-size: 100%;
+        margin-top: 0px;
+        text-align: left;
+    }
+}
