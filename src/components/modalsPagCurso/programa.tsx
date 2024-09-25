@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../page.module.css";
+import styles from "../../../src/app/(aplicacao)/(cadastro)/cadastro/cadastro-curso/page.module.css";
 
 interface ProgramaProps {
   nome: string;

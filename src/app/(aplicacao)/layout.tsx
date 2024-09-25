@@ -1,5 +1,4 @@
 "use client";
-import Menu from "@/components/Menu";
 import { AuthContextProvider } from "@/Context/authContext";
 
 export default function LoginLayout({
@@ -9,7 +8,6 @@ export default function LoginLayout({
 }) {
   return (
     <>
-      <Menu />
       <main>
         <AuthContextProvider>{children}</AuthContextProvider>
       </main>

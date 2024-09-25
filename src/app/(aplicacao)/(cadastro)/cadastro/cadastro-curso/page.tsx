@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
-import ModalAddProgram from "./components/modalAddProgram";
-import Programa from "./components/programa";
-import ModalDelete from "./components/modalDelete";
-import ModalEdit from "./components/modalEditProgram";
-import { toast } from "react-toastify";
+import ModalAddProgram from "@/components/modalsPagCurso/modalAddProgram";
+import Programa from "@/components/modalsPagCurso/programa";
+import ModalDelete from "@/components/modalsPagCurso/modalDelete";
+import ModalEdit from "@/components/modalsPagCurso/modalEditProgram";
+// import { toast } from "react-toastify";
 
 interface Programa {
   id: number;
@@ -91,16 +91,16 @@ export default function PagCurso() {
     ]);
     closeAddModal();
 
-    toast.success("Programa adicionado com sucesso!");
+    // toast.success("Programa adicionado com sucesso!");
   };
 
   const handleConfirmDelete = () => {
     if (deleteId !== null) {
-      setProgramas(programas.filter((programa) => programa.id !== deleteId));
+      setProgramas(programas.filter(programa => programa.id !== deleteId));
     }
     closeDeleteModal();
 
-    toast.success("Programa excluído com sucesso!");
+    // toast.success("Programa excluído com sucesso!");
   };
 
   const handleCancelDelete = () => {
@@ -110,15 +110,15 @@ export default function PagCurso() {
 
   const handleEdit = (id: number, name: string, date: string, time: string) => {
     setProgramas(
-      programas.map((programa) =>
+      programas.map(programa =>
         programa.id === id
           ? { id, nome: name, periodo: date, horario: time }
-          : programa
-      )
+          : programa,
+      ),
     );
     closeEditModal();
 
-    toast.success("Programa editado com sucesso!");
+    // toast.success("Programa editado com sucesso!");
   };
 
   return (
@@ -176,7 +176,7 @@ export default function PagCurso() {
         </div>
 
         <ul className={styles.programsList}>
-          {programas.map((programa) => (
+          {programas.map(programa => (
             <Programa
               key={programa.id}
               onDelete={() => openDeleteModal(programa.id)}
