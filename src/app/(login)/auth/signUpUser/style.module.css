@@ -97,6 +97,11 @@
     margin-top: 40px;
 }
 
+.buttonJaTemConta{
+    text-decoration: none;
+    color:var(--pink-900);
+}
+
 .buttonContinuar{
     height: 3.75rem;
     width: 26.25rem;
