@@ -3,6 +3,7 @@ import Image from "next/image";
 import style from "./style.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EventTablePrograms from "@/components/Tables/TablePrograms/tablePrograms";
+import { useRequireAuth } from "@/hooks/useRequireAuth/useRequireAuth";
 
 interface Eventos {
   id: number;
@@ -33,6 +34,8 @@ const eventos : Eventos[] = [
 ];
 
 export default function Programas() {
+  useRequireAuth();
+
   return (
     <>
       <div className={style.container}>

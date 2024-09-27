@@ -2,14 +2,14 @@
 import ButtonForm from "@/components/buttonForm/buttonForm";
 import styles from "./style.module.css";
 import Image from "next/image";
-import { useContext, useState  } from "react";
-import {AuthContext} from "../../../../../contexts/AuthContext";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../../../contexts/AuthContext";
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface LoginFormInputs {
     email: string;
-    password: string;
+    senha: string;
 }
 
 export default function Sigin(){
@@ -22,9 +22,8 @@ export default function Sigin(){
     const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => { 
         try {
             await signIn(data);
-            router.push('/home');
+            router.push("/home");
         } catch (error: any) {
-            console.log('Erro ao fazer login:', error);
             setError(error.message);
         }
     };
@@ -40,7 +39,7 @@ export default function Sigin(){
                 <div className = {styles.modal__envolve__form}>
                 <h1><strong>Login</strong></h1>
                     
-                    <input 
+                    <input
                     placeholder="Email"
                     type="email"
                     {...register("email", { required: "Email é obrigatório", pattern: { value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/, message: "Email inválido"}})}
@@ -50,10 +49,10 @@ export default function Sigin(){
                     <input 
                     placeholder="Senha"
                     type="password"
-                    {...register ("password", {required: "Senha obrigatoria", minLength:{value: 8, message: "A senha deve conter pelo menos 8 caracteres"}
+                    {...register ("senha", {required: "Senha obrigatoria", minLength:{value: 8, message: "A senha deve conter pelo menos 8 caracteres"}
                   })}
                     />
-                    {errors.password && <p className={styles.error}>{errors.password.message}</p>}
+                    {errors.senha && <p className={styles.error}>{errors.senha.message}</p>}
                     {error && <p className={styles.error}>{error}</p>}
 
                 </div>

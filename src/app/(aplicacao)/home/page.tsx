@@ -4,6 +4,7 @@ import style from "./style.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EventTable from "@/components/Tables/tableSubscribe/table";
 import { useRouter } from 'next/navigation';
+import { useRequireAuth } from "@/hooks/useRequireAuth/useRequireAuth";
 
 interface Event {
   id: number;
@@ -36,6 +37,8 @@ const events: Event[] = [
 export default function Home() {
   const router = useRouter();
 
+  useRequireAuth();
+
   const handleClick = () => {
     router.push("/programas");
   };
@@ -45,7 +48,7 @@ export default function Home() {
       <div className={style.container}>
         <section className={style.sectionApresentacao}>
           <h1>
-            Olá <strong>Fulano</strong>
+            Olá <strong> Usuario </strong>
           </h1>
           <p>Precisa marcar uma nova consulta em um de nossos programas?</p>
           <button onClick={handleClick} className={style.buttonConsulta} type="button">
