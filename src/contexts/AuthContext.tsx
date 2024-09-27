@@ -1,5 +1,12 @@
+'use client';
 import { api } from "@/services/api";
-import { createContext, ReactNode} from "react";
+import { setCookie } from "nookies";
+import { createContext, ReactNode, useState} from "react";
+
+type User = {
+  email: string;
+  access_token: string;
+}
 
 type SignInCredentials = {
   email: string;
@@ -8,6 +15,7 @@ type SignInCredentials = {
 
 type AuthContextData = {
   signIn(credentials: SignInCredentials): Promise<void>;
+  user: User | null;
   isAuthenticated: boolean;
 }
 
@@ -19,7 +27,9 @@ export const AuthContext = createContext({
 } as AuthContextData)
 
 export function AuthProvider({ children }: AuthProviderProps){
-  const isAuthenticated = false;
+  const [user, setUser] = useState<User | null>(null);
+
+  const isAuthenticated = !!user;
 
   async function signIn({email, senha}: SignInCredentials){
     try {
@@ -27,15 +37,29 @@ export function AuthProvider({ children }: AuthProviderProps){
         email,
         senha
       });
-      console.log(response.data);
+
+      const { access_token } = response.data;
+
+      setCookie(undefined, 'acess_token', access_token,{
+        maxAge: 60 * 60 * 24 * 30,
+        patch: '/'
+      })
+
+      setUser({
+        email,
+        access_token,
+      })
+
+      api.defaults.headers['Authorization'] = `Bearer ${access_token}`;
+
+      console.log("Usuário autenticado:", { email, access_token });
     } catch (err){
       console.log(err)
     }
-
   }
   
   return (
-    <AuthContext.Provider value={{signIn, isAuthenticated}}>
+    <AuthContext.Provider value={{signIn, isAuthenticated, user}}>
       {children}
     </AuthContext.Provider>
   )
