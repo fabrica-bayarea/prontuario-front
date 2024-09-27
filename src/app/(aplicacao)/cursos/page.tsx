@@ -2,6 +2,8 @@
 import TablesCourses from "@/components/Tables/TableCourses/tablesCourses";
 import styles from "./styleCursos.module.css";
 import Image from "next/image";
+import { useRequireAuth } from "@/hooks/useRequireAuth/useRequireAuth";
+
 
 const eventos = [
   { id: 1, name: 'Ciência da Computação', status: true },
@@ -11,6 +13,8 @@ const eventos = [
 ];
 
 export default function Cursos() {
+  useRequireAuth();
+  
   return (
     <>
       <div className={styles.container}>

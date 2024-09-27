@@ -1,37 +1,74 @@
-'use client'
-import { ReactNode, createContext, useState } from "react";
+'use client';
+import { api } from "@/services/api";
+import Router from "next/router";
+import { destroyCookie, setCookie } from "nookies";
+import { createContext, ReactNode, useState} from "react";
+
+type User = {
+  email: string;
+  access_token: string;
+}
 
 type SignInCredentials = {
   email: string;
-  password: string;
-};
+  senha: string;
+}
 
 type AuthContextData = {
   signIn(credentials: SignInCredentials): Promise<void>;
+  user: User | null;
   isAuthenticated: boolean;
-};
+  signOut:() => void;
+}
 
 type AuthProviderProps = {
   children: ReactNode;
-};
+}
 
-export const AuthContext = createContext({} as AuthContextData);
+export const AuthContext = createContext({
+} as AuthContextData)
 
-export function AuthProvider({ children }: AuthProviderProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+export function signOut(){
+  destroyCookie(undefined, 'access_token');
+    
+  Router.push('/auth/signin/usuario');
+}
 
-  async function signIn({ email, password }: SignInCredentials) {
-    if (email === "gmail@gmail.com" && password === "Teste8181_") {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-      throw new Error("Email ou senha incorretos");
+export function AuthProvider({ children }: AuthProviderProps){
+  const [user, setUser] = useState<User | null>(null);
+
+  const isAuthenticated = !!user;
+
+  async function signIn({email, senha}: SignInCredentials){
+    try {
+      const response = await api.post('auth/signin/usuario', {
+        email,
+        senha
+      });
+
+      const { access_token } = response.data;
+
+      setCookie(undefined, 'access_token', access_token,{
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/'
+      })
+
+      setUser({
+        email,
+        access_token,
+      })
+
+      api.defaults.headers['Authorization'] = `Bearer ${access_token}`;
+
+      console.log("Usuário autenticado:", { email, access_token });
+    } catch (err){
+      console.log(err)
     }
   }
-
+  
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn }}>
+    <AuthContext.Provider value={{signIn, signOut, isAuthenticated, user}}>
       {children}
     </AuthContext.Provider>
-  );
+  )
 }
