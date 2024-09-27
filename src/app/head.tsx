@@ -7,7 +7,7 @@ export default function Head() {
         rel="icon"
         type="image/png"
         sizes="16x16"
-        href="./icon.png"
+        href="/icon.png"
       />
     </>
   );
