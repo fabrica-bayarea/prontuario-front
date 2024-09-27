@@ -1,37 +1,32 @@
-'use client'
-import { ReactNode, createContext, useState } from "react";
+import { createContext, ReactNode} from "react";
 
 type SignInCredentials = {
   email: string;
   password: string;
-};
+}
 
 type AuthContextData = {
   signIn(credentials: SignInCredentials): Promise<void>;
   isAuthenticated: boolean;
-};
+}
 
 type AuthProviderProps = {
   children: ReactNode;
-};
+}
 
-export const AuthContext = createContext({} as AuthContextData);
+export const AuthContext = createContext({
+} as AuthContextData)
 
-export function AuthProvider({ children }: AuthProviderProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+export function AuthProvider({ children }: AuthProviderProps){
+  const isAuthenticated = false;
 
-  async function signIn({ email, password }: SignInCredentials) {
-    if (email === "gmail@gmail.com" && password === "Teste8181_") {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-      throw new Error("Email ou senha incorretos");
-    }
+  async function signIn({email, password}: SignInCredentials){
+    console.log({email, password})
   }
-
+  
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn }}>
+    <AuthContext.Provider value={{signIn, isAuthenticated}}>
       {children}
     </AuthContext.Provider>
-  );
+  )
 }
