@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./page.module.css";
-import Image from "next/image";
+import Head from "@/components/headerAllPages/Header";
 import ModalAddProgram from "@/components/modalsPagCurso/modalAddProgram";
 import Programa from "@/components/modalsPagCurso/programa";
 import ModalDelete from "@/components/modalsPagCurso/modalDelete";
 import ModalEdit from "@/components/modalsPagCurso/modalEditProgram";
-// import { toast } from "react-toastify";
 
 interface Programa {
   id: number;
@@ -22,6 +21,7 @@ export default function PagCurso() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editProgram, setEditProgram] = useState<Programa | null>(null);
   const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   const [programas, setProgramas] = useState([
     {
@@ -121,30 +121,15 @@ export default function PagCurso() {
     // toast.success("Programa editado com sucesso!");
   };
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   return (
     <>
-      <header className={styles.header}>
-        <div className={styles.header_left}>
-          <h2>Prontuário</h2>
-          <Image
-            src="/Logo_Vetorizada.svg"
-            alt="Coração"
-            width={40}
-            height={60}
-          />
-        </div>
-
-        <div className={styles.header_right}>
-          <h3>Programas</h3>
-          <h3>Cursos</h3>
-          <Image
-            src="/Menu_user.svg"
-            alt="Menu de usuário"
-            width={40}
-            height={60}
-          />
-        </div>
-      </header>
+      <Head />
 
       <section className={styles.section}>
         <div>

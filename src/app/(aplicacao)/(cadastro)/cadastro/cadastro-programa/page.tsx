@@ -1,34 +1,25 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
 import styles from "./page.module.css";
+import Head from "@/components/headerAllPages/Header";
 import Image from "next/image";
+import Teguetegozoios from "@/components/calendar/Calendar";
 
 export default function Home() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   return (
     <>
-      <header className={styles.header}>
-        <div className={styles.header_left}>
-          <h2>Prontuário</h2>
-          <Image
-            src="/Logo_Vetorizada.svg"
-            alt="Coração"
-            width={40}
-            height={60}
-          />
-        </div>
-
-        <div className={styles.header_right}>
-          <h3>Programas</h3>
-          <h3>Cursos</h3>
-          <Image
-            src="/Menu_user.svg"
-            alt="Menu de usuário"
-            width={40}
-            height={60}
-          />
-        </div>
-      </header>
-
+      <Head />
       <main className={styles.main}>
-        <div className={styles.right}>
+        <div className={styles.left}>
           <button>
             <Image
               src="/btn_voltar.svg"
@@ -52,46 +43,53 @@ export default function Home() {
           />
         </div>
 
-        <div className={styles.left}>
+        <div className={styles.right}>
           <h2>Informações</h2>
           <form>
-            <input type="text" id="name" name="name" placeholder="Nome" />
-
             <input
               type="text"
-              id="periodo"
-              name="periodo"
-              placeholder="Período do evento"
+              id="name"
+              name="name"
+              placeholder="Nome"
+              className={styles.inputsForm}
+              required
             />
+
+            <Teguetegozoios />
 
             <input
               type="text"
               id="publicoAlvo"
               name="publicoAlvo"
               placeholder="Público alvo"
+              className={styles.inputsForm}
+              required
             />
 
-            <input
-              type="text"
+            <select
               id="horario"
               name="horario"
-              placeholder="Horário"
-            />
+              className={styles.selectHours}
+              required
+            >
+              <option value="">Selecione o horário</option>
+              <option value="10:00">10:00</option>
+              <option value="14:00">14:00</option>
+              <option value="16:00">16:00</option>
+              <option value="18:00">18:00</option>
+              <option value="20:00">20:00</option>
+            </select>
 
             <textarea
               id="informacoes"
               name="informacoes"
               placeholder="Informações sobre o evento"
+              required
             ></textarea>
 
-            <select name="" id="">
-              <option value="">Exemplo</option>
-              <option value="">Exemplo</option>
-              <option value="">Exemplo</option>
-              <option value="">Exemplo</option>
-            </select>
-
-            <button type="submit">Adicionar</button>
+            <button type="submit" className={styles.btnSubmit}>
+              Adicionar
+            </button>
           </form>
         </div>
       </main>

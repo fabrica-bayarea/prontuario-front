@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  font-size: 13px;
+}
+
+.calender {
+  padding: 1rem;
+  width: 45%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  width: 420px;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+}
+
+.dateRange {
+  margin-top: 20px;
+}

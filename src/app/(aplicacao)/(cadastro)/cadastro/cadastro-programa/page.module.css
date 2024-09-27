@@ -1,35 +1,12 @@
-.header {
-  background-color: #e33737;
-  color: white;
-  padding: 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header_left {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.header_right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  cursor: pointer;
-}
-
-.header_right h3:first-child {
-  color: #4f0707;
-}
-
 .main {
   display: flex;
   height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  background-color: #ffffff;
 }
 
-.right {
+.left {
   width: 610px;
   max-width: 610px;
   background-color: #f6b6b6;
@@ -40,7 +17,7 @@
   gap: 1rem;
 }
 
-.right button {
+.left button {
   background-color: #f6b6b6;
   width: 58px;
   height: 58px;
@@ -48,11 +25,11 @@
   cursor: pointer;
 }
 
-.right h3 {
+.left h3 {
   color: #4f0707;
 }
 
-.right h1 {
+.left h1 {
   color: #4f0707;
 }
 
@@ -60,59 +37,109 @@
   color: #e21515;
 }
 
-.left {
+.right {
   flex: 1;
   padding: 20px;
   background-color: #ffffff;
+  height: 700px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  overflow-y: auto;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.left h2 {
+.right::-webkit-scrollbar {
+  display: none;
+}
+
+.right h2 {
   color: #e21515;
   margin: 0 auto;
 }
 
-.left form {
+.right form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.left input {
+.inputsForm {
   margin: 0 auto;
   width: 420px;
   padding: 1rem;
-  border: 1px solid black;
+  border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #ffffff;
+  color: #000000;
+  font-size: 13px;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
 }
 
-.left textarea {
+.right textarea {
+  width: 100%;
+  max-width: 420px;
+  height: 150px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  color: #000000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  resize: vertical;
+  outline: none;
   margin: 0 auto;
-  width: 420px;
-  padding: 1rem;
-  border: 1px solid black;
-  border-radius: 5px;
-  background-color: #ffffff;
+  resize: none;
 }
 
-.left select {
+.right textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+}
+
+.right textarea::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.selectHours {
   color: black;
   margin: 0 auto;
   width: 420px;
   padding: 1rem;
-  border: 1px solid black;
+  border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #ffffff;
+  cursor: pointer;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
 }
 
-.left button {
+.selectHours option:nth-child(odd) {
+  background-color: #f0f0f0;
+}
+
+.selectHours option:nth-child(even) {
+  background-color: #e0e0e0;
+}
+
+.btnSubmit {
   margin: 0 auto;
   width: 420px;
   padding: 1rem;
   border: none;
   border-radius: 5px;
   background-color: #aa1010;
+  cursor: pointer;
+}
+
+.btnSubmit:hover {
+  background-color: #f6b6b6;
+  color: #4f0707;
 }
