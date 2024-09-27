@@ -6,6 +6,7 @@ import {MultiStepForm} from "../../../../hooks/stepForm/multStepForm"
 import UserForm from "../../../../components/formMultSteps/userForm";
 import AddressForm from "@/components/formMultSteps/addressForm";
 import { FormProvider, useForm } from 'react-hook-form';
+import { useRouter } from "next/navigation";
 
 
 type FormData = {
@@ -33,6 +34,7 @@ const INITIAL_DATA: FormData = {
 }
 
 export default function SignUpUser() {
+  const router = useRouter();
 
   const methods = useForm<FormData>();
   const { handleSubmit } = methods;
@@ -51,11 +53,10 @@ export default function SignUpUser() {
   ])
 
   const onSubmit = (formData: FormData) => {
-    console.log("teste")
     if (currentStepIndex < steps.length - 1) {
       next();
     } else {
-      alert("Dados do formulário submetidos!");
+      router.push('/auth/signin/usuario');
     }
   };
 
@@ -101,7 +102,7 @@ export default function SignUpUser() {
             <button type = "submit" className={style.buttonContinuar}>
               {isLastStep ? "Finalizar" : "Continuar"}
             </button>
-            <a href = "/auth/signin/usuario">
+            <a className ={style.buttonJaTemConta} href = "/auth/signin/usuario">
               Já tem uma conta?<strong> Entrar</strong>
             </a>
           </div>
