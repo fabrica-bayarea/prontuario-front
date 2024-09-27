@@ -1,6 +1,7 @@
 'use client';
 import { api } from "@/services/api";
-import { setCookie } from "nookies";
+import Router from "next/router";
+import { destroyCookie, setCookie } from "nookies";
 import { createContext, ReactNode, useState} from "react";
 
 type User = {
@@ -17,6 +18,7 @@ type AuthContextData = {
   signIn(credentials: SignInCredentials): Promise<void>;
   user: User | null;
   isAuthenticated: boolean;
+  signOut:() => void;
 }
 
 type AuthProviderProps = {
@@ -25,6 +27,12 @@ type AuthProviderProps = {
 
 export const AuthContext = createContext({
 } as AuthContextData)
+
+export function signOut(){
+  destroyCookie(undefined, 'access_token');
+    
+  Router.push('/auth/signin/usuario');
+}
 
 export function AuthProvider({ children }: AuthProviderProps){
   const [user, setUser] = useState<User | null>(null);
@@ -40,9 +48,9 @@ export function AuthProvider({ children }: AuthProviderProps){
 
       const { access_token } = response.data;
 
-      setCookie(undefined, 'acess_token', access_token,{
+      setCookie(undefined, 'access_token', access_token,{
         maxAge: 60 * 60 * 24 * 30,
-        patch: '/'
+        path: '/'
       })
 
       setUser({
@@ -59,7 +67,7 @@ export function AuthProvider({ children }: AuthProviderProps){
   }
   
   return (
-    <AuthContext.Provider value={{signIn, isAuthenticated, user}}>
+    <AuthContext.Provider value={{signIn, signOut, isAuthenticated, user}}>
       {children}
     </AuthContext.Provider>
   )
