@@ -4,7 +4,9 @@ import style from "./style.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EventTable from "@/components/Tables/tableSubscribe/table";
 import { useRouter } from 'next/navigation';
-import { useRequireAuth } from "@/hooks/useRequireAuth/useRequireAuth";
+import { useContext } from "react";
+import { AuthContext } from "@/contexts/AuthContext";
+import { useCan } from "@/hooks/useCan/useCan";
 
 interface Event {
   id: number;
@@ -36,8 +38,11 @@ const events: Event[] = [
 
 export default function Home() {
   const router = useRouter();
+  const {user} = useContext(AuthContext)
 
-  useRequireAuth();
+  const userCan = useCan({
+    tipo: ['ADMINISTRADOR']
+  })
 
   const handleClick = () => {
     router.push("/programas");
@@ -48,7 +53,7 @@ export default function Home() {
       <div className={style.container}>
         <section className={style.sectionApresentacao}>
           <h1>
-            Olá <strong> Usuario </strong>
+            Olá <strong> {user?.tipo} </strong>
           </h1>
           <p>Precisa marcar uma nova consulta em um de nossos programas?</p>
           <button onClick={handleClick} className={style.buttonConsulta} type="button">
