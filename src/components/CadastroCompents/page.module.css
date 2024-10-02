@@ -1,0 +1,29 @@
+/* .cabeca{
+    display: flex;
+} */
+
+.header {
+    background-color: #e33737;
+    color: white;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header_left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .header_right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+  }
+  
+  .header_right h3:first-child {
+    color: #4f0707;
+  }

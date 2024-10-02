@@ -1,0 +1,105 @@
+
+.main{
+    display: flex;
+    height: 100vh;
+    min-width: 100vh;
+}
+.texto{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 40px;
+    gap: 5px;
+}
+.curse{
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: 900;
+    color: #E21515;
+}
+.left{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 410px;
+    background-color: #F6B6B6;
+
+    
+}
+.but{ 
+    background-color: #F6B6B6;
+    border: none;
+    position: relative;
+    margin-top: 10px;
+    position: absolute;
+    top: 200px;
+    left: 50px   
+}
+
+.right{
+    flex: 1;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.field{
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        height: 600px;
+        padding: 16px;
+        border: none;
+        box-sizing: border-box;
+}
+.field h1{
+    margin-bottom: 1em;
+}
+.field input{
+    padding: 1em;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    margin-bottom: 15px ;
+    border: 2px solid  #F6B6B6;
+    outline: none;
+
+}
+
+.field textarea{
+    width: 100%;
+    max-width: 420;
+    height: 300px;
+    resize: none;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 2px solid #F6B6B6;
+    font-size: 12px;
+
+}
+.field textarea::placeholder{
+    font-size: 20px;
+    padding-left: 16px;
+    padding-top: 10px;
+}
+
+.field button{
+    padding: 16px;
+    background-color: #AA1010;
+    border: none;
+    border-radius: 9px;
+    color: white;
+    font-size: 16px;
+}
+
+
+.option{
+    padding: 16px;
+    background: #FCE8E8;
+    border: 2px solid #FCE8E8;
+    margin-bottom: 15px;
+    
+}
