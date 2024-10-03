@@ -1,12 +1,13 @@
-'use client';
+"use client";
 import { api } from "@/services/api";
+import { jwtDecode } from "jwt-decode";
 import Router from "next/router";
-import { destroyCookie, setCookie } from "nookies";
-import { createContext, ReactNode, useState} from "react";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
+import { createContext, ReactNode, useEffect, useState} from "react";
 
 type User = {
-  email: string;
   access_token: string;
+  tipo: string;
 }
 
 type SignInCredentials = {
@@ -39,6 +40,17 @@ export function AuthProvider({ children }: AuthProviderProps){
 
   const isAuthenticated = !!user;
 
+  useEffect(() => {
+    const { access_token } = parseCookies();
+
+    if (access_token) {
+      const decodedToken: any = jwtDecode(access_token);
+      const { tipo } = decodedToken;
+
+      setUser({access_token, tipo });
+    }
+  }, []);
+
   async function signIn({email, senha}: SignInCredentials){
     try {
       const response = await api.post('auth/signin/usuario', {
@@ -53,14 +65,16 @@ export function AuthProvider({ children }: AuthProviderProps){
         path: '/'
       })
 
+      const decodedToken: any = jwtDecode(access_token);
+      const { tipo } = decodedToken;
+
       setUser({
-        email,
+        tipo,
         access_token,
       })
 
       api.defaults.headers['Authorization'] = `Bearer ${access_token}`;
 
-      console.log("Usuário autenticado:", { email, access_token });
     } catch (err){
       console.log(err)
     }

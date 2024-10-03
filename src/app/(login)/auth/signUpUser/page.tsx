@@ -7,9 +7,11 @@ import UserForm from "../../../../components/formMultSteps/userForm";
 import AddressForm from "@/components/formMultSteps/addressForm";
 import { FormProvider, useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
+import { api } from "@/services/api";
 
 
 type FormData = {
+  cpf: string;
   nome: string;
   sobrenome: string;
   email: string;
@@ -19,6 +21,7 @@ type FormData = {
   endereco: string;
   confirmaSenha: string;
   telefone: string;
+  tipo: string;
 };
 
 const INITIAL_DATA: FormData = {
@@ -31,6 +34,8 @@ const INITIAL_DATA: FormData = {
   endereco:'',
   confirmaSenha:'',
   telefone: '',
+  tipo: '',
+  cpf: ''
 }
 
 export default function SignUpUser() {
@@ -52,10 +57,22 @@ export default function SignUpUser() {
     <AddressForm key="addreesForm" {...data} atualizaCampos={atualizaCampos}/>
   ])
 
-  const onSubmit = (formData: FormData) => {
+  const onSubmit = async (formData: FormData) => {
+    const dataToSend = {
+      ...formData,
+      tipo: 'ADMINISTRADOR',
+      cpf: "133.456.789-10"
+    };
+    console.log(dataToSend); 
     if (currentStepIndex < steps.length - 1) {
       next();
     } else {
+      try {
+        const response = await api.post('auth/signup/usuario', dataToSend);
+        console.log(response.data);
+      } catch (error: any) {
+        console.log(error.response.data.message);
+      }
       router.push('/auth/signin/usuario');
     }
   };
