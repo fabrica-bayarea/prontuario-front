@@ -54,10 +54,6 @@ export default function UserForm({nome, sobrenome, cpf, email, senha, confirmaSe
         <input
           {...register("cpf", { 
             required: "CPF é obrigatório",
-            pattern: { 
-              value: /^\d{11}$/,
-              message: "CPF deve conter 11 dígitos"
-            }
           })}
           value={cpf}
           onChange={e => atualizaCampos({ cpf: e.target.value })}
