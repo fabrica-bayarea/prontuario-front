@@ -7,6 +7,7 @@ import { createContext, ReactNode, useEffect, useState} from "react";
 type User = {
   access_token: string;
   tipo: string;
+  nome?: string;
 }
 
 type SignInCredentials = {
@@ -61,12 +62,13 @@ export function AuthProvider({ children }: AuthProviderProps){
 
   async function signIn({email, senha}: SignInCredentials){
     try {
-      const response = await api.post('auth/signin/usuario', {
+      const response = await api.post('auth/signin', {
         email,
         senha
       });
 
-      const { access_token } = response.data;
+      const { access_token, usuario } = response.data;
+      const { nome } = usuario;
 
       setCookie(undefined, 'access_token', access_token,{
         maxAge: 60 * 60 * 24 * 30,
@@ -77,6 +79,7 @@ export function AuthProvider({ children }: AuthProviderProps){
       const { tipo } = decodedToken;
 
       setUser({
+        nome,
         tipo,
         access_token,
       })
@@ -88,22 +91,13 @@ export function AuthProvider({ children }: AuthProviderProps){
     }
   }
 
-  async function signUp({ nome, sobrenome, email, senha, cpf, cidade, cep, endereco, confirmaSenha,telefone }: SignUpCredentials) {
+  async function signUp(dataToSend: any) {
     try {
-      const response = await api.post('auth/signup/usuario', {
-        cpf,
-        nome,
-        sobrenome,
-        email,
-        senha,
-        cidade,
-        cep,
-        endereco,
-        confirmaSenha,
-        telefone,
+      const response = await api.post('auth/signup', {
+        dataToSend
       });
   
-      const { access_token } = response.data;
+      const { access_token, nome } = response.data;
   
       setCookie(undefined, 'access_token', access_token, {
         maxAge: 60 * 60 * 24 * 30,
@@ -114,6 +108,7 @@ export function AuthProvider({ children }: AuthProviderProps){
       const { tipo } = decodedToken;
   
       setUser({
+        nome,
         tipo,
         access_token,
       });
