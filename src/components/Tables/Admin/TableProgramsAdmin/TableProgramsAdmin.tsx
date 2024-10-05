@@ -1,7 +1,6 @@
 import { useState } from "react";
 import style from "./style.module.css";
 import Image from "next/image";
-import Modal from "@/components/Modal/modal";
 import HeaderTable from "@/components/HeaderTable/HeaderTable";
 
 interface ProgramaAPI  {
