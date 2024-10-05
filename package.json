@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"src/**/*.{tsx, ts}\" \"test/**/*.{tsx, ts}\""
+    "format": "prettier --write \"src/**/*.{tsx, ts}\" \"test/**/*.{tsx, ts}\"",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -29,6 +30,9 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "latest",
     "@types/react": "latest",
@@ -36,7 +40,10 @@
     "@types/react-input-mask": "^3.0.5",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "prettier": "^3.1.0",
+    "ts-node": "^10.9.2",
     "typescript": "latest"
   }
 }
