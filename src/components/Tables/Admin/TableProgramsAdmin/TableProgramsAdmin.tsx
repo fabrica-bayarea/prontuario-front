@@ -4,35 +4,38 @@ import Image from "next/image";
 import Modal from "@/components/Modal/modal";
 import HeaderTable from "@/components/HeaderTable/HeaderTable";
 
-interface Program {
+interface ProgramaAPI  {
   id: number;
-  name: string;
-  periodo: string;
+  nome: string;
   horario: string;
+  inicio: string; 
+  termino: string;
+  publicoAlvo: string;
+  descricao: string;
+  curso: string;
 }
 
 interface EventTableProps {
-  events: Program[];
-  onEdit: (program: Program ) => void;
+  events: ProgramaAPI [];
+  onEdit: (program: ProgramaAPI  ) => void;
   onDelete: (id: number) => void;
-  onView: (id: number) => void;
+  onView: (program: ProgramaAPI ) => void;
 }
 
 const TableProgramsAdmin: React.FC<EventTableProps> = ({ events, onEdit, onDelete, onView }) => {
-  const [subscribedEvents, setSubscribedEvents] = useState<number[]>([]);
-  const [open, setOpen] = useState<boolean>(false);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const filteredEvents = events.filter(event =>
-    event.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+    const formatPeriod = (inicio: string, termino: string) => {
+        const startDate = new Date(inicio);
+        const endDate = new Date(termino);
+        return `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`;
+    };
 
-  const handleSubscribe = (eventId: number) => {
-    if (!subscribedEvents.includes(eventId)) {
-      setSubscribedEvents(prev => [...prev, eventId]);
-    }
-  };
+    const filteredEvents = events.filter(event =>{
+        const name = event.nome || "";
+        return name.toLowerCase().includes(searchTerm.toLowerCase());}
+    );
 
   return (
     <div className={style.tableContainer}>
@@ -55,14 +58,14 @@ const TableProgramsAdmin: React.FC<EventTableProps> = ({ events, onEdit, onDelet
           <tbody className={style.colummBody}>
             {filteredEvents.map(event => (
               <tr key={event.id}>
-                <td className={style["name-column"]}>{event.name}</td>
-                <td>{event.periodo}</td>
+                <td className={style["name-column"]}>{event.nome}</td>
+                <td>{formatPeriod(event.inicio, event.termino)}</td>
                 <td>{event.horario}</td>
                 <td className={style["name-columnAncora"]}>
                     <div className ={style.containerActionsButton}>
 
                         <button className={style.actionButtonEdit}
-                                onClick={() => onEdit({ id: event.id, name: event.name, periodo: event.periodo, horario: event.horario })}
+                                onClick={() => onEdit(event)}
                             >
                             <Image
                                 src="/IconPencil.svg"
@@ -84,7 +87,7 @@ const TableProgramsAdmin: React.FC<EventTableProps> = ({ events, onEdit, onDelet
                         </button>
 
                         <button className={style.actionButtonView}
-                               
+                               onClick={() => onView(event)}
                             >
                             <Image
                                 src="/IconEye.svg"
