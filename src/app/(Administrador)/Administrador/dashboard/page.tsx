@@ -7,12 +7,19 @@ import ModalDelete from "@/components/modalsPagCurso/modalDelete";
 import ModalEdit from "@/components/modalsPagCurso/modalEditProgram";
 import { AuthContext } from "@/contexts/AuthContext";
 import TableProgramsAdmin from "@/components/Tables/Admin/TableProgramsAdmin/TableProgramsAdmin";
+import { api } from "@/services/api";
+import { toast } from "react-toastify";
+import ModalViewInfo from "@/components/modalView/modalView";
 
 interface Programa {
   id: number;
-  name: string;
-  periodo: string;
+  nome: string;
+  descricao: string;
+  curso: string;
+  inicio: string;
+  termino: string;
   horario: string;
+  publicoAlvo: string;
 }
 
 export default function PagCurso() {
@@ -24,26 +31,34 @@ export default function PagCurso() {
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState(false);
 
-  const [events, setEvents] = useState<Programa[]>([
-    {
-      id: 1,
-      name: "Projeto Observatório Socila e Fiscal",
-      periodo: "12/04/2024 - 10/05/2025",
-      horario: "11:00",
-    },
-    {
-      id: 2,
-      name: "Projeto Núcleo de Apoio Contábil e Fiscal",
-      periodo: "10/05/2024 - 10/05/2025",
-      horario: "11:00",
-    },
-    {
-      id: 3,
-      name: "Projeto Ação Solidária Covid-19",
-      periodo: "20/02/2024  - 10/05/2025",
-      horario: "11:00",
-    }
-  ]);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState<Programa | null>(null);
+
+  const openViewModal = (program: Programa) => {
+    setSelectedProgram(program);
+    setIsViewModalOpen(true);
+  };
+
+  const closeViewModal = () => {
+    setIsViewModalOpen(false);
+    setSelectedProgram(null);
+  };
+
+  const [events, setEvents] = useState<Programa[]>([]);
+
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const response = await api.get('/programas');
+        setEvents(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar programas:", error);
+      }
+    };
+
+    fetchPrograms();
+    setIsMounted(true);
+  }, []);
 
   const openAddModal = () => {
     setIsAddModalOpen(true);
@@ -73,28 +88,35 @@ export default function PagCurso() {
     setEditProgram(null);
   };
 
-  const handleSave = (name: string, date: string, time: string) => {
-    setEvents([
-      ...events,
-      {
-        id: events.length + 1,
-        name: name,
-        periodo: date,
-        horario: time,
-      },
-    ]);
-    closeAddModal();
-
-    // toast.success("Programa adicionado com sucesso!");
+  const handleSave = async (program: Omit<Programa, "id">) => {
+    
+    try {
+      const response = await api.post('/programas', program)
+      setEvents([
+        ...events, response.data
+      ]);
+      closeAddModal();
+      toast.success("Programa adicionado com sucesso!", {
+        position: "bottom-right"
+      });
+    } catch (error) {
+      console.log("Erro ao adicionar programa", error)
+    }
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (deleteId !== null) {
-      setEvents(events.filter(programa => programa.id !== deleteId));
+      try {
+        await api.delete(`/programas/${deleteId}`);
+        setEvents(events.filter(programa => programa.id !== deleteId));
+      } catch (error) {
+        console.error("Erro ao excluir programa:", error);
+      }
     }
     closeDeleteModal();
-
-    // toast.success("Programa excluído com sucesso!");
+    toast.success("Programa excluído com sucesso!", {
+      position: "bottom-right"
+    });
   };
 
   const handleCancelDelete = () => {
@@ -102,17 +124,28 @@ export default function PagCurso() {
     closeDeleteModal();
   };
 
-  const handleEdit = (id: number, name: string, date: string, time: string) => {
-    setEvents(
-      events.map(programa =>
-        programa.id === id
-          ? { id, name: name, periodo: date, horario: time }
-          : programa,
-      ),
-    );
-    closeEditModal();
+  const handleEdit = async(program: Omit<Programa, "id">) => {
+    if (editProgram) {
+      try {
+        const response = await api.put(`/programas/${editProgram.id}`, program);
+        const data = response.data;
+        
+        setEvents(events.map(programa => {
+          if (programa.id === data.id) {
+            return data;
+          }
+          return programa;
+        }));
+        
+        closeEditModal();
 
-    // toast.success("Programa editado com sucesso!");
+        toast.success("Programa editado!", {
+          position: "bottom-right"
+        });
+      } catch (error) {
+        console.error("Erro ao editar programa:", error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -140,9 +173,7 @@ export default function PagCurso() {
             events={events}
             onEdit={openEditModal}
             onDelete={openDeleteModal}
-            onView={()=> {
-              console.log("View");
-            }}
+            onView={openViewModal}
           />
       </section>
 
@@ -162,6 +193,12 @@ export default function PagCurso() {
         onClose={closeEditModal}
         onSubmit={handleEdit}
         program={editProgram}
+      />
+
+      <ModalViewInfo
+        isOpen={isViewModalOpen}
+        onClose={closeViewModal}
+        programInfo={selectedProgram}
       />
     </div>
   );
