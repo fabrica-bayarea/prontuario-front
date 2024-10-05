@@ -4,6 +4,9 @@ import { Header } from '@/components/Header/Header';
 import { Can } from "@/components/Can/Can";
 import "../../app/globals.css";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function LoginLayout({
   children,
 }: {
@@ -13,6 +16,7 @@ export default function LoginLayout({
     <Can tipo={["ADMINISTRADOR"]}>
       <Header />
       <main>
+      <ToastContainer />
         <AuthProvider>{children}</AuthProvider>
       </main>
     </Can>
