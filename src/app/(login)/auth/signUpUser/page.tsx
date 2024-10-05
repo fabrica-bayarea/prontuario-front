@@ -1,13 +1,14 @@
 'use client';
 import style from "./style.module.css";
 import Image from "next/image";
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {MultiStepForm} from "../../../../hooks/stepForm/multStepForm"
 import UserForm from "../../../../components/formMultSteps/userForm";
 import AddressForm from "@/components/formMultSteps/addressForm";
 import { FormProvider, useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
 import { api } from "@/services/api";
+import { AuthContext } from "@/contexts/AuthContext";
 
 
 type FormData = {
@@ -39,6 +40,7 @@ const INITIAL_DATA: FormData = {
 }
 
 export default function SignUpUser() {
+  const { signUp } = useContext(AuthContext);
   const router = useRouter();
 
   const methods = useForm<FormData>();
@@ -61,15 +63,13 @@ export default function SignUpUser() {
     const dataToSend = {
       ...formData,
       tipo: 'ADMINISTRADOR',
-      cpf: "133.456.789-10"
     };
     console.log(dataToSend); 
     if (currentStepIndex < steps.length - 1) {
       next();
     } else {
       try {
-        const response = await api.post('auth/signup/usuario', dataToSend);
-        console.log(response.data);
+        await signUp(dataToSend);
       } catch (error: any) {
         console.log(error.response.data.message);
       }

@@ -14,8 +14,22 @@ type SignInCredentials = {
   senha: string;
 }
 
+type SignUpCredentials = {
+  cpf: string;
+  nome: string;
+  sobrenome: string;
+  email: string;
+  senha: string;
+  cidade: string;
+  cep: string;
+  endereco: string;
+  confirmaSenha: string;
+  telefone: string;
+};
+
 type AuthContextData = {
   signIn(credentials: SignInCredentials): Promise<void>;
+  signUp(credentials: SignUpCredentials): Promise<void>; 
   user: User | null;
   isAuthenticated: boolean;
   signOut:() => void;
@@ -74,6 +88,45 @@ export function AuthProvider({ children }: AuthProviderProps){
     }
   }
 
+  async function signUp({ nome, sobrenome, email, senha, cpf, cidade, cep, endereco, confirmaSenha,telefone }: SignUpCredentials) {
+    try {
+      const response = await api.post('auth/signup/usuario', {
+        cpf,
+        nome,
+        sobrenome,
+        email,
+        senha,
+        cidade,
+        cep,
+        endereco,
+        confirmaSenha,
+        telefone,
+      });
+  
+      const { access_token } = response.data;
+  
+      setCookie(undefined, 'access_token', access_token, {
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/',
+      });
+  
+      const decodedToken: any = jwtDecode(access_token);
+      const { tipo } = decodedToken;
+  
+      setUser({
+        tipo,
+        access_token,
+      });
+  
+      api.defaults.headers['Authorization'] = `Bearer ${access_token}`;
+  
+      router.push('/Administrador/dashboard');
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  
+
   function signOut(){
     destroyCookie(undefined, 'access_token', {path: '/'});
     
@@ -81,7 +134,7 @@ export function AuthProvider({ children }: AuthProviderProps){
   }
   
   return (
-    <AuthContext.Provider value={{signIn, signOut, isAuthenticated, user}}>
+    <AuthContext.Provider value={{signIn, signUp, signOut, isAuthenticated, user}}>
       {children}
     </AuthContext.Provider>
   )
