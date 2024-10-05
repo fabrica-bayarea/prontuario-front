@@ -2,9 +2,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import style from "./style.module.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export function Header() {
+  const { signOut } = useContext(AuthContext);
+
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const Menu = ['Conta', 'Sair'];
@@ -53,14 +56,22 @@ export function Header() {
         {open && (
           <div className={style.dropdownMenuContainer}>
             <ul className={style.dropdownMenu}>
-              {Menu.map((menu, index) => (
-                <Link className = {style.dropdownMenuButtonLink} href={menu === 'Conta' ? '/conta' : '/auth/signin/usuario'} passHref key={index}>
-                <li className={style.dropdownMenuButton}>
-                  {menu}
-                </li>
-                </Link>
-              ))}
-            </ul>
+                {Menu.map((menu, index) => (
+                  <li
+                    key={index}
+                    className={style.dropdownMenuButton}
+                    onClick={menu === 'Sair' ? signOut : undefined}
+                  >
+                    {menu === 'Conta' ? (
+                      <Link href="/conta" className={style.dropdownMenuButtonLink}>
+                        {menu}
+                      </Link>
+                    ) : (
+                      menu
+                    )}
+                  </li>
+                ))}
+              </ul>
           </div>
         )}
         </div>

@@ -1,7 +1,6 @@
-"use client";
 import { api } from "@/services/api";
 import { jwtDecode } from "jwt-decode";
-import Router from "next/router";
+import {useRouter} from "next/navigation";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { createContext, ReactNode, useEffect, useState} from "react";
 
@@ -29,13 +28,8 @@ type AuthProviderProps = {
 export const AuthContext = createContext({
 } as AuthContextData)
 
-export function signOut(){
-  destroyCookie(undefined, 'access_token');
-    
-  Router.push('/auth/signin/usuario');
-}
-
 export function AuthProvider({ children }: AuthProviderProps){
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
 
   const isAuthenticated = !!user;
@@ -78,6 +72,12 @@ export function AuthProvider({ children }: AuthProviderProps){
     } catch (err){
       console.log(err)
     }
+  }
+
+  function signOut(){
+    destroyCookie(undefined, 'access_token', {path: '/'});
+    
+    router.push('/auth/signin/usuario');
   }
   
   return (
