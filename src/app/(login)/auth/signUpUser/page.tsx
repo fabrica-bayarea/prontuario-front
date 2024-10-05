@@ -7,9 +7,7 @@ import UserForm from "../../../../components/formMultSteps/userForm";
 import AddressForm from "@/components/formMultSteps/addressForm";
 import { FormProvider, useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
-import { api } from "@/services/api";
 import { AuthContext } from "@/contexts/AuthContext";
-
 
 type FormData = {
   cpf: string;
@@ -62,7 +60,6 @@ export default function SignUpUser() {
   const onSubmit = async (formData: FormData) => {
     const dataToSend = {
       ...formData,
-      tipo: 'ADMINISTRADOR',
     };
     console.log(dataToSend); 
     if (currentStepIndex < steps.length - 1) {
@@ -73,7 +70,7 @@ export default function SignUpUser() {
       } catch (error: any) {
         console.log(error.response.data.message);
       }
-      router.push('/auth/signin/usuario');
+      router.push('/home');
     }
   };
 
