@@ -2,9 +2,9 @@
 
 import style from "./page.module.css";
 import React, { useState, useEffect, useContext } from "react";
-import ModalAddProgram from "@/components/modalsPagCurso/modalAddProgram";
-import ModalDelete from "@/components/modalsPagCurso/modalDelete";
-import ModalEdit from "@/components/modalsPagCurso/modalEditProgram";
+import ModalAddProgram from "@/components/modalAddProgram/modalAddProgram";
+import ModalDelete from "@/components/modalDelete/modalDelete";
+import ModalEdit from "@/components/modalEditProgram/modalEditProgram";
 import { AuthContext } from "@/contexts/AuthContext";
 import TableProgramsAdmin from "@/components/Tables/Admin/TableProgramsAdmin/TableProgramsAdmin";
 import { api } from "@/services/api";
