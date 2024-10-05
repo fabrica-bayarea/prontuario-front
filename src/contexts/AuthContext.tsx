@@ -7,6 +7,7 @@ import { createContext, ReactNode, useEffect, useState} from "react";
 type User = {
   access_token: string;
   tipo: string;
+  nome?: string;
 }
 
 type SignInCredentials = {
@@ -14,8 +15,22 @@ type SignInCredentials = {
   senha: string;
 }
 
+type SignUpCredentials = {
+  cpf: string;
+  nome: string;
+  sobrenome: string;
+  email: string;
+  senha: string;
+  cidade: string;
+  cep: string;
+  endereco: string;
+  confirmaSenha: string;
+  telefone: string;
+};
+
 type AuthContextData = {
   signIn(credentials: SignInCredentials): Promise<void>;
+  signUp(credentials: SignUpCredentials): Promise<void>; 
   user: User | null;
   isAuthenticated: boolean;
   signOut:() => void;
@@ -47,12 +62,13 @@ export function AuthProvider({ children }: AuthProviderProps){
 
   async function signIn({email, senha}: SignInCredentials){
     try {
-      const response = await api.post('auth/signin/usuario', {
+      const response = await api.post('auth/signin', {
         email,
         senha
       });
 
-      const { access_token } = response.data;
+      const { access_token, usuario } = response.data;
+      const { nome } = usuario;
 
       setCookie(undefined, 'access_token', access_token,{
         maxAge: 60 * 60 * 24 * 30,
@@ -63,6 +79,7 @@ export function AuthProvider({ children }: AuthProviderProps){
       const { tipo } = decodedToken;
 
       setUser({
+        nome,
         tipo,
         access_token,
       })
@@ -74,6 +91,37 @@ export function AuthProvider({ children }: AuthProviderProps){
     }
   }
 
+  async function signUp(dataToSend: any) {
+    try {
+      const response = await api.post('auth/signup', {
+        dataToSend
+      });
+  
+      const { access_token, nome } = response.data;
+  
+      setCookie(undefined, 'access_token', access_token, {
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/',
+      });
+  
+      const decodedToken: any = jwtDecode(access_token);
+      const { tipo } = decodedToken;
+  
+      setUser({
+        nome,
+        tipo,
+        access_token,
+      });
+  
+      api.defaults.headers['Authorization'] = `Bearer ${access_token}`;
+  
+      router.push('/Administrador/dashboard');
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  
+
   function signOut(){
     destroyCookie(undefined, 'access_token', {path: '/'});
     
@@ -81,7 +129,7 @@ export function AuthProvider({ children }: AuthProviderProps){
   }
   
   return (
-    <AuthContext.Provider value={{signIn, signOut, isAuthenticated, user}}>
+    <AuthContext.Provider value={{signIn, signUp, signOut, isAuthenticated, user}}>
       {children}
     </AuthContext.Provider>
   )
