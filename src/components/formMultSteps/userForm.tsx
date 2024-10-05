@@ -8,13 +8,14 @@ type UserData = {
   email: string;
   senha: string; 
   confirmaSenha: string;
+  cpf: string;
 }
 
 type UserFormProps = UserData & {
   atualizaCampos: (fields: Partial<UserData>) => void
 }
 
-export default function UserForm({nome, sobrenome, email, senha, confirmaSenha,atualizaCampos}: UserFormProps) {
+export default function UserForm({nome, sobrenome, cpf, email, senha, confirmaSenha,atualizaCampos}: UserFormProps) {
 
   const { register, formState: { errors }, watch} = useFormContext();
   const watchSenha = watch("senha");
@@ -47,6 +48,24 @@ export default function UserForm({nome, sobrenome, email, senha, confirmaSenha,a
           placeholder="Sobrenome"
         />
         {errors.sobrenome && <p className={style.error}>{errors.sobrenome.message as string}</p>}
+      </div>
+
+      <div className={style.envolve__input__errors}>
+        <input
+          {...register("cpf", { 
+            required: "CPF é obrigatório",
+            pattern: { 
+              value: /^\d{11}$/,
+              message: "CPF deve conter 11 dígitos"
+            }
+          })}
+          value={cpf}
+          onChange={e => atualizaCampos({ cpf: e.target.value })}
+          className={style.formulario__input}
+          type="text"
+          placeholder="CPF"
+        />
+        {errors.cpf && <p className={style.error}>{errors.cpf.message as string}</p>}
       </div>
       
       <div className={style.envolve__input__errors}>
