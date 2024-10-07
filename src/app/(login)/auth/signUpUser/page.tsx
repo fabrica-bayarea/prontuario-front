@@ -70,7 +70,6 @@ export default function SignUpUser() {
       } catch (error: any) {
         console.log(error.response.data.message);
       }
-      router.push('/home');
     }
   };
 

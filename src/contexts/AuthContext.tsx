@@ -86,6 +86,14 @@ export function AuthProvider({ children }: AuthProviderProps){
 
       api.defaults.headers['Authorization'] = `Bearer ${access_token}`;
 
+      if (tipo === 'ADMINISTRADOR') {
+        router.push('/Administrador/dashboard');
+      } 
+      
+      if (tipo === 'BENEFICIARIO') {
+        router.push('/home');
+      }
+
     } catch (err){
       console.log(err)
     }
@@ -113,7 +121,14 @@ export function AuthProvider({ children }: AuthProviderProps){
   
       api.defaults.headers['Authorization'] = `Bearer ${access_token}`;
   
-      router.push('/Administrador/dashboard');
+      if (tipo === 'ADMINISTRADOR') {
+        router.push('/Administrador/dashboard');
+      } 
+      
+      if (tipo === 'BENEFICIARIO') {
+        router.push('/home');
+      }
+
     } catch (err) {
       console.error(err);
     }
