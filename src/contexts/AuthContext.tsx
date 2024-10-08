@@ -93,9 +93,7 @@ export function AuthProvider({ children }: AuthProviderProps){
 
   async function signUp(dataToSend: any) {
     try {
-      const response = await api.post('auth/signup', {
-        dataToSend
-      });
+      const response = await api.post('auth/signup', dataToSend);
   
       const { access_token, nome } = response.data;
   
