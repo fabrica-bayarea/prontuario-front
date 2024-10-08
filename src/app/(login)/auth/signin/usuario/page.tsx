@@ -22,7 +22,6 @@ export default function Sigin(){
     const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => { 
         try {
             await signIn(data);
-            router.push("/home");
         } catch (error: any) {
             setError(error.message);
         }

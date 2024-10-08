@@ -8,26 +8,6 @@ export function middleware(request: NextRequest) {
   if (!token) {
     return NextResponse.redirect(new URL('/auth/signin/usuario', request.url));
   }
-  
-  try {
-    const decodedToken: any = jwtDecode(token.value);
-
-    if (decodedToken.tipo === 'BENEFICIARIO') {
-
-      if (request.nextUrl.pathname !== '/home') {
-        return NextResponse.redirect(new URL('/home', request.url));
-      }
-    } else if (decodedToken.tipo === 'ADMINISTRADOR') {
-
-      if (request.nextUrl.pathname !== '/Administrador/dashboard') {
-        return NextResponse.redirect(new URL('Administrador/dashboard', request.url));
-      }
-
-    }
-
-  } catch (error) {
-    return NextResponse.redirect(new URL('/auth/signin/usuario', request.url));
-  }
 
   return NextResponse.next();
 }
