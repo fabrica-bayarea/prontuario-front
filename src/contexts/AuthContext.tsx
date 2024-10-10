@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import {useRouter} from "next/navigation";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { createContext, ReactNode, useEffect, useState} from "react";
+import { toast } from "react-toastify";
 
 type User = {
   access_token: string;
@@ -121,16 +122,21 @@ export function AuthProvider({ children }: AuthProviderProps){
   
       api.defaults.headers['Authorization'] = `Bearer ${access_token}`;
   
-      if (tipo === 'ADMINISTRADOR') {
-        router.push('/Administrador/dashboard');
-      } 
-      
-      if (tipo === 'BENEFICIARIO') {
-        router.push('/home');
-      }
+      const loadingToast = toast.loading("Redirecionando para sua dashboard...");
+      setTimeout(() => {
+        toast.dismiss(loadingToast);
+  
+        if (tipo === 'ADMINISTRADOR') {
+          router.push('/Administrador/dashboard');
+        } else if (tipo === 'BENEFICIARIO') {
+          router.push('/home');
+        }
+      }, 2000);
 
     } catch (err) {
       console.error(err);
+
+      throw err
     }
   }
   
