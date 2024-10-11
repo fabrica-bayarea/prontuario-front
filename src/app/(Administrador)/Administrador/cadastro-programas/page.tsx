@@ -1,61 +1,111 @@
 "use client";
 
+interface Curso {
+  id: number;
+  nome: string;
+}
+
 import React, { useState, useEffect } from "react";
 import styles from "./page.module.css";
-import Head from "@/components/headerAllPages/Header";
 import Image from "next/image";
-import Teguetegozoios from "@/components/calendar/Calendar";
+import { api } from "@/services/api";
 
 export default function Home() {
+  const [cursos, setCursos] = useState<Curso[]>([]);
+  const [selectedCourses, setSelectedCourses] = useState<string[]>([
+    "Curso de Marketing",
+    "Curso de Programação",
+  ]);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  useEffect(()=> {
+    const fethCursos = async () => {
+      try {
+        const response = await api.get("/cursos");
+        const data = response.data;
+        setCursos(data);
+      } catch (error) {
+        console.error("Erro ao buscar cursos:", error);
+      }
+    }
+
+    fethCursos();
+  }, []);
+
   if (!isMounted) return null;
+
+  const handleAddCourse = (event: { target: { value: any; }; }) => {
+    const selectedCourse = event.target.value;
+    if (selectedCourse && !selectedCourses.includes(selectedCourse)) {
+      setSelectedCourses([...selectedCourses, selectedCourse]);
+    }
+  };
+
+  const handleRemoveCourse = (courseToRemove: any) => {
+    setSelectedCourses(
+      selectedCourses.filter((course) => course !== courseToRemove)
+    );
+  };
 
   return (
     <>
-      <Head />
       <main className={styles.main}>
-        <div className={styles.left}>
+
+        <section className={styles.left}>
           <button>
             <Image
-              src="/btn_voltar.svg"
+              src="/arrow-left.svg"
               alt="Botão de voltar"
-              width={38}
-              height={38}
+              width={16}
+              height={16}
             />
           </button>
           <h3>Prontuário</h3>
           <h1>
-            Crie ou edite um novo{" "}
-            <span className={styles.redText} style={{ display: "block" }}>
-              Programa
-            </span>
+            Crie ou edite um novo <br/> <strong>Programa</strong>
           </h1>
           <Image
-            src="/Illustração.svg"
+            src="/Illustração-cadastro-programas.svg"
             alt="Imagem de um homem com um caderno"
             width={500}
             height={500}
           />
-        </div>
+        </section>
 
-        <div className={styles.right}>
-          <h2>Informações</h2>
+        <section className={styles.right}>
           <form>
+          <h2>Informações</h2>
             <input
               type="text"
               id="name"
               name="name"
-              placeholder="Nome"
+              placeholder="Nome do Programa"
               className={styles.inputsForm}
               required
             />
 
-            <Teguetegozoios />
+            <input
+              type="text"
+              id="dataDeInicio"
+              name="dataDeInicio"
+              placeholder="Data de Início"
+              className={styles.inputsForm}
+              required
+            />
+
+            
+            <input
+              type="text"
+              id="dataFinal"
+              name="dataFinal"
+              placeholder="Data Final"
+              className={styles.inputsForm}
+              required
+            />
 
             <input
               type="text"
@@ -87,11 +137,67 @@ export default function Home() {
               required
             ></textarea>
 
-            <button type="submit" className={styles.btnSubmit}>
-              Adicionar
+
+            <select
+              id="curso"
+              name="curso"
+              className={styles.selectHours}
+              required
+              onChange={handleAddCourse}
+            >
+            <option value="">Cursos relacionados</option>
+
+            {cursos.map(curso => (
+              <option key={curso.id} value={curso.nome}>
+                {curso.nome}
+              </option>
+            ))}
+            </select>
+
+            <div>
+            {selectedCourses.map((course, index) => (
+          <span
+            key={index}
+            style={{
+              display: 'inline-block',
+              margin: '5px',
+              padding: '5px 10px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              backgroundColor: '#f0f0f0',
+              position: 'relative',
+            }}
+          >
+            {course}
+            <button
+              onClick={() => handleRemoveCourse(course)}
+              style={{
+                marginLeft: '10px',
+                background: 'red',
+                color: 'white',
+                border: 'none',
+                borderRadius: '50%',
+                padding: '0 8px',
+                cursor: 'pointer',
+                position: 'absolute',
+                top: '2px',
+                right: '2px',
+              }}
+            >
+              x
             </button>
+          </span>
+            ))}
+          </div>
+            
+
+          <button type="submit" className={styles.btnSubmit}>
+              Adicionar
+          </button>
+
           </form>
-        </div>
+        </section>
+
       </main>
     </>
   );
