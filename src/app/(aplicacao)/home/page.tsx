@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useCan } from "@/hooks/useCan/useCan";
+import { parseCookies } from "nookies";
 
 interface Event {
   id: number;
@@ -38,11 +39,7 @@ const events: Event[] = [
 
 export default function Home() {
   const router = useRouter();
-  const {user} = useContext(AuthContext)
-
-  const userCan = useCan({
-    tipo: ['ADMINISTRADOR']
-  })
+  const {nome} = parseCookies();
 
   const handleClick = () => {
     router.push("/programas");
@@ -53,7 +50,7 @@ export default function Home() {
       <div className={style.container}>
         <section className={style.sectionApresentacao}>
           <h1>
-            Olá <strong> {user?.tipo} </strong>
+            Olá <strong> {nome} </strong>
           </h1>
           <p>Precisa marcar uma nova consulta em um de nossos programas?</p>
           <button onClick={handleClick} className={style.buttonConsulta} type="button">

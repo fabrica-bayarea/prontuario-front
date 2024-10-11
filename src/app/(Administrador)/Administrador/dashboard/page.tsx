@@ -5,11 +5,11 @@ import React, { useState, useEffect, useContext } from "react";
 import ModalAddProgram from "@/components/modalAddProgram/modalAddProgram";
 import ModalDelete from "@/components/modalDelete/modalDelete";
 import ModalEdit from "@/components/modalEditProgram/modalEditProgram";
-import { AuthContext } from "@/contexts/AuthContext";
 import TableProgramsAdmin from "@/components/Tables/Admin/TableProgramsAdmin/TableProgramsAdmin";
+import ModalViewInfo from "@/components/modalView/modalView";
 import { api } from "@/services/api";
 import { toast } from "react-toastify";
-import ModalViewInfo from "@/components/modalView/modalView";
+import { parseCookies } from "nookies";
 
 interface Programa {
   id: number;
@@ -23,7 +23,8 @@ interface Programa {
 }
 
 export default function PagCurso() {
-  const {user} = useContext(AuthContext);
+  const { nome } = parseCookies();
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -159,7 +160,7 @@ export default function PagCurso() {
       <section className={style.section}>
         <div className ={style.sectionApresentacao}>
           <h1>
-            Olá <strong>{user?.tipo}</strong>
+            Olá <strong>{nome}</strong>
           </h1>
           <p>Gerencie e cadastre novos programas</p>
         </div>
