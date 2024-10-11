@@ -1,4 +1,5 @@
 "use client";
+import InputMask from "react-input-mask";
 import style from "../../app/(login)/auth/signUpUser/style.module.css";
 import { useFormContext } from 'react-hook-form';
 
@@ -51,11 +52,12 @@ export default function UserForm({nome, sobrenome, cpf, email, senha, confirmaSe
       </div>
 
       <div className={style.envolve__input__errors}>
-        <input
+        <InputMask
           {...register("cpf", { 
             required: "CPF é obrigatório",
             pattern: {value: /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/, message: "CPF inválido"}
           })}
+          mask="999.999.999-99"
           value={cpf}
           onChange={e => atualizaCampos({ cpf: e.target.value })}
           className={style.formulario__input}
