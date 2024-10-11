@@ -122,7 +122,7 @@ export function AuthProvider({ children }: AuthProviderProps){
   
       api.defaults.headers['Authorization'] = `Bearer ${access_token}`;
   
-      const loadingToast = toast.loading("Redirecionando para sua dashboard...");
+      const loadingToast = toast.loading("Redirecionando para a página inicial...");
       setTimeout(() => {
         toast.dismiss(loadingToast);
   
