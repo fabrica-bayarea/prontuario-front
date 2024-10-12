@@ -1,7 +1,6 @@
 "use client";
 
 interface Curso {
-  id: number;
   nome: string;
 }
 
@@ -9,13 +8,20 @@ import React, { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { api } from "@/services/api";
+import { toast } from "react-toastify";
 
 export default function Home() {
+  const [formData, setFormData] = useState({
+    nome: "",
+    descricao: "",
+    curso: "",
+    inicio: "",
+    termino: "",
+    horario: "",
+    publicoAlvo: "",
+  })
   const [cursos, setCursos] = useState<Curso[]>([]);
-  const [selectedCourses, setSelectedCourses] = useState<string[]>([
-    "Curso de Marketing",
-    "Curso de Programação",
-  ]);
+  const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -38,7 +44,7 @@ export default function Home() {
 
   if (!isMounted) return null;
 
-  const handleAddCourse = (event: { target: { value: any; }; }) => {
+  const handleAddCourse = (event: React.ChangeEvent<HTMLSelectElement>)=> {
     const selectedCourse = event.target.value;
     if (selectedCourse && !selectedCourses.includes(selectedCourse)) {
       setSelectedCourses([...selectedCourses, selectedCourse]);
@@ -51,10 +57,34 @@ export default function Home() {
     );
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const data = {
+        ...formData,
+      inicio: new Date(formData.inicio).toISOString(),
+      termino: new Date(formData.termino).toISOString(), 
+      curso: selectedCourses[0], 
+    };
+
+    try {
+      await api.post("/programas", data);
+      toast.success("Programa cadastrado com sucesso!");
+    } catch (error) {
+      toast.error("Erro ao cadastrar programa");
+    }
+  };
+
   return (
     <>
       <main className={styles.main}>
-
         <section className={styles.left}>
           <button>
             <Image
@@ -66,7 +96,7 @@ export default function Home() {
           </button>
           <h3>Prontuário</h3>
           <h1>
-            Crie ou edite um novo <br/> <strong>Programa</strong>
+            Crie ou edite um novo <br /> <strong>Programa</strong>
           </h1>
           <Image
             src="/Illustração-cadastro-programas.svg"
@@ -77,32 +107,35 @@ export default function Home() {
         </section>
 
         <section className={styles.right}>
-          <form>
-          <h2>Informações</h2>
+          <form onSubmit={handleSubmit}>
+            <h2>Informações do programa</h2>
             <input
               type="text"
               id="name"
-              name="name"
+              name="nome"
               placeholder="Nome do Programa"
+              value={formData.nome}
+              onChange={handleInputChange}
               className={styles.inputsForm}
               required
             />
 
             <input
-              type="text"
+              type="date"
               id="dataDeInicio"
-              name="dataDeInicio"
-              placeholder="Data de Início"
+              name="inicio"
+              value={formData.inicio}
+              onChange={handleInputChange}
               className={styles.inputsForm}
               required
             />
 
-            
             <input
-              type="text"
+              type="date"
               id="dataFinal"
-              name="dataFinal"
-              placeholder="Data Final"
+              name="termino"
+              value={formData.termino}
+              onChange={handleInputChange}
               className={styles.inputsForm}
               required
             />
@@ -112,6 +145,8 @@ export default function Home() {
               id="publicoAlvo"
               name="publicoAlvo"
               placeholder="Público alvo"
+              value={formData.publicoAlvo}
+              onChange={handleInputChange}
               className={styles.inputsForm}
               required
             />
@@ -119,6 +154,8 @@ export default function Home() {
             <select
               id="horario"
               name="horario"
+              value={formData.horario}
+              onChange={handleInputChange}
               className={styles.selectHours}
               required
             >
@@ -132,72 +169,46 @@ export default function Home() {
 
             <textarea
               id="informacoes"
-              name="informacoes"
+              name="descricao"
               placeholder="Informações sobre o evento"
               required
+              value={formData.descricao}
+              onChange={handleInputChange}
             ></textarea>
-
 
             <select
               id="curso"
               name="curso"
-              className={styles.selectHours}
+              className={styles.selectCourses}
               required
               onChange={handleAddCourse}
             >
-            <option value="">Cursos relacionados</option>
+              <option value="">Cursos relacionados</option>
 
-            {cursos.map(curso => (
-              <option key={curso.id} value={curso.nome}>
-                {curso.nome}
-              </option>
-            ))}
+              {cursos.map(curso => (
+                <option key={curso.nome} value={curso.nome}>
+                  {curso.nome}
+                </option>
+              ))}
             </select>
 
-            <div>
-            {selectedCourses.map((course, index) => (
-          <span
-            key={index}
-            style={{
-              display: 'inline-block',
-              margin: '5px',
-              padding: '5px 10px',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-              backgroundColor: '#f0f0f0',
-              position: 'relative',
-            }}
-          >
-            {course}
-            <button
-              onClick={() => handleRemoveCourse(course)}
-              style={{
-                marginLeft: '10px',
-                background: 'red',
-                color: 'white',
-                border: 'none',
-                borderRadius: '50%',
-                padding: '0 8px',
-                cursor: 'pointer',
-                position: 'absolute',
-                top: '2px',
-                right: '2px',
-              }}
-            >
-              x
-            </button>
-          </span>
-            ))}
-          </div>
-            
+            <div className={styles.containerCourses}>
+              {selectedCourses.map((course, index) => (
+                <span
+                  key={index}
+                className={styles.selectedCourses}
+                >
+                  {course}
+                  <button className={styles.bntRemoveCourse} onClick={() => handleRemoveCourse(course)}>x</button>
+                </span>
+              ))}
+            </div>
 
-          <button type="submit" className={styles.btnSubmit}>
+            <button type="submit" className={styles.btnSubmit}>
               Adicionar
-          </button>
-
+            </button>
           </form>
         </section>
-
       </main>
     </>
   );
