@@ -107,6 +107,7 @@ export default function Home() {
             Crie ou edite um novo <br /> <strong>Programa</strong>
           </h1>
           <Image
+            className={styles.illustrationImage}
             src="/Illustração-cadastro-programas.svg"
             alt="Imagem de um homem com um caderno"
             width={500}

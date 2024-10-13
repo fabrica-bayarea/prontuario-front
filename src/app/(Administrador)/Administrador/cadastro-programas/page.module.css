@@ -1,21 +1,22 @@
 .main {
   display: flex;
-  height: 100vh;
-  overflow-y: hidden;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .left {
   display: flex;
   flex-direction: column;
   flex: 1;
-  width: 610px;
-  height: 100%;
-  max-width: 610px;  
+
+  max-width: 35%;  
+  box-sizing: content-box;
+  justify-content: flex-start;
 
   background-color: #f6b6b6;
   padding-left: 55px;
   padding-right: 55px;
-  padding-top: 55px;
+  padding-top: 75px;
   gap: 1rem;
 }
 
@@ -26,7 +27,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
 
   background-color: var(--pink-700);
   border-radius: 100%;
@@ -47,8 +47,12 @@
 
 .left h1 {
   color:  var(--pink-1000);
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 450;
+}
+
+.illustrationImage {
+  max-width: 100%;
 }
 
 .right {
@@ -56,15 +60,19 @@
   flex-direction: column;
   flex: 1;
   gap: 1rem;
-  height: 100%;
+
+  max-width: 580px;
+  margin: 0 auto;
+  box-sizing: content-box;
+  
+  justify-content: flex-start;
+  align-items: center;
 
   padding-left: 55px;
   padding-right: 55px;
   padding-bottom: 55px;
   padding-top: 75px;
   
-  justify-content: center;
-  align-items: center;
   background-color: #ffffff;
   
   scrollbar-width: none;
@@ -76,7 +84,7 @@
 }
 
 .ContainerForm{
-  width: 580px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -86,8 +94,8 @@
 .ContainerForm h2 {
   color: var(--pink-500);
   font-weight: 700;
-  font-size: 28px;
-  margin-bottom: 10px;
+  font-size: 1.75rem;
+  margin-top: 0%;
 }
 
 .ContainerInputs {
@@ -265,7 +273,7 @@
   background-color: var(--pink-300);
   border-radius: 10px;
 
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--pink-600);
   font-weight: 600;
 }
@@ -278,7 +286,7 @@
   border-radius: 100%;
   border: none;
 
-  font-size: 14px;
+  font-size: 0.86rem;
   font-weight: 600;
   color: var(--pink-100);
 
@@ -287,4 +295,34 @@
 
 .bntRemoveCourse:hover{
   background-color: var(--pink-800);
+}
+
+@media(max-width: 720px){
+  .main {
+    flex-direction: column;
+  }
+
+  .left {
+    max-width: 100%;
+    justify-content: flex-start;
+    padding: 55px;
+    flex-direction: row;
+    gap: 22px;
+  }
+  
+  .left h3 {
+    display: none;
+  }
+
+  .illustrationImage {
+    display: none;
+  }
+
+   .right {
+    margin: 0;
+  } 
+
+  .ContainerInputsDate {
+    flex-direction: column;
+  }
 }
