@@ -1,7 +1,7 @@
 "use client";
 
 import style from "./page.module.css";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import ModalAddProgram from "@/components/modalAddProgram/modalAddProgram";
 import ModalDelete from "@/components/modalDelete/modalDelete";
 import ModalEdit from "@/components/modalEditProgram/modalEditProgram";
@@ -10,6 +10,7 @@ import ModalViewInfo from "@/components/modalView/modalView";
 import { api } from "@/services/api";
 import { toast } from "react-toastify";
 import { parseCookies } from "nookies";
+import { useRouter } from "next/navigation";
 
 interface Programa {
   id: number;
@@ -23,6 +24,7 @@ interface Programa {
 }
 
 export default function PagCurso() {
+  const router = useRouter()
   const { nome } = parseCookies();
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -164,7 +166,7 @@ export default function PagCurso() {
           </h1>
           <p>Gerencie e cadastre novos programas</p>
         </div>
-        <button className={style.btnAddProgram} onClick={openAddModal}>
+        <button className={style.btnAddProgram} onClick={()=>router.push("./cadastro-programas")}>
           Adicionar novo Programa
         </button>
       </section>
