@@ -125,12 +125,15 @@ export function AuthProvider({ children }: AuthProviderProps){
       const loadingToast = toast.loading("Redirecionando para a página inicial...");
       setTimeout(() => {
         toast.dismiss(loadingToast);
-  
+
         if (tipo === 'ADMINISTRADOR') {
           router.push('/Administrador/dashboard');
-        } else if (tipo === 'BENEFICIARIO') {
+        } 
+        
+        if (tipo === 'BENEFICIARIO') {
           router.push('/home');
         }
+  
       }, 2000);
 
     } catch (err) {
