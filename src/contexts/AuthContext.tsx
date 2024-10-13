@@ -76,6 +76,11 @@ export function AuthProvider({ children }: AuthProviderProps){
         path: '/'
       })
 
+      setCookie(undefined, "nome", nome, {
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/'
+      })
+
       const decodedToken: any = jwtDecode(access_token);
       const { tipo } = decodedToken;
 
@@ -104,12 +109,18 @@ export function AuthProvider({ children }: AuthProviderProps){
     try {
       const response = await api.post('auth/signup', dataToSend);
   
-      const { access_token, nome } = response.data;
+      const { access_token, usuario} = response.data;
+      const { nome } = usuario;
   
       setCookie(undefined, 'access_token', access_token, {
         maxAge: 60 * 60 * 24 * 30,
         path: '/',
       });
+
+      setCookie(undefined, "nome", nome, {
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/'
+      })
   
       const decodedToken: any = jwtDecode(access_token);
       const { tipo } = decodedToken;
