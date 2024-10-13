@@ -1,16 +1,19 @@
 "use client";
 
-interface Curso {
-  nome: string;
-}
-
 import React, { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { api } from "@/services/api";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+
+interface Curso {
+  nome: string;
+}
 
 export default function Home() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     nome: "",
     descricao: "",
@@ -77,8 +80,13 @@ export default function Home() {
     try {
       await api.post("/programas", data);
       toast.success("Programa cadastrado com sucesso!");
-    } catch (error) {
-      toast.error("Erro ao cadastrar programa");
+      router.push("/Administrador/dashboard");
+    } catch (error:any) {
+     if (error.response) {
+        toast.error(
+          "Erro ao cadastrar programa: " + error.response.data.message,
+        );
+      }
     }
   };
 
@@ -86,7 +94,7 @@ export default function Home() {
     <>
       <main className={styles.main}>
         <section className={styles.left}>
-          <button>
+          <button onClick={()=> router.back()}>
             <Image
               src="/arrow-left.svg"
               alt="Botão de voltar"
@@ -107,90 +115,114 @@ export default function Home() {
         </section>
 
         <section className={styles.right}>
-          <form onSubmit={handleSubmit}>
+          <form className = {styles.ContainerForm} onSubmit={handleSubmit}>
             <h2>Informações do programa</h2>
-            <input
-              type="text"
-              id="name"
-              name="nome"
-              placeholder="Nome do Programa"
-              value={formData.nome}
-              onChange={handleInputChange}
-              className={styles.inputsForm}
-              required
-            />
 
-            <input
-              type="date"
-              id="dataDeInicio"
-              name="inicio"
-              value={formData.inicio}
-              onChange={handleInputChange}
-              className={styles.inputsForm}
-              required
-            />
+            <div className={styles.ContainerInputs}>
+              <label>Nome</label>
+              <input
+                type="text"
+                id="name"
+                name="nome"
+                placeholder="Nome do Programa"
+                value={formData.nome}
+                onChange={handleInputChange}
+                className={styles.inputsForm}
+                required
+              />
+            </div>
 
-            <input
-              type="date"
-              id="dataFinal"
-              name="termino"
-              value={formData.termino}
-              onChange={handleInputChange}
-              className={styles.inputsForm}
-              required
-            />
+            <div className={styles.ContainerInputsDate}>
+              <div className={styles.inputsDateWrapper}>
+                <label>Data de inicio</label>
+                <input
+                  type="date"
+                  id="dataDeInicio"
+                  name="inicio"
+                  value={formData.inicio}
+                  onChange={handleInputChange}
+                  className={styles.inputsForm}
+                  required
+                />
+              </div>
 
-            <input
-              type="text"
-              id="publicoAlvo"
-              name="publicoAlvo"
-              placeholder="Público alvo"
-              value={formData.publicoAlvo}
-              onChange={handleInputChange}
-              className={styles.inputsForm}
-              required
-            />
+              <div className={styles.inputsDateWrapper}>
+                <label>Data de termino</label>
+                <input
+                  type="date"
+                  id="dataFinal"
+                  name="termino"
+                  value={formData.termino}
+                  onChange={handleInputChange}
+                  className={styles.inputsForm}
+                  required
+                  />
+              </div>
+            </div>
 
-            <select
-              id="horario"
-              name="horario"
-              value={formData.horario}
-              onChange={handleInputChange}
-              className={styles.selectHours}
-              required
-            >
-              <option value="">Selecione o horário</option>
-              <option value="10:00">10:00</option>
-              <option value="14:00">14:00</option>
-              <option value="16:00">16:00</option>
-              <option value="18:00">18:00</option>
-              <option value="20:00">20:00</option>
-            </select>
+            <div className={styles.ContainerInputs}>
+              <label>Publico Alvo</label>
+              <input
+                type="text"
+                id="publicoAlvo"
+                name="publicoAlvo"
+                placeholder="Público alvo"
+                value={formData.publicoAlvo}
+                onChange={handleInputChange}
+                className={styles.inputsForm}
+                required
+              />
+            </div>
+            
+            <div className={styles.ContainerInputs}>
+              <label>Horário do Programa</label>
+              <select
+                id="horario"
+                name="horario"
+                value={formData.horario}
+                onChange={handleInputChange}
+                className={styles.selectHours}
+                required
+              >
+                <option defaultValue="" >Selecione o horário</option>
+                <option value="10:00">10:00</option>
+                <option value="14:00">14:00</option>
+                <option value="16:00">16:00</option>
+                <option value="18:00">18:00</option>
+                <option value="20:00">20:00</option>
+              </select>
+            </div>
+            
+            <div className={styles.ContainerInputs}>
+              <label>Descrição</label>
+              <textarea
+                id="informacoes"
+                name="descricao"
+                placeholder="Informações sobre o evento"
+                required
+                value={formData.descricao}
+                onChange={handleInputChange}
+              ></textarea>
+            </div>
 
-            <textarea
-              id="informacoes"
-              name="descricao"
-              placeholder="Informações sobre o evento"
-              required
-              value={formData.descricao}
-              onChange={handleInputChange}
-            ></textarea>
+            <div className={styles.ContainerInputs}>
+              <label>Cursos relacionados</label>
+              <select
+                id="curso"
+                name="curso"
+                className={styles.selectCourses}
+                required
+                onChange={handleAddCourse}
+              >
+                <option defaultValue="">Cursos relacionados</option>
 
-            <select
-              id="curso"
-              name="curso"
-              className={styles.selectCourses}
-              required
-              onChange={handleAddCourse}
-            >
-              <option value="">Cursos relacionados</option>
-
-              {cursos.map(curso => (
-                <option key={curso.nome} value={curso.nome}>
-                  {curso.nome}
-                </option>
-              ))}
-            </select>
+                {cursos.map(curso => (
+                  <option key={curso.nome} value={curso.nome}>
+                    {curso.nome}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <div className={styles.containerCourses}>
               {selectedCourses.map((course, index) => (
