@@ -1,76 +1,108 @@
+"use client";
+
 import styles from "./page.module.css";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-export default function Cadastro() {
+export default function CadastroCurso() {
+  const router = useRouter();
+
   return (
     <>
       <main className={styles.main}>
-
-        <div className={styles.left}>
-            <button className={styles.but}>
-              <Image src="/Button-voltar.svg" alt="botão" width={38} height={38}/>
-            </button>
-          
-
-          <div className={styles.texto}>
-            <span>Prontuário</span>
-            <h2>Adicione ou edite um novo </h2>
-            <span className={styles.curse}>Curso</span>
-          </div>
-
+        <section className={styles.left}>
+          <button onClick={()=> router.back()}>
+            <Image
+              src="/arrow-left.svg"
+              alt="Botão de voltar"
+              width={16}
+              height={16}
+            />
+          </button>
+          <h3>Prontuário</h3>
+          <h1>
+            Crie ou edite um novo <br /> <strong>Curso</strong>
+          </h1>
           <Image
-            src='/quadro.svg'
-            alt="mexendo no quadro negro"
-            width={400}
-            height={400}
+            className={styles.illustrationImage}
+            src="/quadro.svg"
+            alt="Escrevendo no quadro negro"
+            width={500}
+            height={500}
           />
+        </section>
 
-        </div>
+        <section className={styles.right}>
+          <form className = {styles.ContainerForm}>
+            <h2>Informações do Curso</h2>
 
-        <div className={styles.right}>
-
-          <form action="get" className={styles.form}>
-            <fieldset className={styles.field}>
-              <h1>Informações</h1>
-              <input 
+            <div className={styles.ContainerInputs}>
+              <label>Nome</label>
+              <input
                 type="text"
-                id="curso"
-                name="curso"
-                placeholder="Nome do curso"
+                id="name"
+                name="nome"
+                placeholder="Nome do Curso"
+                className={styles.inputsForm}
+                required
               />
+            </div>
 
+            <div className={styles.ContainerInputs}>
+              <label>Cordenador</label>
               <input
                 type="text"
                 id="coordenador"
                 name="coordenador"
-                placeholder="Coordenador do curso"
+                placeholder="Cordenador do Curso"
+                className={styles.inputsForm}
+                required
               />
-
-              <input type="text"
-               id="turno"
-               name="turno"
-               placeholder="Turno" />
-
+            </div>
+            
+            <div className={styles.ContainerInputs}>
+              <label>Turno</label>
+              <select
+                id="turno"
+                name="turno"
+                className={styles.selectShift}
+                required
+              >
+                <option defaultValue="" hidden>Selecione o turno do curso</option>
+                <option value="Matutino">Matutino</option>
+                <option value="Noturno">Noturno</option>
+              </select>
+            </div>
+            
+            <div className={styles.ContainerInputs}>
+              <label>Descrição</label>
               <textarea
+                id="informacoes"
                 name="descricao"
-                id="descricao"
                 placeholder="Descrição sobre o curso"
+                required
               ></textarea>
+            </div>
 
+            <div className={styles.ContainerInputs}>
+              <label>Disponibilidade</label>
+              <select
+                id="status"
+                name="status"
+                className={styles.selectStatus}
+                required
+              >
+                <option defaultValue="" hidden>Status</option>
+                <option value="Disponivel">Disponivel</option>
+                <option value="Indisponivel">Indisponivel</option>
+              </select>
+            </div>
 
-            <select id="select" name="?" className={styles.option}>
-              <option value="">Status</option>
-              <option value="?">?</option>
-              <option value="?">?</option>
-              <option value="?">?</option>
-              <option value="?">?</option>
-              <option value="?">?</option>
-            </select>
-
-            <button className={styles.bs} type="submit" name="butonConfirm">Adicionar</button>
-            </fieldset>
+            <button type="submit" className={styles.btnSubmit}>
+              Adicionar
+            </button>
           </form>
-        </div>
+        </section>
       </main>
     </>
   );
