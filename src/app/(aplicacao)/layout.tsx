@@ -1,6 +1,7 @@
 "use client";
-import Menu from "@/components/Menu";
-import { AuthContextProvider } from "@/state/authContext";
+import { AuthProvider } from '@/contexts/AuthContext';
+import { Header } from "@/components/Header/Header";
+import { Can } from "@/components/Can/Can";
 
 export default function LoginLayout({
   children,
@@ -8,11 +9,11 @@ export default function LoginLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <Menu />
+    <Can tipo={["BENEFICIARIO"]}>
+      <Header />
       <main>
-        <AuthContextProvider>{children}</AuthContextProvider>
+        <AuthProvider>{children}</AuthProvider>
       </main>
-    </>
+    </Can>
   );
 }

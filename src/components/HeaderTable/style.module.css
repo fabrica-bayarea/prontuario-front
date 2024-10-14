@@ -1,0 +1,38 @@
+.tableTitulo{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap:200px;
+    align-items: center;
+    max-width: 100%;
+    padding: 10px;
+}
+
+.tableTitulo h2{
+    font-size: 25px;
+    font-family: var(--font-inter);
+    font-weight: 600;
+    color: var(--pink-900);
+}
+
+.tableTitulo input{
+    height: 45px;
+    width: 300px;
+    border-radius: 8px;
+    border: 2px solid var(--pink-100);
+    padding: 10px;
+    font-weight: 300;
+}
+
+.envolveSearch{
+    display: flex;
+    gap: 60px;
+}
+
+.buttonVisualizaAgenda {
+    text-align: center;
+    text-decoration: none;
+    color: var(--pink-500);
+    font-weight: 500;
+}

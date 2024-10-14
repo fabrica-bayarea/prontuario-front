@@ -1,4 +1,5 @@
 "use client";
+import InputMask from "react-input-mask";
 import style from "../../app/(login)/auth/signUpUser/style.module.css";
 import { useFormContext } from 'react-hook-form';
 
@@ -8,13 +9,14 @@ type UserData = {
   email: string;
   senha: string; 
   confirmaSenha: string;
+  cpf: string;
 }
 
 type UserFormProps = UserData & {
   atualizaCampos: (fields: Partial<UserData>) => void
 }
 
-export default function UserForm({nome, sobrenome, email, senha, confirmaSenha,atualizaCampos}: UserFormProps) {
+export default function UserForm({nome, sobrenome, cpf, email, senha, confirmaSenha,atualizaCampos}: UserFormProps) {
 
   const { register, formState: { errors }, watch} = useFormContext();
   const watchSenha = watch("senha");
@@ -47,6 +49,22 @@ export default function UserForm({nome, sobrenome, email, senha, confirmaSenha,a
           placeholder="Sobrenome"
         />
         {errors.sobrenome && <p className={style.error}>{errors.sobrenome.message as string}</p>}
+      </div>
+
+      <div className={style.envolve__input__errors}>
+        <InputMask
+          {...register("cpf", { 
+            required: "CPF é obrigatório",
+            pattern: {value: /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/, message: "CPF inválido"}
+          })}
+          mask="999.999.999-99"
+          value={cpf}
+          onChange={e => atualizaCampos({ cpf: e.target.value })}
+          className={style.formulario__input}
+          type="text"
+          placeholder="CPF"
+        />
+        {errors.cpf && <p className={style.error}>{errors.cpf.message as string}</p>}
       </div>
       
       <div className={style.envolve__input__errors}>

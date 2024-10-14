@@ -1,0 +1,62 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 5.6rem;
+    padding: 90px;
+    background-color: var(--pink-000);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.sectionApresentacao{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width:fit-content;
+}
+
+.sectionApresentacao h1{
+    font-family: var(--font-inter);
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.sectionApresentacao p{
+    font-family: var(--font-inter);
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.buttonConsulta{
+    width:200px;
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--pink-700);
+    color: var(--pink-100);
+    font-family: var(--font-inter);
+    font-weight: 550;
+    font-size: 1.1rem;
+}
+
+.buttonConsulta:hover{
+    transition: background-color 0.3s ease-out;
+    background-color: var(--pink-900);
+}
+
+.sectionTitulo {
+    display: flex;
+    margin-top: 150px;
+    justify-content: flex-start;
+    padding-left: 90px;
+    padding-bottom: 90px;
+}
+
+.sectionTitulo h1{
+    width: 600px;
+    color: var(--pink-900);
+    font-weight: 600;
+    font-size: 30px;
+}
