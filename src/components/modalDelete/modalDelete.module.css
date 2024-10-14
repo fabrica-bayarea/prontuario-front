@@ -1,0 +1,91 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  gap:24px;
+  width: 660px;
+  
+  top:50%;
+  right:50%;
+
+  transform: translate(50%, -50%);
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+  border: 2px solid #F6B6B6;
+  color:var(--pink-900);
+  padding: 3rem 4rem;
+}
+
+.modal h1 {
+  font-size: 25px;
+  font-weight: 650;
+  color:var(--pink-600)
+}
+
+.modalButtons {
+  display: flex;
+  gap: 22px;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.btnCancel {
+  width: 92px;
+  background-color: var(--pink-700);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-top: 15px;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  transition: ease-in-out 0.2s;
+}
+
+.btnConfirm{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 92px;
+
+  background-color: transparent;
+  color: var(--pink-400);
+  border: 2px solid var(--pink-400);
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-top: 15px;
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 550;
+  text-align: center;
+  transition: ease-in-out 0.2s;
+
+}
+
+.btnCancel:hover {
+  background-color: var(--pink-800);
+}
+
+.btnConfirm:hover{
+  background-color: var(--pink-800);
+  color: #ffffff;
+  border-color: transparent;
+}
