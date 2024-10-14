@@ -3,12 +3,12 @@ import Image from "next/image";
 import style from "./style.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EventTable from "@/components/Tables/tableSubscribe/table";
-import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "@/contexts/AuthContext";
-import { useCan } from "@/hooks/useCan/useCan";
+import { useRouter } from 'next/navigation';
+import { useContext, useEffect } from "react";
+import { parseCookies } from "nookies";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "@/contexts/AuthContext";
 
 interface Event {
   id: number;
@@ -40,11 +40,8 @@ const events: Event[] = [
 
 export default function Home() {
   const router = useRouter();
-  const { user } = useContext(AuthContext);
-
-  const userCan = useCan({
-    tipo: ["ADMINISTRADOR"],
-  });
+  const {nome} = parseCookies();
+  const {user} = useContext(AuthContext);
 
   const handleClick = () => {
     router.push("/programas");
@@ -65,7 +62,7 @@ export default function Home() {
       <div className={style.container}>
         <section className={style.sectionApresentacao}>
           <h1>
-            Olá <strong> {user?.tipo} </strong>
+            Olá <strong> {nome} </strong>
           </h1>
           <p>Precisa marcar uma nova consulta em um de nossos programas?</p>
           <button
