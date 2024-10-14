@@ -3,6 +3,7 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import { Header } from "@/components/Header/Header";
 import { Can } from "@/components/Can/Can";
 
+
 export default function LoginLayout({
   children,
 }: {

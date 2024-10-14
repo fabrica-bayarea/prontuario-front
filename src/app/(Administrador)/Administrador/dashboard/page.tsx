@@ -1,7 +1,7 @@
 "use client";
 
 import style from "./page.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ModalAddProgram from "@/components/modalAddProgram/modalAddProgram";
 import ModalDelete from "@/components/modalDelete/modalDelete";
 import ModalEdit from "@/components/modalEditProgram/modalEditProgram";
@@ -9,8 +9,10 @@ import TableProgramsAdmin from "@/components/Tables/Admin/TableProgramsAdmin/Tab
 import ModalViewInfo from "@/components/modalView/modalView";
 import { api } from "@/services/api";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { parseCookies } from "nookies";
 import { useRouter } from "next/navigation";
+import { AuthContext } from "@/contexts/AuthContext";
 
 interface Programa {
   id: number;
@@ -26,6 +28,7 @@ interface Programa {
 export default function PagCurso() {
   const router = useRouter()
   const { nome } = parseCookies();
+  const { user } = useContext(AuthContext);
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -52,7 +55,7 @@ export default function PagCurso() {
   useEffect(() => {
     const fetchPrograms = async () => {
       try {
-        const response = await api.get('/programas');
+        const response = await api.get("/programas");
         setEvents(response.data);
       } catch (error) {
         console.error("Erro ao buscar programas:", error);
@@ -92,18 +95,15 @@ export default function PagCurso() {
   };
 
   const handleSave = async (program: Omit<Programa, "id">) => {
-    
     try {
-      const response = await api.post('/programas', program)
-      setEvents([
-        ...events, response.data
-      ]);
+      const response = await api.post("/programas", program);
+      setEvents([...events, response.data]);
       closeAddModal();
       toast.success("Programa adicionado com sucesso!", {
-        position: "bottom-right"
+        position: "bottom-right",
       });
     } catch (error) {
-      console.log("Erro ao adicionar programa", error)
+      console.log("Erro ao adicionar programa", error);
     }
   };
 
@@ -118,7 +118,7 @@ export default function PagCurso() {
     }
     closeDeleteModal();
     toast.success("Programa excluído com sucesso!", {
-      position: "bottom-right"
+      position: "bottom-right",
     });
   };
 
@@ -127,23 +127,25 @@ export default function PagCurso() {
     closeDeleteModal();
   };
 
-  const handleEdit = async(program: Omit<Programa, "id">) => {
+  const handleEdit = async (program: Omit<Programa, "id">) => {
     if (editProgram) {
       try {
         const response = await api.put(`/programas/${editProgram.id}`, program);
         const data = response.data;
-        
-        setEvents(events.map(programa => {
-          if (programa.id === data.id) {
-            return data;
-          }
-          return programa;
-        }));
-        
+
+        setEvents(
+          events.map(programa => {
+            if (programa.id === data.id) {
+              return data;
+            }
+            return programa;
+          }),
+        );
+
         closeEditModal();
 
         toast.success("Programa editado!", {
-          position: "bottom-right"
+          position: "bottom-right",
         });
       } catch (error) {
         console.error("Erro ao editar programa:", error);
@@ -155,12 +157,21 @@ export default function PagCurso() {
     setIsMounted(true);
   }, []);
 
+  useEffect(() => {
+    const hasShownToast = localStorage.getItem("toastShown");
+
+    if (user && !hasShownToast) {
+      toast.success("Bem-vindo!");
+      localStorage.setItem("toastShown", "true");
+    }
+  }, [user]);
+
   if (!isMounted) return null;
 
   return (
     <div className={style.container}>
       <section className={style.section}>
-        <div className ={style.sectionApresentacao}>
+        <div className={style.sectionApresentacao}>
           <h1>
             Olá <strong>{nome}</strong>
           </h1>
@@ -172,12 +183,12 @@ export default function PagCurso() {
       </section>
 
       <section>
-          <TableProgramsAdmin 
-            events={events}
-            onEdit={openEditModal}
-            onDelete={openDeleteModal}
-            onView={openViewModal}
-          />
+        <TableProgramsAdmin
+          events={events}
+          onEdit={openEditModal}
+          onDelete={openDeleteModal}
+          onView={openViewModal}
+        />
       </section>
 
       <ModalAddProgram

@@ -4,10 +4,11 @@ import style from "./style.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EventTable from "@/components/Tables/tableSubscribe/table";
 import { useRouter } from 'next/navigation';
-import { useContext } from "react";
-import { AuthContext } from "@/contexts/AuthContext";
-import { useCan } from "@/hooks/useCan/useCan";
+import { useContext, useEffect } from "react";
 import { parseCookies } from "nookies";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "@/contexts/AuthContext";
 
 interface Event {
   id: number;
@@ -40,20 +41,35 @@ const events: Event[] = [
 export default function Home() {
   const router = useRouter();
   const {nome} = parseCookies();
+  const {user} = useContext(AuthContext);
 
   const handleClick = () => {
     router.push("/programas");
   };
 
+  useEffect(() => {
+    const hasShownToast = localStorage.getItem("toastShown");
+  
+    if (user && !hasShownToast) {
+      toast.success("Bem-vindo!");
+      localStorage.setItem("toastShown", "true");
+    }
+  }, [user]);
+
   return (
     <>
+      <ToastContainer />
       <div className={style.container}>
         <section className={style.sectionApresentacao}>
           <h1>
             Olá <strong> {nome} </strong>
           </h1>
           <p>Precisa marcar uma nova consulta em um de nossos programas?</p>
-          <button onClick={handleClick} className={style.buttonConsulta} type="button">
+          <button
+            onClick={handleClick}
+            className={style.buttonConsulta}
+            type="button"
+          >
             Nova Consulta
           </button>
         </section>

@@ -4,6 +4,7 @@ import {useRouter} from "next/navigation";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { createContext, ReactNode, useEffect, useState} from "react";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type User = {
   access_token: string;
@@ -92,16 +93,23 @@ export function AuthProvider({ children }: AuthProviderProps){
 
       api.defaults.headers['Authorization'] = `Bearer ${access_token}`;
 
-      if (tipo === 'ADMINISTRADOR') {
-        router.push('/Administrador/dashboard');
-      } 
-      
-      if (tipo === 'BENEFICIARIO') {
-        router.push('/home');
-      }
+      const loadingToast = toast.loading("Redirecionando para a página inicial...");
+      setTimeout(() => {
+        toast.dismiss(loadingToast);
+        
+        if (tipo === 'ADMINISTRADOR') {
+          router.push('/Administrador/dashboard');
+        }
+        
+        if (tipo === 'BENEFICIARIO') {
+          router.push('/home');
+        }
+      }, 2000);
 
     } catch (err){
       console.log(err)
+
+      throw err
     }
   }
 
@@ -157,6 +165,7 @@ export function AuthProvider({ children }: AuthProviderProps){
 
   function signOut(){
     destroyCookie(undefined, 'access_token', {path: '/'});
+    localStorage.removeItem("toastShown");
     
     router.push('/auth/signin/usuario');
   }
