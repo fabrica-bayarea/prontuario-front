@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { parseCookies } from "nookies";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/contexts/AuthContext";
+import Image from "next/image";
 
 interface Programa {
   id: number;
@@ -177,19 +178,29 @@ export default function PagCurso() {
           </h1>
           <p>Gerencie e cadastre novos programas</p>
         </div>
-        <button className={style.btnAddProgram} onClick={()=>router.push("./cadastro-programas")}>
+        <button
+          className={style.btnAddProgram}
+          onClick={() => router.push("./cadastro-programas")}
+        >
           Adicionar novo Programa
         </button>
       </section>
 
-      <section>
-        <TableProgramsAdmin
-          events={events}
-          onEdit={openEditModal}
-          onDelete={openDeleteModal}
-          onView={openViewModal}
-        />
-      </section>
+      {events.length > 0 ? (
+        <section>
+          <TableProgramsAdmin
+            events={events}
+            onEdit={openEditModal}
+            onDelete={openDeleteModal}
+            onView={openViewModal}
+          />
+        </section>
+      ) : (
+        <section className = {style.sectionNoData}>
+          <Image className={style.imageNoData}src="/box.svg" alt="Caixas" width={400} height={400} />
+          <h2 className={style.titleNoData}>Cadastre um novo programa</h2>
+        </section>
+      )}
 
       <ModalAddProgram
         isOpen={isAddModalOpen}
