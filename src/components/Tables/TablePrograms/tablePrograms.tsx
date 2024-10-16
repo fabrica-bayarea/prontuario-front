@@ -42,7 +42,7 @@ const EventTablePrograms: React.FC<EventTableProps> = ({ events }) => {
             <tr className={styles.colummTitulo}>
               <th>Nome</th>
               <th>Status</th>
-              <th>data de publicação</th>
+              <th>data</th>
               <th>Ações</th>
             </tr>
           </thead>
