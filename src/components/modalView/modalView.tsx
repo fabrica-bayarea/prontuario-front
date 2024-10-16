@@ -45,15 +45,17 @@ const ModalViewInfo: React.FC<ModalViewInfoProps> = ({
       <div className={style.modal} onClick={e => e.stopPropagation()}>
 
         <section className={style.container}>
-            <div className = {style.conteudoSobre}>
-                <h1 className = {style.titulo}>Informações sobre o programa:</h1>
-                <ul className={style.item}>
-                    <li>{programInfo.descricao}</li>
-                </ul>
+            <div className = {style.containerInfos}>
+                <h1 className = {style.titulo}>Informações sobre o programa</h1>
+                <p className={style.item}>
+                  {programInfo.descricao}
+                </p>
             </div>
+
             <button onClick={onClose} className={style.closeButton}>
-                X
+              X
             </button>
+
         </section>
 
         <div className = {style.conteudoSobre}>
@@ -72,9 +74,9 @@ const ModalViewInfo: React.FC<ModalViewInfoProps> = ({
 
         <div className = {style.conteudoSobre}>
             <h2 className = {style.tituloPublico}>Público</h2>
-            <ul className={style.item}>
-                <li>{programInfo.publicoAlvo}</li>
-            </ul>
+            <p className={style.item}>
+                {programInfo.publicoAlvo}
+            </p>
         </div>
       </div>
     </div>
