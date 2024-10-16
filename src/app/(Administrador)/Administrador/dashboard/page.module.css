@@ -4,6 +4,8 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+
+  /* padding: 90px; */
   
   max-width: 75%;
   margin: 0 auto;
@@ -61,14 +63,30 @@
   background-color: var(--pink-900);
 }
 
-/* .btnEdit {
-  background-image: url("/edit.svg");
+.sectionNoData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px
 }
 
-.btnDelete {
-  background-image: url("/delet.svg");
+.imageNoData {
+  position: relative;
+  bottom: 45px;
+  left: 55px;
 }
 
-.btnView {
-  background-image: url("/view.svg");
-} */
+.titleNoData{
+  font-family: var(--font-inter);
+  font-size: 1.6rem;
+  color: gainsboro;
+  opacity: 0.7;
+  font-weight: 650;
+  transition: ease-in-out 0.4s;
+}
+
+.titleNoData:hover{
+  opacity: 1;
+  color: lightgrey;
+} 
