@@ -1,29 +1,31 @@
 .container{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sectionApresentacao{
+    display: flex;
     align-items: center;
     justify-content: center;
+    max-width: fit-content;
     flex-direction: row;
     gap: 5.6rem;
     padding: 90px;
     background-color: var(--pink-000);
     box-sizing: border-box;
-    overflow: hidden;
 }
 
-.sectionApresentacao{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    max-width:fit-content;
-}
-
-.sectionApresentacao h1{
+.containerApresentacao h1{
     font-family: var(--font-inter);
     font-size: 2.5rem;
     font-weight: 500;
 }
 
-.sectionApresentacao p{
+.containerApresentacao p{
     font-family: var(--font-inter);
     font-size: 17px;
     font-weight: 400;
@@ -31,12 +33,28 @@
 
 .sectionSobreIesb{
     display: flex;
+    flex-direction: column;
+    width: 100vw;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 
     gap:34px;
-    padding: 90px 190px;
+    padding: 90px;
 
     background-color: var(--pink-100)
+}
+
+.sectionSobreIesb h1{
+    font-family: var(--font-inter);
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.containerSobreIesb {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    align-items: center;
+    justify-content: center;
+    gap:24px;
 }

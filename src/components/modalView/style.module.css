@@ -13,20 +13,26 @@
   
 .modal{
     display:flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: flex-start;
     flex-direction: column;
-    gap:50px;
+    gap: 1.9rem;
 
-    width: 660px;
+    max-height: 52.5rem;
+    min-height: 26.25rem;
+
+    width: 50%;
+    min-width: 20rem;
+    max-width: 41.25rem;
+
     position: fixed;
     top:50%;
-    right:50%;
-
-    transform: translate(50%, -50%);
+    left:50%;
+    transform: translate(-50%, -50%);
+    
     background-color: rgb(255, 255, 255);
     border-radius: 20px;
-    border: 2px solid #F6B6B6;
+    border: 2px solid var(--pink-300);
     color:var(--pink-900);
     padding: 3rem 4rem;
 }
@@ -38,13 +44,26 @@
     justify-content: space-between;
 }
 
+.containerInfos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 1.4rem;
+}
+
 .closeButton{
     width: 48px;
     height: 36px;
 
+    margin-left: 16px;
+    min-width: 48px;
+
     border-radius: 10px;
     border: none;
-    font-weight: 700;
+
+    font-size: 16px;
+    font-weight: 600;
     color:var(--pink-100);
     background-color: var(--pink-700);
 
@@ -82,5 +101,5 @@
     display: flex;
     flex-direction: column;
     gap:0.1rem;
-    list-style: none
+    list-style: none;
 }
