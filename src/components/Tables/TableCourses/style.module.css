@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 50px;
+    padding: 90px 50px;
 }
 
 .envolveTable{
@@ -16,24 +16,39 @@
     border-radius: 25px;
     border: 4px solid var(--pink-200);
     
-    padding-right: 90px;
-    padding-left: 90px;
+    padding-right: 60px;
+    padding-left: 60px;
     padding-top: 60px;
     padding-bottom: 60px;
     overflow: hidden;
+
+    transition: ease-in-out 0.4s;
+}
+
+.envolveTable:hover {
+    box-shadow: 0px 0px 10px 0px var(--pink-200);
 }
 
 .eventTable{
     width: 100%;
     max-width: 100%;
     padding: 10px;
+    border-collapse: collapse;
 }
+
+.eventTable th,
+.eventTable td {
+    padding: 10px;
+    text-align: left;
+}
+
 
 .colummTitulo{
     color: var(--pink-800);
     font-size: 17px;
     font-family: var(--font-inter);
-    font-weight: 400;
+    font-weight: 300;
+    filter: opacity(0.5);
 }
 
 .colummBody tr{
@@ -44,6 +59,9 @@
     font-weight: 600;
     font-family: var(--font-inter);
     color: var(--pink-800);
+
+    border-bottom: 2px solid var(--pink-200);
+    border-top: 2px solid var(--pink-200);
 }
 
 .disponivel {
