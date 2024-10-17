@@ -1,50 +1,82 @@
 "use client";
 import Image from "next/image";
 import style from "./style.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import EventTable from "@/components/Tables/tableSubscribe/table";
 import { useRouter } from 'next/navigation';
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { parseCookies } from "nookies";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "@/contexts/AuthContext";
+import ModalViewInfo from "@/components/modalView/modalView";
 
 interface Event {
   id: number;
-  name: string;
-  date: string;
-  time: string;
+  nome: string;
+  descricao: string;
+  cursos?: {
+    id: number;
+    nome: string;
+    coordenador: string;
+    turno: string;
+  }[];
+  inicio: string;
+  termino: string;
+  horario: string;
+  publicoAlvo: string;
 }
+
 
 const events: Event[] = [
   {
     id: 1,
-    name: "Projeto Observatório Socila e Fiscal",
-    date: "12/04/2024",
-    time: "10:00",
+    nome: "Projeto Observatório Social e Fiscal",
+    inicio: "12/04/2024",
+    horario: "15:00",
+    descricao: "O Observatório Social e Fiscal é um projeto que visa monitorar a aplicação dos recursos públicos e fiscalizar a execução de políticas públicas.",
+    publicoAlvo: "Estudantes de Ciências Contábeis",
+    termino: "12/04/2024",
   },
   {
     id: 2,
-    name: "Projeto Núcleo de Apoio Contábil e Fiscal – NAF",
-    date: "10/05/2024",
-    time: "11:00",
+    nome: "Projeto Núcleo de Apoio Contábil",
+    inicio: "10/05/2024",
+    horario: "11:00",
+    descricao: "O Núcleo de Apoio Contábil e Fiscal (NAF) é um projeto que visa oferecer serviços contábeis e fiscais gratuitos para pessoas físicas e jurídicas.",
+    publicoAlvo: "Estudantes de Ciências Contábeis",
+    termino: "10/05/2024",
   },
   {
     id: 3,
-    name: "Projeto Ação Solidária Covid-19",
-    date: "20/02/2024",
-    time: "12:00",
+    nome: "Projeto Ação Solidária Covid-19",
+    inicio: "12/04/2024",
+    horario: "12:00",
+    descricao: "A Ação Solidária Covid-19 é um projeto que visa arrecadar alimentos e produtos de higiene para famílias em situação de vulnerabilidade social.",
+    publicoAlvo: "Estudantes de Administração",
+    termino: "12/04/2024",
   },
 ];
 
 export default function Home() {
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+
   const router = useRouter();
   const {nome} = parseCookies();
   const {user} = useContext(AuthContext);
 
   const handleClick = () => {
     router.push("/programas");
+  };
+
+  const handleViewEvent = (event: Event) => {
+    setSelectedEvent(event);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setSelectedEvent(null);
   };
 
   useEffect(() => {
@@ -57,10 +89,10 @@ export default function Home() {
   }, [user]);
 
   return (
-    <>
+    <main className={style.container}>
       <ToastContainer />
-      <div className={style.container}>
-        <section className={style.sectionApresentacao}>
+      <section className={style.sectionApresentacao}>
+        <div className={style.containerApresentacao}>
           <h1>
             Olá <strong> {nome} </strong>
           </h1>
@@ -72,22 +104,27 @@ export default function Home() {
           >
             Nova Consulta
           </button>
-        </section>
+        </div>
         <Image
           src="/Illustração_home.svg"
           alt="Logo"
           width={400}
           height={400}
         />
-      </div>
-      <div className={style.sectionTitulo}>
-        <h1>
-          Verifique abaixo os ultimos programas sociais que você se Inscreveu
-        </h1>
-      </div>
-      <section>
-        <EventTable events={events} />
       </section>
-    </>
+
+      <section className={style.sectionTable}>
+      <EventTable
+          events={events}
+          onView={handleViewEvent}
+      />
+      </section>
+
+      <ModalViewInfo
+          isOpen={openModal}
+          onClose={handleCloseModal}
+          programInfo={selectedEvent} 
+      />
+    </main>
   );
 }
