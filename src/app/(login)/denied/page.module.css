@@ -1,0 +1,52 @@
+
+.central {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    min-height: 90vh;
+    background: linear-gradient(transparent, #4F0707);
+}
+
+.meio{
+    display: flex;
+    flex-direction: column;
+    width: 30em;
+    height: 30em;
+    background-color: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px black;
+    padding: 1em;
+}
+
+.cryBaby{
+    text-transform: uppercase;
+    color: black;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 1em;
+}
+
+.msn{ 
+    overflow-wrap: break-word;
+    text-align: center;
+    margin-top: 5em;
+    color: black;
+    font-family:sans-serif;
+}
+
+.btn{
+    margin-top: 2em;
+    padding: 0.5em 1em;
+    background-color: #4F0707;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btnCentro{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5em;
+}
