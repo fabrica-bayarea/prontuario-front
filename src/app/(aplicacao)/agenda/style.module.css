@@ -2,29 +2,43 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  gap: 5.6rem;
-  padding: 90px;
+  flex-direction: column;
+
   background-color: var(--pink-000);
-  box-sizing: border-box;
-  overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .sectionApresentacao{
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  max-width:fit-content;
+  align-items: center;
+  max-width: fit-content;
+  flex-direction: row;
+  gap: 5.6rem;
+  padding: 90px;
+  box-sizing: border-box;
 }
 
-.sectionApresentacao h1{
+.containerApresentação{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.containerApresentação h1{
   font-family: var(--font-inter);
-  font-size: 2.5rem;
+  font-size: 2.4rem;
   font-weight: 500;
 }
 
-.sectionApresentacao p{
+.containerApresentação p{
   font-family: var(--font-inter);
   font-size: 17px;
   font-weight: 400;
+}
+
+.sectionCalendar {
+  width: 100vw;
+  padding:90px;
 }
