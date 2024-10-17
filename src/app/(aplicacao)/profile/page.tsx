@@ -27,7 +27,6 @@ export default function pageAdminUser() {
 
   useEffect(() => {
     if (user) {
-      api.defaults.headers["Authorization"] = `Bearer ${user.access_token}`;
       api
         .get("/profile")
         .then(response => {
