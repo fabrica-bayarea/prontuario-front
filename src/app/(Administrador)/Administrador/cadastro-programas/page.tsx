@@ -125,7 +125,7 @@ export default function CadastroProgramas() {
 
       await api.post("/periodo-atendimentos", dataPeriodo);
       
-      router.push("/Administrador/dashboard");
+      router.push("/Administrador/dashboard-programas");
     } catch (error:any) {
      if (error.response) {
         toast.error(
