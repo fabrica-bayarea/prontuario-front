@@ -1,0 +1,105 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+  
+.modal{
+    display:flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.9rem;
+
+    max-height: 52.5rem;
+    min-height: 26.25rem;
+
+    width: 50%;
+    min-width: 20rem;
+    max-width: 41.25rem;
+
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    border: 2px solid var(--pink-300);
+    color:var(--pink-900);
+    padding: 3rem 4rem;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.containerInfos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 1.4rem;
+}
+
+.closeButton{
+    width: 48px;
+    height: 36px;
+
+    margin-left: 16px;
+    min-width: 48px;
+
+    border-radius: 10px;
+    border: none;
+
+    font-size: 16px;
+    font-weight: 600;
+    color:var(--pink-100);
+    background-color: var(--pink-700);
+
+    transition: ease-in-out 0.2s;
+}
+
+.closeButton:hover{
+    background-color: var(--pink-800);
+}
+
+.conteudoSobre{
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo{
+    font-size: 25px;
+    font-weight: 750;
+    color:var(--pink-500)
+}
+
+.tituloCursos {
+    font-size: 18px;
+    font-weight: 700;
+    color:var(--pink-700)
+}
+
+.tituloPublico{
+    font-size: 18px;
+    font-weight: 700;
+    color:var(--pink-700)
+}
+
+.item{
+    display: flex;
+    flex-direction: column;
+    gap:0.1rem;
+    list-style: none;
+}
