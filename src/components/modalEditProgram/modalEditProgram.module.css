@@ -48,34 +48,34 @@
   gap: 0.5rem;
 }
 
-.modal label {
+.modalForm label {
   margin-top: 15px;
-  color: var(--pink-800);
 
   font-family: var(--font-inter);
   font-size: 14px;
-  font-weight: 550;
+  font-weight: 500;
 }
 
-.modal input {
+.modalForm input {
   width: 100%;
-  height: 40px;
+  height: 3rem;
   padding: 10px;
-  font-size: 16px;
+  font-size: 1.1rem;
   font-weight: 500;
   font-family: var(--font-inter);
 
   background-color: transparent;
-  color: #4f0707;
-  border: 1px solid #4f0707;
-  border-radius: 5px;
+  color: var(--pink-900);
+  border: 1px solid var(--pink-300);
+  border-radius: 10px;
   cursor: pointer;
-
+  transition: ease-in-out 0.2s;
 }
 
-.modal input:focus {
-  border: 2px solid var(--pink-900);
+.modalForm input:focus {
   outline: none;
+  border: 2px solid var(--pink-300);
+  box-shadow: 0 0 0 0.2rem rgba(255, 105, 135, 0.25);
 }
 
 .modal select {

@@ -7,34 +7,44 @@ interface Curso {
   nome: string;
 }
 
-interface Program {
+interface FormData {
   id?: number;
   nome: string;
   descricao: string;
   curso: string;
-  inicio: string;
-  termino: string;
-  horario: string;
-  publicoAlvo: string;
+  publico_alvo: string;
+}
+
+interface FormPeriodo {
+  data_inicio: string;
+  data_fim: string;
+  horario_inicio: string;
+  horario_fim: string;
+  dias_da_semana: string[];
 }
 
 interface ModalEditProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (updatedProgram: Program) => void;
-  program: Program | null;
+  onSubmit: (updatedProgram: FormData) => void;
+  program: FormData | null;
 }
 
 const ModalEdit = ({ isOpen, onClose, onSubmit, program }: ModalEditProps) => {
-  const [formData, setFormData] = useState<Program>({
+  const [formData, setFormData] = useState<FormData>({
     nome: "",
     descricao: "",
     curso: "",
-    inicio: "",
-    termino: "",
-    publicoAlvo: "",
-    horario: "",
+    publico_alvo: "",
   });
+
+  const [formPeriodo, setFormPeriodo] = useState<FormPeriodo>({
+    data_inicio: "",
+    data_fim: "",
+    horario_inicio: "",
+    horario_fim: "",
+    dias_da_semana: [],
+  })
 
   const [cursos, setCursos] = useState<Curso[]>([]);
   
@@ -65,23 +75,26 @@ const ModalEdit = ({ isOpen, onClose, onSubmit, program }: ModalEditProps) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
+
     setFormData(prevData => ({
       ...prevData,
       [name]: value,
     }));
+
+    setFormPeriodo({
+      ...formPeriodo,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const updateProgram:  Omit<Program, "id"> = {
+    const updateProgram:  Omit<FormData, "id"> = {
       nome: formData.nome,
       descricao: formData.descricao,
       curso: formData.curso,
-      inicio: new Date(formData.inicio).toISOString().split("T")[0],
-      termino: new Date(formData.termino).toISOString().split("T")[0],
-      horario: formData.horario,
-      publicoAlvo: formData.publicoAlvo
+      publico_alvo: formData.publico_alvo
     };
 
     console.log("Dados enviados:", updateProgram);
@@ -92,10 +105,7 @@ const ModalEdit = ({ isOpen, onClose, onSubmit, program }: ModalEditProps) => {
        nome: "",
        descricao: "",
        curso: "",
-       inicio: "",
-       termino: "",
-       horario: "",
-       publicoAlvo: "",
+       publico_alvo: "",
      });
  
      onClose();
@@ -131,58 +141,12 @@ const ModalEdit = ({ isOpen, onClose, onSubmit, program }: ModalEditProps) => {
             required
           />
 
-          <label htmlFor="curso">Curso</label>
-          <select
-            id="curso"
-            name="curso"
-            value={formData.curso}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Selecione um curso</option>
-            {cursos.map(curso => (
-              <option key={curso.id} value={curso.nome}>
-                {curso.nome}
-              </option>
-            ))}
-          </select>
-
-          <label htmlFor="inicio">Data de Início</label>
-          <input
-            type="date"
-            id="inicio"
-            name="inicio"
-            value={formData.inicio}
-            onChange={handleChange}
-            required
-          />
-
-          <label htmlFor="termino">Data de Término</label>
-          <input
-            type="date"
-            id="termino"
-            name="termino"
-            value={formData.termino}
-            onChange={handleChange}
-            required
-          />
-
-          <label htmlFor="horario">Horário</label>
-          <input
-            type="time"
-            id="horario"
-            name="horario"
-            value={formData.horario}
-            onChange={handleChange}
-            required
-          />
-
           <label htmlFor="publicoAlvo">Público Alvo</label>
           <input
             type="text"
-            id="publicoAlvo"
-            name="publicoAlvo"
-            value={formData.publicoAlvo}
+            id="publico_alvo"
+            name="publico_alvo"
+            value={formData.publico_alvo}
             onChange={handleChange}
             required
           />

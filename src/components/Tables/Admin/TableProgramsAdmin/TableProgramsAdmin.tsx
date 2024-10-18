@@ -6,10 +6,7 @@ import HeaderTable from "@/components/HeaderTable/HeaderTable";
 interface ProgramaAPI  {
   id: number;
   nome: string;
-  horario: string;
-  inicio: string; 
-  termino: string;
-  publicoAlvo: string;
+  publico_alvo: string;
   descricao: string;
   curso: string;
 }
@@ -24,12 +21,6 @@ interface EventTableProps {
 const TableProgramsAdmin: React.FC<EventTableProps> = ({ events, onEdit, onDelete, onView }) => {
 
   const [searchTerm, setSearchTerm] = useState<string>("");
-
-    const formatPeriod = (inicio: string, termino: string) => {
-        const startDate = new Date(inicio);
-        const endDate = new Date(termino);
-        return `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`;
-    };
 
     const filteredEvents = events.filter(event =>{
         const name = event.nome || "";
@@ -58,8 +49,8 @@ const TableProgramsAdmin: React.FC<EventTableProps> = ({ events, onEdit, onDelet
             {filteredEvents.map(event => (
               <tr key={event.id}>
                 <td className={style["name-column"]}>{event.nome}</td>
-                <td>{formatPeriod(event.inicio, event.termino)}</td>
-                <td>{event.horario}</td>
+                <td>12/10/2024 - 20/10/2024</td> 
+                <td>12:00 - 18:00</td>
                 <td className={style["name-columnAncora"]}>
                     <div className ={style.containerActionsButton}>
 

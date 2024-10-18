@@ -53,6 +53,7 @@
   margin-top: 15px;
   cursor: pointer;
 
+  font-family: var(--font-inter);
   text-align: center;
   font-size: 16px;
   font-weight: 600;
@@ -73,6 +74,7 @@
   margin-top: 15px;
   cursor: pointer;
 
+  font-family: var(--font-inter);
   font-size: 16px;
   font-weight: 550;
   text-align: center;

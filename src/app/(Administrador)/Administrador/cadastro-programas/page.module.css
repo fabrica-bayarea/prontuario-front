@@ -132,6 +132,7 @@
   color: var(--pink-900);
   font-family: var(--font-inter);
   font-weight: 470;
+  transition: ease-in-out 0.2s;
 }
 
 .inputsForm::placeholder{
