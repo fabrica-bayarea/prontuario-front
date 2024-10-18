@@ -14,16 +14,32 @@
     gap: 62px;
     width: 100%;
     border-radius: 25px;
-    border: 5px solid var(--pink-200);
+    border: 3px solid var(--pink-200);
     
     padding: 60px 80px;
     overflow: hidden;
+
+    transition: ease-in-out 0.4s;
 }
 
-.eventTable{
+.envolveTable:hover {
+    box-shadow: 0px 0px 10px 0px var(--pink-200);
+}
+
+.eventTable {
     width: 100%;
-    max-width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+  
+.eventTable th,
+.eventTable td {
     padding: 10px;
+    text-align: left;
+}
+
+.eventTable th:last-child {
+    text-align: center;
 }
 
 .colummTitulo{
@@ -33,7 +49,7 @@
     font-weight: 300;
     filter: opacity(0.5);
 }
-
+  
 .colummBody tr{
     height: 83px;
     width: 100px;
@@ -42,6 +58,9 @@
     font-weight: 600;
     font-family: var(--font-inter);
     color: var(--pink-800);
+
+    border-bottom: 2px solid var(--pink-200);
+    border-top: 2px solid var(--pink-200);
 }
 
 .colummBody td.name-column{

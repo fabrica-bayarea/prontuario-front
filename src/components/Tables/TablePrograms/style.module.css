@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 50px;
+    padding: 90px 50px;
 }
 
 .envolveTable{
@@ -14,20 +14,38 @@
     gap: 62px;
     width: 100%;
     border-radius: 25px;
-    border: 5px solid var(--pink-200);
+    border: 4px solid var(--pink-200);
     
-    padding-right: 90px;
-    padding-left: 90px;
+    padding-right: 60px;
+    padding-left: 60px;
     padding-top: 60px;
     padding-bottom: 60px;
     overflow: hidden;
+
+    transition: ease-in-out 0.4s;
+} 
+
+.envolveTable:hover {
+    box-shadow: 0px 0px 10px 0px var(--pink-200);
 }
 
 .eventTable{
     width: 100%;
     max-width: 100%;
     padding: 10px;
+    border-collapse: collapse;
 }
+
+.eventTable th,
+.eventTable td {
+    padding: 10px;
+    text-align: left;
+}
+
+.eventTable th:last-child {
+    text-align: center;
+}
+
 
 .colummTitulo{
     color: var(--pink-800);
@@ -64,15 +82,21 @@
 
 .buttonSubscribe {
     display: flex;
+    align-items: center;
     justify-content: space-around;
     width: 200px;
+    padding: 10px;
 
+    font-size: 18px;
     text-align: start;
     color: white;
+    font-family: var(--font-inter);
+    font-family: 16px;
+
     background-color: var(--pink-400);
     border-radius: 6px;
     border-style: none;
-    padding: 10px;
+
     transition: transform 0.1s ease;
 }
 .buttonSubscribe:hover {

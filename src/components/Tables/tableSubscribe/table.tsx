@@ -1,35 +1,41 @@
 import { useState } from "react";
 import style from "./style.module.css";
 import Image from "next/image";
-import Modal from "../../Modal/modal";
 import HeaderTable from "@/components/HeaderTable/HeaderTable";
 
-interface Event {
+interface Event  {
   id: number;
-  name: string;
-  date: string;
-  time: string;
+  nome: string;
+  descricao: string;
+  cursos?: {
+    id: number;
+    nome: string;
+    coordenador: string;
+    turno: string;
+  }[];
+  inicio: string; 
+  termino: string;
+  horario: string;
+  publicoAlvo: string;
 }
 
 interface EventTableProps {
   events: Event[];
+  onView: (event: Event) => void;
 }
 
-const EventTable: React.FC<EventTableProps> = ({ events }) => {
-  const [subscribedEvents, setSubscribedEvents] = useState<number[]>([]);
-  const [open, setOpen] = useState<boolean>(false);
-
+const EventTable: React.FC<EventTableProps> = ({ events, onView}) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const filteredEvents = events.filter(event =>
-    event.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const formatPeriod = (inicio: string, termino: string) => {
+    const startDate = new Date(inicio);
+    const endDate = new Date(termino);
+    return `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`;
+  }
 
-  const handleSubscribe = (eventId: number) => {
-    if (!subscribedEvents.includes(eventId)) {
-      setSubscribedEvents(prev => [...prev, eventId]);
-    }
-  };
+  const filteredEvents = events.filter(event =>
+    event.nome.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
   return (
     <div className={style.tableContainer}>
@@ -44,7 +50,7 @@ const EventTable: React.FC<EventTableProps> = ({ events }) => {
           <thead>
             <tr className={style.colummTitulo}>
               <th>Nome</th>
-              <th>Data do Evento</th>
+              <th>Periodo do evento</th>
               <th>Horário</th>
               <th>Ações</th>
             </tr>
@@ -52,13 +58,23 @@ const EventTable: React.FC<EventTableProps> = ({ events }) => {
           <tbody className={style.colummBody}>
             {filteredEvents.map(event => (
               <tr key={event.id}>
-                <td className={style["name-column"]}>{event.name}</td>
-                <td>{event.date}</td>
-                <td>{event.time}</td>
+                <td className={style["name-column"]}>{event.nome}</td>
+                <td>{formatPeriod(event.inicio, event.termino)}</td>
+                <td>{event.horario}</td>
                 <td className={style["name-columnAncora"]}>
-                  <a onClick={() => setOpen(!open)}>Ver Detalhes</a>
-                  <Modal isOpen={open} setOpen={setOpen}/>
-                  <Image src="/arrow.svg" alt="Logo" width={12} height={12} />
+                <div className ={style.containerActionsButton}>
+                  <button 
+                    onClick ={()=> onView(event)} 
+                    className ={style.actionButtonView}
+                  >
+                    <Image 
+                      src="/IconEye.svg"
+                      alt="Visualizar"
+                      width={20}
+                      height={20}
+                    />
+                  </button>
+                </div>
                 </td>
               </tr>
             ))}
