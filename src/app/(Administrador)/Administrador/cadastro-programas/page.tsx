@@ -11,7 +11,7 @@ interface Curso {
   nome: string;
 }
 
-export default function Home() {
+export default function CadastroProgramas() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
@@ -21,10 +21,11 @@ export default function Home() {
     inicio: "",
     termino: "",
     horario: "",
-    publicoAlvo: "",
+    publico_alvo: "",
   })
+
   const [cursos, setCursos] = useState<Curso[]>([]);
-  const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
+  const [selectedDays , setSelectedDays] = useState<string[]>([]);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -47,16 +48,16 @@ export default function Home() {
 
   if (!isMounted) return null;
 
-  const handleAddCourse = (event: React.ChangeEvent<HTMLSelectElement>)=> {
-    const selectedCourse = event.target.value;
-    if (selectedCourse && !selectedCourses.includes(selectedCourse)) {
-      setSelectedCourses([...selectedCourses, selectedCourse]);
+  const handleAddDays = (event: React.ChangeEvent<HTMLSelectElement>)=> {
+    const selectedDay = event.target.value;
+    if (selectedDay && !selectedDays.includes(selectedDay)) {
+      setSelectedDays([...selectedDays, selectedDay]);
     }
   };
 
-  const handleRemoveCourse = (courseToRemove: any) => {
-    setSelectedCourses(
-      selectedCourses.filter((course) => course !== courseToRemove)
+  const handleRemoveDay = (dayToRemove: any) => {
+    setSelectedDays(
+      selectedDays.filter((day) => day !== dayToRemove)
     );
   };
 
@@ -74,7 +75,7 @@ export default function Home() {
         ...formData,
       inicio: new Date(formData.inicio).toISOString(),
       termino: new Date(formData.termino).toISOString(), 
-      curso: selectedCourses[0], 
+      curso: selectedDays[0], 
     };
 
     try {
@@ -165,33 +166,14 @@ export default function Home() {
               <label>Publico Alvo</label>
               <input
                 type="text"
-                id="publicoAlvo"
-                name="publicoAlvo"
+                id="publico_alvo"
+                name="publico Alvo"
                 placeholder="Público alvo"
-                value={formData.publicoAlvo}
+                value={formData.publico_alvo}
                 onChange={handleInputChange}
                 className={styles.inputsForm}
                 required
               />
-            </div>
-            
-            <div className={styles.ContainerInputs}>
-              <label>Horário do Programa</label>
-              <select
-                id="horario"
-                name="horario"
-                value={formData.horario}
-                onChange={handleInputChange}
-                className={styles.selectHours}
-                required
-              >
-                <option defaultValue="" >Selecione o horário</option>
-                <option value="10:00">10:00</option>
-                <option value="14:00">14:00</option>
-                <option value="16:00">16:00</option>
-                <option value="18:00">18:00</option>
-                <option value="20:00">20:00</option>
-              </select>
             </div>
             
             <div className={styles.ContainerInputs}>
@@ -209,13 +191,13 @@ export default function Home() {
             <div className={styles.ContainerInputs}>
               <label>Cursos relacionados</label>
               <select
-                id="curso"
-                name="curso"
-                className={styles.selectCourses}
+                id="cursos"
+                name="cursos relacionados"
+                className={styles.selectDays}
                 required
-                onChange={handleAddCourse}
+                onChange={handleInputChange}
               >
-                <option defaultValue="">Cursos relacionados</option>
+                <option defaultValue="" hidden>Selecione um curso</option>
 
                 {cursos.map(curso => (
                   <option key={curso.nome} value={curso.nome}>
@@ -225,14 +207,33 @@ export default function Home() {
               </select>
             </div>
 
-            <div className={styles.containerCourses}>
-              {selectedCourses.map((course, index) => (
+            <div className={styles.ContainerInputs}>
+              <label>Dias da Semana</label>
+              <select
+                id="dias-da-semana"
+                name="dias da semana"
+                className={styles.selectDays}
+                required
+                onChange={handleAddDays}
+              >
+                <option defaultValue="" hidden>Selecione os dias</option>
+                <option value="Segunda">Segunda</option>
+                <option value="Terça">Terça</option>
+                <option value="Quarta">Quarta</option>
+                <option value="Quinta">Quinta</option>
+                <option value="Sexta">Sexta</option>
+                <option value="Sabado">Sabado</option>
+              </select>
+            </div>
+
+            <div className={styles.containerDays}>
+              {selectedDays.map((day, index) => (
                 <span
                   key={index}
-                className={styles.selectedCourses}
+                  className={styles.selectedDays}
                 >
-                  {course}
-                  <button className={styles.bntRemoveCourse} onClick={() => handleRemoveCourse(course)}>x</button>
+                  {day}
+                  <button className={styles.bntRemoveDay} onClick={() => handleRemoveDay(day)}>x</button>
                 </span>
               ))}
             </div>
