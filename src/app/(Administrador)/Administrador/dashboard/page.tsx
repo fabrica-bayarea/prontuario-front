@@ -2,7 +2,6 @@
 
 import style from "./page.module.css";
 import React, { useState, useEffect, useContext } from "react";
-import ModalAddProgram from "@/components/modalAddProgram/modalAddProgram";
 import ModalDelete from "@/components/modalDelete/modalDelete";
 import ModalEdit from "@/components/modalEditProgram/modalEditProgram";
 import TableProgramsAdmin from "@/components/Tables/Admin/TableProgramsAdmin/TableProgramsAdmin";
@@ -20,10 +19,7 @@ interface Programa {
   nome: string;
   descricao: string;
   curso: string;
-  inicio: string;
-  termino: string;
-  horario: string;
-  publicoAlvo: string;
+  publico_alvo: string;
 }
 
 export default function PagCurso() {
@@ -31,7 +27,6 @@ export default function PagCurso() {
   const { nome } = parseCookies();
   const { user } = useContext(AuthContext);
 
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editProgram, setEditProgram] = useState<Programa | null>(null);
@@ -67,14 +62,6 @@ export default function PagCurso() {
     setIsMounted(true);
   }, []);
 
-  const openAddModal = () => {
-    setIsAddModalOpen(true);
-  };
-
-  const closeAddModal = () => {
-    setIsAddModalOpen(false);
-  };
-
   const openDeleteModal = (id: number) => {
     setDeleteId(id);
     setIsDeleteModalOpen(true);
@@ -93,19 +80,6 @@ export default function PagCurso() {
   const closeEditModal = () => {
     setIsEditModalOpen(false);
     setEditProgram(null);
-  };
-
-  const handleSave = async (program: Omit<Programa, "id">) => {
-    try {
-      const response = await api.post("/programas", program);
-      setEvents([...events, response.data]);
-      closeAddModal();
-      toast.success("Programa adicionado com sucesso!", {
-        position: "bottom-right",
-      });
-    } catch (error) {
-      console.log("Erro ao adicionar programa", error);
-    }
   };
 
   const handleConfirmDelete = async () => {
@@ -202,11 +176,6 @@ export default function PagCurso() {
         </section>
       )}
 
-      <ModalAddProgram
-        isOpen={isAddModalOpen}
-        onClose={closeAddModal}
-        onSubmit={handleSave}
-      />
       <ModalDelete
         isOpen={isDeleteModalOpen}
         onClose={closeDeleteModal}
