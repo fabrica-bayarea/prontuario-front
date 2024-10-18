@@ -42,6 +42,15 @@
     text-align: left;
 }
 
+.eventTable td:last-child {
+    padding: 10px;
+    display: flex;;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 83px;
+}
+
 .eventTable th:last-child {
     text-align: center;
 }
@@ -62,22 +71,6 @@
     font-weight: 600;
     font-family: var(--font-inter);
     color: var(--pink-800);
-}
-
-.disponivel {
-    background-color: #87BE7E;
-
-    border-radius: 10px;
-    padding:5px 10px;
-    color: #FCE8E8;
-}
-
-.indisponivel{
-    background-color: #F6B6B6;
-
-    border-radius: 10px;
-    padding:5px 10px;
-    color: var(--pink-900)
 }
 
 .buttonSubscribe {
