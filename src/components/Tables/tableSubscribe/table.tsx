@@ -16,7 +16,7 @@ interface Event  {
   inicio: string; 
   termino: string;
   horario: string;
-  publicoAlvo: string;
+  publico_alvo: string;
 }
 
 interface EventTableProps {
@@ -26,12 +26,6 @@ interface EventTableProps {
 
 const EventTable: React.FC<EventTableProps> = ({ events, onView}) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-
-  const formatPeriod = (inicio: string, termino: string) => {
-    const startDate = new Date(inicio);
-    const endDate = new Date(termino);
-    return `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`;
-  }
 
   const filteredEvents = events.filter(event =>
     event.nome.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -59,7 +53,7 @@ const EventTable: React.FC<EventTableProps> = ({ events, onView}) => {
             {filteredEvents.map(event => (
               <tr key={event.id}>
                 <td className={style["name-column"]}>{event.nome}</td>
-                <td>{formatPeriod(event.inicio, event.termino)}</td>
+                <td>{event.inicio + "-" + event.termino}</td>
                 <td>{event.horario}</td>
                 <td className={style["name-columnAncora"]}>
                 <div className ={style.containerActionsButton}>

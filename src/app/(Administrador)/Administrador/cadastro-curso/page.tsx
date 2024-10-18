@@ -36,7 +36,7 @@ export default function CadastroCurso() {
     try {
       await api.post("/cursos", data);
       toast.success("Curso cadastrado com sucesso!");
-      router.push("/Administrador/dashboard");
+      router.push("/Administrador/dashboard-cursos");
     } catch (error:any) {
      if (error.response) {
         toast.error(

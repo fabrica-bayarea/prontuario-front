@@ -8,7 +8,7 @@ import { parseCookies } from "nookies";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "@/contexts/AuthContext";
-import ModalViewInfo from "@/components/modalView/modalView";
+import ModalViewInfo from "@/components/Modals/modalViewProgram/modalViewProgram";
 
 interface Event {
   id: number;
@@ -23,7 +23,7 @@ interface Event {
   inicio: string;
   termino: string;
   horario: string;
-  publicoAlvo: string;
+  publico_alvo: string;
 }
 
 
@@ -31,29 +31,53 @@ const events: Event[] = [
   {
     id: 1,
     nome: "Projeto Observatório Social e Fiscal",
-    inicio: "12/04/2024",
+    inicio: "01/10/2024",
     horario: "15:00",
+    cursos: [
+      {
+        id: 1,
+        nome: "Ciências Contábeis",
+        coordenador: "João Silva",
+        turno: "Noturno",
+      }
+    ],
     descricao: "O Observatório Social e Fiscal é um projeto que visa monitorar a aplicação dos recursos públicos e fiscalizar a execução de políticas públicas.",
-    publicoAlvo: "Estudantes de Ciências Contábeis",
-    termino: "12/04/2024",
+    publico_alvo: "Estudantes de Ciências Contábeis",
+    termino: "10/10/2024",
   },
   {
     id: 2,
     nome: "Projeto Núcleo de Apoio Contábil",
-    inicio: "10/05/2024",
+    inicio: "14/10/2024",
     horario: "11:00",
+    cursos: [
+      {
+        id: 1,
+        nome: "Ciências Contábeis",
+        coordenador: "João Silva",
+        turno: "Noturno",
+      }
+    ],
     descricao: "O Núcleo de Apoio Contábil e Fiscal (NAF) é um projeto que visa oferecer serviços contábeis e fiscais gratuitos para pessoas físicas e jurídicas.",
-    publicoAlvo: "Estudantes de Ciências Contábeis",
-    termino: "10/05/2024",
+    publico_alvo: "Estudantes de Ciências Contábeis",
+    termino: "19/10/2024",
   },
   {
     id: 3,
     nome: "Projeto Ação Solidária Covid-19",
-    inicio: "12/04/2024",
+    inicio: "02/09/2024",
     horario: "12:00",
+    cursos: [
+      {
+        id: 2,
+        nome: "Administração",
+        coordenador: "Maria",
+        turno: "Matutino",
+      }
+    ],
     descricao: "A Ação Solidária Covid-19 é um projeto que visa arrecadar alimentos e produtos de higiene para famílias em situação de vulnerabilidade social.",
-    publicoAlvo: "Estudantes de Administração",
-    termino: "12/04/2024",
+    publico_alvo: "Estudantes de Administração",
+    termino: "13/09/2024",
   },
 ];
 

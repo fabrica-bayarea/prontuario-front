@@ -2,41 +2,39 @@
 
 import style from "./page.module.css";
 import React, { useState, useEffect, useContext } from "react";
-import ModalDelete from "@/components/modalDelete/modalDelete";
-import ModalEdit from "@/components/modalEditProgram/modalEditProgram";
-import TableProgramsAdmin from "@/components/Tables/Admin/TableProgramsAdmin/TableProgramsAdmin";
-import ModalViewInfo from "@/components/modalView/modalView";
+import ModalDelete from "@/components/Modals/modalDelete/modalDelete";
+import TableCoursesAdmin from "@/components/Tables/Admin/TableCoursesAdmin/TableCoursesAdmin";
+import ModalEditCourse from "@/components/Modals/Course/modalEditCourse/modalEditCourse";
+import ModalViewCourse from "@/components/Modals/Course/modalViewCourse/modalViewCourse";
 import { api } from "@/services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { parseCookies } from "nookies";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/contexts/AuthContext";
 import Image from "next/image";
 
-interface Programa {
+interface CourseAPI {
   id: number;
   nome: string;
   descricao: string;
-  curso: string;
-  publico_alvo: string;
+  coordenador: string;
+  campus: string;
 }
 
-export default function PagCurso() {
+export default function DashboardCourses() {
   const router = useRouter()
-  const { nome } = parseCookies();
   const { user } = useContext(AuthContext);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editProgram, setEditProgram] = useState<Programa | null>(null);
+  const [editCourse, setEditCourse] = useState<CourseAPI | null>(null);
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-  const [selectedProgram, setSelectedProgram] = useState<Programa | null>(null);
+  const [selectedProgram, setSelectedProgram] = useState<CourseAPI | null>(null);
 
-  const openViewModal = (program: Programa) => {
+  const openViewModal = (program: CourseAPI) => {
     setSelectedProgram(program);
     setIsViewModalOpen(true);
   };
@@ -46,12 +44,12 @@ export default function PagCurso() {
     setSelectedProgram(null);
   };
 
-  const [events, setEvents] = useState<Programa[]>([]);
+  const [events, setEvents] = useState<CourseAPI[]>([]);
 
   useEffect(() => {
     const fetchPrograms = async () => {
       try {
-        const response = await api.get("/programas");
+        const response = await api.get("/cursos");
         setEvents(response.data);
       } catch (error) {
         console.error("Erro ao buscar programas:", error);
@@ -72,21 +70,21 @@ export default function PagCurso() {
     setDeleteId(null);
   };
 
-  const openEditModal = (program: Programa) => {
-    setEditProgram(program);
+  const openEditModal = (program: CourseAPI) => {
+    setEditCourse(program);
     setIsEditModalOpen(true);
   };
 
   const closeEditModal = () => {
     setIsEditModalOpen(false);
-    setEditProgram(null);
+    setEditCourse(null);
   };
 
   const handleConfirmDelete = async () => {
     if (deleteId !== null) {
       try {
-        await api.delete(`/programas/${deleteId}`);
-        setEvents(events.filter(programa => programa.id !== deleteId));
+        await api.delete(`/cursos/${deleteId}`);
+        setEvents(events.filter(curso => curso.id !== deleteId));
       } catch (error) {
         console.error("Erro ao excluir programa:", error);
       }
@@ -102,18 +100,18 @@ export default function PagCurso() {
     closeDeleteModal();
   };
 
-  const handleEdit = async (program: Omit<Programa, "id">) => {
-    if (editProgram) {
+  const handleEdit = async (course: Omit<CourseAPI, "id">) => {
+    if (editCourse) {
       try {
-        const response = await api.put(`/programas/${editProgram.id}`, program);
+        const response = await api.put(`/cursos/${editCourse.id}`, course);
         const data = response.data;
 
         setEvents(
-          events.map(programa => {
-            if (programa.id === data.id) {
+          events.map(curso => {
+            if (curso.id === data.id) {
               return data;
             }
-            return programa;
+            return curso;
           }),
         );
 
@@ -148,21 +146,21 @@ export default function PagCurso() {
       <section className={style.section}>
         <div className={style.sectionApresentacao}>
           <h1>
-            Olá <strong>{nome}</strong>
+            Cadastre novos <strong>cursos</strong>
           </h1>
-          <p>Gerencie e cadastre novos programas</p>
+          <p>Gerencie e cadastre novos cursos</p>
         </div>
         <button
           className={style.btnAddProgram}
-          onClick={() => router.push("./cadastro-programas")}
+          onClick={() => router.push("./cadastro-curso")}
         >
-          Adicionar novo Programa
+          Adicionar novo Curso
         </button>
       </section>
 
       {events.length > 0 ? (
         <section>
-          <TableProgramsAdmin
+          <TableCoursesAdmin
             events={events}
             onEdit={openEditModal}
             onDelete={openDeleteModal}
@@ -182,17 +180,17 @@ export default function PagCurso() {
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
       />
-      <ModalEdit
+      <ModalEditCourse
         isOpen={isEditModalOpen}
         onClose={closeEditModal}
         onSubmit={handleEdit}
-        program={editProgram}
+        course={editCourse}
       />
 
-      <ModalViewInfo
+      <ModalViewCourse
         isOpen={isViewModalOpen}
         onClose={closeViewModal}
-        programInfo={selectedProgram}
+        courseInfo={selectedProgram}
       />
     </div>
   );

@@ -3,11 +3,20 @@ import styles from "./style.module.css";
 import Image from "next/image";
 import HeaderTable from "@/components/HeaderTable/HeaderTable";
 
-interface Event {
+interface Event  {
   id: number;
-  name: string;
-  status: boolean;
-  date: string;
+  nome: string;
+  descricao: string;
+  cursos?: {
+    id: number;
+    nome: string;
+    coordenador: string;
+    turno: string;
+  }[];
+  inicio: string; 
+  termino: string;
+  horario: string;
+  publico_alvo: string;
 }
 
 interface EventTableProps {
@@ -19,7 +28,7 @@ const EventTablePrograms: React.FC<EventTableProps> = ({ events }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const filteredEvents = events.filter(event =>
-    event.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    event.nome.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleSubscribe = (eventId: number) => {
@@ -41,23 +50,15 @@ const EventTablePrograms: React.FC<EventTableProps> = ({ events }) => {
           <thead>
             <tr className={styles.colummTitulo}>
               <th>Nome</th>
-              <th>Status</th>
-              <th>data</th>
+              <th>Periodo do evento</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody className={styles.colummBody}>
             {filteredEvents.map(event => (
               <tr key={event.id}>
-                <td>{event.name}</td>
-                <td>
-                  {event.status ? (
-                    <span className={styles.disponivel}>Disponível</span>
-                  ) : (
-                    <span className={styles.indisponivel}>Indisponível</span>
-                  )}
-                </td>
-                <td>{event.date}</td>
+                <td>{event.nome}</td>
+                <td>{event.inicio + "-" + event.termino}</td>
                 <td>
                   <button
                     className={`${styles.buttonSubscribe} ${

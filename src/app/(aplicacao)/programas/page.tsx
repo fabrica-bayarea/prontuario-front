@@ -4,32 +4,75 @@ import style from "./style.module.css";
 import EventTablePrograms from "@/components/Tables/TablePrograms/tablePrograms";
 import { useRequireAuth } from "@/hooks/useRequireAuth/useRequireAuth";
 
-interface Eventos {
+interface Event {
   id: number;
-  name: string;
-  date: string;
-  status: boolean;
+  nome: string;
+  descricao: string;
+  cursos?: {
+    id: number;
+    nome: string;
+    coordenador: string;
+    turno: string;
+  }[];
+  inicio: string;
+  termino: string;
+  horario: string;
+  publico_alvo: string;
 }
 
-const eventos : Eventos[] = [
+
+const events: Event[] = [
   {
     id: 1,
-    name: "Projeto Observatório Socila e Fiscal",
-    date: "12/04/2024",
-    status: true
+    nome: "Projeto Observatório Social e Fiscal",
+    inicio: "01/10/2024",
+    horario: "15:00",
+    cursos: [
+      {
+        id: 1,
+        nome: "Ciências Contábeis",
+        coordenador: "João Silva",
+        turno: "Noturno",
+      }
+    ],
+    descricao: "O Observatório Social e Fiscal é um projeto que visa monitorar a aplicação dos recursos públicos e fiscalizar a execução de políticas públicas.",
+    publico_alvo: "Estudantes de Ciências Contábeis",
+    termino: "10/10/2024",
   },
   {
     id: 2,
-    name: "Projeto Núcleo de Apoio Contábil",
-    date: "10/05/2024",
-    status: false
+    nome: "Projeto Núcleo de Apoio Contábil",
+    inicio: "14/10/2024",
+    horario: "11:00",
+    cursos: [
+      {
+        id: 1,
+        nome: "Ciências Contábeis",
+        coordenador: "João Silva",
+        turno: "Noturno",
+      }
+    ],
+    descricao: "O Núcleo de Apoio Contábil e Fiscal (NAF) é um projeto que visa oferecer serviços contábeis e fiscais gratuitos para pessoas físicas e jurídicas.",
+    publico_alvo: "Estudantes de Ciências Contábeis",
+    termino: "19/10/2024",
   },
   {
     id: 3,
-    name: "Projeto Ação Solidária Covid-19",
-    date: "20/02/2024",
-    status: true
-  }
+    nome: "Projeto Ação Solidária Covid-19",
+    inicio: "02/09/2024",
+    horario: "12:00",
+    cursos: [
+      {
+        id: 2,
+        nome: "Administração",
+        coordenador: "Maria",
+        turno: "Matutino",
+      }
+    ],
+    descricao: "A Ação Solidária Covid-19 é um projeto que visa arrecadar alimentos e produtos de higiene para famílias em situação de vulnerabilidade social.",
+    publico_alvo: "Estudantes de Administração",
+    termino: "13/09/2024"
+  },
 ];
 
 export default function Programas() {
@@ -63,7 +106,7 @@ export default function Programas() {
         </section>
 
       <section>
-        <EventTablePrograms events={eventos} />
+        <EventTablePrograms events={events} />
       </section>
     </main>
   );
