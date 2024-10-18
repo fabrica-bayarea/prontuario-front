@@ -1,11 +1,50 @@
 "use client";
 
+import { api } from "@/services/api";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function CadastroCurso() {
   const router = useRouter();
+
+  const [formData, setFormData] = useState({
+    nome: "",
+    campus: "",
+    coordenador: "",
+
+    descricao: "",
+    disponibilidade: "",
+  });
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const data = {
+        ...formData,
+    };
+
+    try {
+      await api.post("/cursos", data);
+      toast.success("Curso cadastrado com sucesso!");
+      router.push("/Administrador/dashboard");
+    } catch (error:any) {
+     if (error.response) {
+        toast.error(
+          "Erro ao cadastrar curso: " + error.response.data.message,
+        );
+      }
+    }
+  };
 
   return (
     <>
@@ -33,7 +72,7 @@ export default function CadastroCurso() {
         </section>
 
         <section className={styles.right}>
-          <form className = {styles.ContainerForm}>
+          <form className = {styles.ContainerForm} onSubmit={handleSubmit}>
             <h2>Informações do Curso</h2>
 
             <div className={styles.ContainerInputs}>
@@ -43,6 +82,8 @@ export default function CadastroCurso() {
                 id="name"
                 name="nome"
                 placeholder="Nome do Curso"
+                value={formData.nome}
+                onChange={handleInputChange}
                 className={styles.inputsForm}
                 required
               />
@@ -55,22 +96,26 @@ export default function CadastroCurso() {
                 id="coordenador"
                 name="coordenador"
                 placeholder="Cordenador do Curso"
+                value={formData.coordenador}
+                onChange={handleInputChange}
                 className={styles.inputsForm}
                 required
               />
             </div>
             
             <div className={styles.ContainerInputs}>
-              <label>Turno</label>
+              <label>Campus</label>
               <select
-                id="turno"
-                name="turno"
-                className={styles.selectShift}
+                id="campus"
+                name="campus"
+                value={formData.campus}
+                onChange={handleInputChange}
+                className={styles.selectCampus}
                 required
               >
-                <option defaultValue="" hidden>Selecione o turno do curso</option>
-                <option value="Matutino">Matutino</option>
-                <option value="Noturno">Noturno</option>
+                <option defaultValue="" hidden>Selecione o campus</option>
+                <option value="Campos-Sul">Campus Sul</option>
+                <option value="Campos-Oeste">Campus Oeste</option>
               </select>
             </div>
             
@@ -80,22 +125,10 @@ export default function CadastroCurso() {
                 id="informacoes"
                 name="descricao"
                 placeholder="Descrição sobre o curso"
+                value={formData.descricao}
+                onChange={handleInputChange}
                 required
               ></textarea>
-            </div>
-
-            <div className={styles.ContainerInputs}>
-              <label>Disponibilidade</label>
-              <select
-                id="status"
-                name="status"
-                className={styles.selectStatus}
-                required
-              >
-                <option defaultValue="" hidden>Status</option>
-                <option value="Disponivel">Disponivel</option>
-                <option value="Indisponivel">Indisponivel</option>
-              </select>
             </div>
 
             <button type="submit" className={styles.btnSubmit}>
