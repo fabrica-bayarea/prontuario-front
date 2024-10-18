@@ -24,6 +24,7 @@ type FormData = {
   telefone: string;
   tipo: string;
   nascimento: string;
+  genero: string;
 };
 
 const INITIAL_DATA: FormData = {
@@ -38,7 +39,8 @@ const INITIAL_DATA: FormData = {
   telefone: "",
   tipo: "",
   cpf: "",
-  nascimento: ""
+  nascimento: "",
+  genero: "",
 };
 
 export default function SignUpUser() {
