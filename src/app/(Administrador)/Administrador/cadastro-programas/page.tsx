@@ -11,17 +11,37 @@ interface Curso {
   nome: string;
 }
 
+interface FormData {
+  nome: string;
+  descricao: string;
+  curso: string;
+  publico_alvo: string;
+}
+
+interface FormPeriodo {
+  data_inicio: string;
+  data_fim: string;
+  horario_inicio: string;
+  horario_fim: string;
+  dias_da_semana: string[];
+}
+
 export default function CadastroProgramas() {
   const router = useRouter();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     nome: "",
     descricao: "",
     curso: "",
-    inicio: "",
-    termino: "",
-    horario: "",
     publico_alvo: "",
+  })
+
+  const [formPeriodo, setFormPeriodo] = useState<FormPeriodo>({
+    data_inicio: "",
+    data_fim: "",
+    horario_inicio: "",
+    horario_fim: "",
+    dias_da_semana: []
   })
 
   const [cursos, setCursos] = useState<Curso[]>([]);
@@ -48,11 +68,21 @@ export default function CadastroProgramas() {
 
   if (!isMounted) return null;
 
-  const handleAddDays = (event: React.ChangeEvent<HTMLSelectElement>)=> {
+  const handleAddDays = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedDay = event.target.value;
     if (selectedDay && !selectedDays.includes(selectedDay)) {
-      setSelectedDays([...selectedDays, selectedDay]);
+        const newSelectedDays = [...selectedDays, selectedDay];
+        setSelectedDays(newSelectedDays);
+        console.log(newSelectedDays);
+        updateFormData(newSelectedDays); 
     }
+  };
+
+  const updateFormData = (updatedDays: string[]) => {
+    setFormData((prevData) => ({
+        ...prevData,
+        dias_da_semana: updatedDays,
+    }));
   };
 
   const handleRemoveDay = (dayToRemove: any) => {
@@ -67,20 +97,34 @@ export default function CadastroProgramas() {
       ...formData,
       [name]: value,
     });
+
+    setFormPeriodo({
+      ...formPeriodo,
+      [name]: value,
+      dias_da_semana: selectedDays,
+    });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+
       const data = {
         ...formData,
-      inicio: new Date(formData.inicio).toISOString(),
-      termino: new Date(formData.termino).toISOString(), 
-      curso: selectedDays[0], 
-    };
+      };
+
+      const dataPeriodo = {
+        ...formPeriodo,
+        nome_programa: formData.nome,
+        data_inicio: new Date(formPeriodo.data_inicio).toISOString(),
+        data_fim: new Date(formPeriodo.data_fim).toISOString(),
+      }
 
     try {
       await api.post("/programas", data);
-      toast.success("Programa cadastrado com sucesso!");
+      toast.success("Programa e periodo do evento cadastrados com sucesso!");
+
+      await api.post("/periodo-atendimentos", dataPeriodo);
+      
       router.push("/Administrador/dashboard");
     } catch (error:any) {
      if (error.response) {
@@ -139,9 +183,9 @@ export default function CadastroProgramas() {
                 <label>Data de inicio</label>
                 <input
                   type="date"
-                  id="dataDeInicio"
-                  name="inicio"
-                  value={formData.inicio}
+                  id="data_inicio"
+                  name="data_inicio"
+                  value={formPeriodo.data_inicio}
                   onChange={handleInputChange}
                   className={styles.inputsForm}
                   required
@@ -152,13 +196,41 @@ export default function CadastroProgramas() {
                 <label>Data de termino</label>
                 <input
                   type="date"
-                  id="dataFinal"
-                  name="termino"
-                  value={formData.termino}
+                  id="data_fim"
+                  name="data_fim"
+                  value={formPeriodo.data_fim}
                   onChange={handleInputChange}
                   className={styles.inputsForm}
                   required
                   />
+              </div>
+            </div>
+
+            <div className={styles.ContainerInputsDate}>
+              <div className={styles.inputsDateWrapper}>
+                <label>Horario de inicio</label>
+                <input
+                  type="time"
+                  id="horario_inicio"
+                  name="horario_inicio"
+                  value={formPeriodo.horario_inicio}
+                  onChange={handleInputChange}
+                  className={styles.inputsForm}
+                  required
+                />
+              </div>
+
+              <div className={styles.inputsDateWrapper}>
+                <label>Horario de termino</label>
+                <input
+                  type="time"
+                  id="horario_fim"
+                  name="horario_fim"
+                  value={formPeriodo.horario_fim}
+                  onChange={handleInputChange}
+                  className={styles.inputsForm}
+                  required
+                />
               </div>
             </div>
 
@@ -167,7 +239,7 @@ export default function CadastroProgramas() {
               <input
                 type="text"
                 id="publico_alvo"
-                name="publico Alvo"
+                name="publico_alvo"
                 placeholder="Público alvo"
                 value={formData.publico_alvo}
                 onChange={handleInputChange}
@@ -191,11 +263,12 @@ export default function CadastroProgramas() {
             <div className={styles.ContainerInputs}>
               <label>Cursos relacionados</label>
               <select
-                id="cursos"
-                name="cursos relacionados"
+                id="curso"
+                name="curso"
                 className={styles.selectDays}
                 required
                 onChange={handleInputChange}
+                value={formData.curso}
               >
                 <option defaultValue="" hidden>Selecione um curso</option>
 
@@ -210,8 +283,8 @@ export default function CadastroProgramas() {
             <div className={styles.ContainerInputs}>
               <label>Dias da Semana</label>
               <select
-                id="dias-da-semana"
-                name="dias da semana"
+                id="dias_da_semana"
+                name="dias_da_semana"
                 className={styles.selectDays}
                 required
                 onChange={handleAddDays}
