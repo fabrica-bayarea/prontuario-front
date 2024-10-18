@@ -10,13 +10,15 @@ type UserData = {
   senha: string; 
   confirmaSenha: string;
   cpf: string;
+
+  nascimento: string;
 }
 
 type UserFormProps = UserData & {
   atualizaCampos: (fields: Partial<UserData>) => void
 }
 
-export default function UserForm({nome, sobrenome, cpf, email, senha, confirmaSenha,atualizaCampos}: UserFormProps) {
+export default function UserForm({nome, sobrenome, cpf, email, senha, nascimento, confirmaSenha, atualizaCampos}: UserFormProps) {
 
   const { register, formState: { errors }, watch} = useFormContext();
   const watchSenha = watch("senha");
@@ -65,6 +67,22 @@ export default function UserForm({nome, sobrenome, cpf, email, senha, confirmaSe
           placeholder="CPF"
         />
         {errors.cpf && <p className={style.error}>{errors.cpf.message as string}</p>}
+      </div>
+
+      <div className={style.envolve__input__errors}>
+        <InputMask
+          {...register("nascimento", { 
+            required: "Data de nascimento é obrigatória", 
+            pattern: { value: /^\d{2}\/\d{2}\/\d{4}$/, message: "Data de nascimento inválida" } 
+          })}
+          mask="99/99/9999"
+          value={nascimento}
+          onChange={e => atualizaCampos({ nascimento: e.target.value })}
+          className={style.formulario__input}
+          type="text"
+          placeholder="Data de nascimento"
+        />
+        {errors.nascimento && <p className={style.error}>{errors.nascimento.message as string}</p>}
       </div>
       
       <div className={style.envolve__input__errors}>
