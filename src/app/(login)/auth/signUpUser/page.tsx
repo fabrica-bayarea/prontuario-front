@@ -23,6 +23,8 @@ type FormData = {
   confirmaSenha: string;
   telefone: string;
   tipo: string;
+  nascimento: string;
+  genero: string;
 };
 
 const INITIAL_DATA: FormData = {
@@ -37,6 +39,8 @@ const INITIAL_DATA: FormData = {
   telefone: "",
   tipo: "",
   cpf: "",
+  nascimento: "",
+  genero: "",
 };
 
 export default function SignUpUser() {
@@ -54,6 +58,24 @@ export default function SignUpUser() {
     });
   }
 
+  const convertToISOWithTime = (dateStr: string): string => {
+    if (!dateStr || !dateStr.match(/^\d{2}\/\d{2}\/\d{4}$/)) return dateStr;
+    
+    const [day, month, year] = dateStr.split('/');
+    
+    const date = new Date(
+      parseInt(year),
+      parseInt(month) - 1,
+      parseInt(day),
+      17,
+      0,
+      0 
+    );
+
+    const isoDate = date.toISOString().slice(0, 19);
+    return isoDate;
+  };
+
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     MultiStepForm([
       <UserForm key="userForm" {...data} atualizaCampos={atualizaCampos} />,
@@ -67,6 +89,7 @@ export default function SignUpUser() {
   const onSubmit = async (formData: FormData) => {
     const dataToSend = {
       ...formData,
+      nascimento: convertToISOWithTime(formData.nascimento)
     };
 
     if (currentStepIndex < steps.length - 1) {

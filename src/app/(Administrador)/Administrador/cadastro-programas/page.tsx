@@ -11,20 +11,41 @@ interface Curso {
   nome: string;
 }
 
-export default function Home() {
+interface FormData {
+  nome: string;
+  descricao: string;
+  curso: string;
+  publico_alvo: string;
+}
+
+interface FormPeriodo {
+  data_inicio: string;
+  data_fim: string;
+  horario_inicio: string;
+  horario_fim: string;
+  dias_da_semana: string[];
+}
+
+export default function CadastroProgramas() {
   const router = useRouter();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     nome: "",
     descricao: "",
     curso: "",
-    inicio: "",
-    termino: "",
-    horario: "",
-    publicoAlvo: "",
+    publico_alvo: "",
   })
+
+  const [formPeriodo, setFormPeriodo] = useState<FormPeriodo>({
+    data_inicio: "",
+    data_fim: "",
+    horario_inicio: "",
+    horario_fim: "",
+    dias_da_semana: []
+  })
+
   const [cursos, setCursos] = useState<Curso[]>([]);
-  const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
+  const [selectedDays , setSelectedDays] = useState<string[]>([]);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -47,16 +68,26 @@ export default function Home() {
 
   if (!isMounted) return null;
 
-  const handleAddCourse = (event: React.ChangeEvent<HTMLSelectElement>)=> {
-    const selectedCourse = event.target.value;
-    if (selectedCourse && !selectedCourses.includes(selectedCourse)) {
-      setSelectedCourses([...selectedCourses, selectedCourse]);
+  const handleAddDays = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedDay = event.target.value;
+    if (selectedDay && !selectedDays.includes(selectedDay)) {
+        const newSelectedDays = [...selectedDays, selectedDay];
+        setSelectedDays(newSelectedDays);
+        console.log(newSelectedDays);
+        updateFormData(newSelectedDays); 
     }
   };
 
-  const handleRemoveCourse = (courseToRemove: any) => {
-    setSelectedCourses(
-      selectedCourses.filter((course) => course !== courseToRemove)
+  const updateFormData = (updatedDays: string[]) => {
+    setFormData((prevData) => ({
+        ...prevData,
+        dias_da_semana: updatedDays,
+    }));
+  };
+
+  const handleRemoveDay = (dayToRemove: any) => {
+    setSelectedDays(
+      selectedDays.filter((day) => day !== dayToRemove)
     );
   };
 
@@ -66,20 +97,34 @@ export default function Home() {
       ...formData,
       [name]: value,
     });
+
+    setFormPeriodo({
+      ...formPeriodo,
+      [name]: value,
+      dias_da_semana: selectedDays,
+    });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+
       const data = {
         ...formData,
-      inicio: new Date(formData.inicio).toISOString(),
-      termino: new Date(formData.termino).toISOString(), 
-      curso: selectedCourses[0], 
-    };
+      };
+
+      const dataPeriodo = {
+        ...formPeriodo,
+        nome_programa: formData.nome,
+        data_inicio: new Date(formPeriodo.data_inicio).toISOString(),
+        data_fim: new Date(formPeriodo.data_fim).toISOString(),
+      }
 
     try {
       await api.post("/programas", data);
-      toast.success("Programa cadastrado com sucesso!");
+      toast.success("Programa e periodo do evento cadastrados com sucesso!");
+
+      await api.post("/periodo-atendimentos", dataPeriodo);
+      
       router.push("/Administrador/dashboard");
     } catch (error:any) {
      if (error.response) {
@@ -138,9 +183,9 @@ export default function Home() {
                 <label>Data de inicio</label>
                 <input
                   type="date"
-                  id="dataDeInicio"
-                  name="inicio"
-                  value={formData.inicio}
+                  id="data_inicio"
+                  name="data_inicio"
+                  value={formPeriodo.data_inicio}
                   onChange={handleInputChange}
                   className={styles.inputsForm}
                   required
@@ -151,9 +196,9 @@ export default function Home() {
                 <label>Data de termino</label>
                 <input
                   type="date"
-                  id="dataFinal"
-                  name="termino"
-                  value={formData.termino}
+                  id="data_fim"
+                  name="data_fim"
+                  value={formPeriodo.data_fim}
                   onChange={handleInputChange}
                   className={styles.inputsForm}
                   required
@@ -161,37 +206,46 @@ export default function Home() {
               </div>
             </div>
 
+            <div className={styles.ContainerInputsDate}>
+              <div className={styles.inputsDateWrapper}>
+                <label>Horario de inicio</label>
+                <input
+                  type="time"
+                  id="horario_inicio"
+                  name="horario_inicio"
+                  value={formPeriodo.horario_inicio}
+                  onChange={handleInputChange}
+                  className={styles.inputsForm}
+                  required
+                />
+              </div>
+
+              <div className={styles.inputsDateWrapper}>
+                <label>Horario de termino</label>
+                <input
+                  type="time"
+                  id="horario_fim"
+                  name="horario_fim"
+                  value={formPeriodo.horario_fim}
+                  onChange={handleInputChange}
+                  className={styles.inputsForm}
+                  required
+                />
+              </div>
+            </div>
+
             <div className={styles.ContainerInputs}>
               <label>Publico Alvo</label>
               <input
                 type="text"
-                id="publicoAlvo"
-                name="publicoAlvo"
+                id="publico_alvo"
+                name="publico_alvo"
                 placeholder="Público alvo"
-                value={formData.publicoAlvo}
+                value={formData.publico_alvo}
                 onChange={handleInputChange}
                 className={styles.inputsForm}
                 required
               />
-            </div>
-            
-            <div className={styles.ContainerInputs}>
-              <label>Horário do Programa</label>
-              <select
-                id="horario"
-                name="horario"
-                value={formData.horario}
-                onChange={handleInputChange}
-                className={styles.selectHours}
-                required
-              >
-                <option defaultValue="" >Selecione o horário</option>
-                <option value="10:00">10:00</option>
-                <option value="14:00">14:00</option>
-                <option value="16:00">16:00</option>
-                <option value="18:00">18:00</option>
-                <option value="20:00">20:00</option>
-              </select>
             </div>
             
             <div className={styles.ContainerInputs}>
@@ -211,11 +265,12 @@ export default function Home() {
               <select
                 id="curso"
                 name="curso"
-                className={styles.selectCourses}
+                className={styles.selectDays}
                 required
-                onChange={handleAddCourse}
+                onChange={handleInputChange}
+                value={formData.curso}
               >
-                <option defaultValue="">Cursos relacionados</option>
+                <option defaultValue="" hidden>Selecione um curso</option>
 
                 {cursos.map(curso => (
                   <option key={curso.nome} value={curso.nome}>
@@ -225,14 +280,33 @@ export default function Home() {
               </select>
             </div>
 
-            <div className={styles.containerCourses}>
-              {selectedCourses.map((course, index) => (
+            <div className={styles.ContainerInputs}>
+              <label>Dias da Semana</label>
+              <select
+                id="dias_da_semana"
+                name="dias_da_semana"
+                className={styles.selectDays}
+                required
+                onChange={handleAddDays}
+              >
+                <option defaultValue="" hidden>Selecione os dias</option>
+                <option value="Segunda">Segunda</option>
+                <option value="Terça">Terça</option>
+                <option value="Quarta">Quarta</option>
+                <option value="Quinta">Quinta</option>
+                <option value="Sexta">Sexta</option>
+                <option value="Sabado">Sabado</option>
+              </select>
+            </div>
+
+            <div className={styles.containerDays}>
+              {selectedDays.map((day, index) => (
                 <span
                   key={index}
-                className={styles.selectedCourses}
+                  className={styles.selectedDays}
                 >
-                  {course}
-                  <button className={styles.bntRemoveCourse} onClick={() => handleRemoveCourse(course)}>x</button>
+                  {day}
+                  <button className={styles.bntRemoveDay} onClick={() => handleRemoveDay(day)}>x</button>
                 </span>
               ))}
             </div>

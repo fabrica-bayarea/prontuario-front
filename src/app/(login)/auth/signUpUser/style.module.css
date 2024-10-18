@@ -153,6 +153,30 @@
     color:var(--pink-500)
 }
 
+.selectGenero{
+    color: var(--pink-800);
+    width: 100%;
+    padding: 17px;
+  
+    border: 2px solid var(--pink-300);
+  
+    border-radius: 10px;
+    background-color: transparent;
+    cursor: pointer;
+  
+    font-family: var(--font-inter);
+    font-size: 1.1rem;
+    font-weight: 470;
+}
+  
+.selectGenero option {
+    font-family: var(--font-inter);
+    font-size: 1.1rem;
+    font-weight: 470;
+    background-color: var(--pink-200);
+    cursor: pointer;
+}
+
 @media(max-width: 1080px) {
     .modal__container{
         padding: 20px;

@@ -176,7 +176,7 @@
     font-size: 1rem;
   }
   
-  .selectShift {
+  .selectCampus {
     color: var(--pink-1000);
     width: 100%;
     padding: 17px;
@@ -192,12 +192,12 @@
     font-weight: 470;
   }
   
-  .selectShift:focus {
+  .selectCampus:focus {
     border: 2px solid var(--pink-300);
     box-shadow: 0 0 0 0.2rem rgba(255, 105, 135, 0.25);
   }
   
-  .selectShift option {
+  .selectCampus option {
     font-family: var(--font-inter);
   }
   

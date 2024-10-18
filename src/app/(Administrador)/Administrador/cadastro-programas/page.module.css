@@ -222,7 +222,7 @@
   background-color: var(--pink-900);
 }
 
-.selectCourses{
+.selectDays{
   color: var(--pink-800);
   width: 100%;
   padding: 17px;
@@ -238,7 +238,7 @@
   font-weight: 470;
 }
 
-.selectCourses option {
+.selectDays option {
   font-family: var(--font-inter);
   font-size: 1.1rem;
   font-weight: 470;
@@ -246,12 +246,12 @@
   cursor: pointer;
 }
 
-.selectCourses:focus {
+.selectDays:focus {
   border: 2px solid var(--pink-300);
   box-shadow: 0 0 0 0.2rem rgba(255, 105, 135, 0.25);
 }
 
-.containerCourses{
+.containerDays{
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -260,7 +260,7 @@
   gap:6px;
 }
 
-.selectedCourses{
+.selectedDays{
   width: 255px;
   height: 27px;
 
@@ -278,7 +278,7 @@
   font-weight: 600;
 }
 
-.bntRemoveCourse {
+.bntRemoveDay {
   width: 18px;
   height: 18px;
 

@@ -106,7 +106,7 @@ export default function AddressForm({cidade, cep, endereco, telefone, atualizaCa
           {...register("telefone", {
             required:"Telefone é obrigatorio",
           })}
-          mask="(99) 99999-9999"
+          mask="(99)99999-9999"
           className={style.formulario__input}
           value={telefone}
           onChange={ e => atualizaCampos({telefone: e.target.value})}
