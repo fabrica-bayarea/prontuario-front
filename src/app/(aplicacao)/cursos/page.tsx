@@ -16,15 +16,15 @@ export default function Cursos() {
   useRequireAuth();
   
   return (
-    <>
-      <div className={styles.container}>
-        <section className={styles.sectionApresentacao}>
+    <main className={styles.container}>
+      <section className={styles.sectionApresentacao}>
+        <div className={styles.containerApresentacao}>
           <h1>
             Cursos disponiveis para <br /><strong>agendamento</strong>
           </h1>
           <p>Selecione o curso para o agendamento. Em seguida,
           voçê irá ser redirecionado para o agendamento</p>
-        </section>
+        </div>
 
         <Image
           src="/Illustracao_Agenda.svg"
@@ -32,11 +32,11 @@ export default function Cursos() {
           width={400}
           height={400}
         />
-      </div>
+      </section>
       
       <section>
         <TablesCourses events = {eventos}/>
       </section>
-    </>
+    </main>
   );
 }

@@ -1,5 +1,13 @@
 .container{
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.sectionApresentacao {
+    display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
@@ -10,7 +18,7 @@
     overflow: hidden;
 }
 
-.sectionApresentacao{
+.containerApresentacao{
     display: flex;
     justify-content: center;
     flex-direction: column;
