@@ -1,0 +1,46 @@
+.fc-toolbar-title {
+  color: var(--pink-800);
+  font-weight: bold;
+}
+
+.fc-prev-button:focus, .fc-next-button:focus {
+  background-color: var(--pink-900) ;
+  border-color: var(--pink-900) ;
+  color: white;
+}
+
+.fc-prev-button:hover, .fc-next-button:hover {
+  background-color: var(--pink-700);
+  border-color: var(--pink-700);
+  color: white ;
+}
+
+.fc .fc-button {
+  background-color: var(--pink-700);
+  border-color: var(--pink-700);
+  color: white ;
+}
+
+.fc .fc-button:hover {
+  background-color: var(--pink-900);
+  border-color: var(--pink-900);
+  color: white ;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active{
+  background-color: var(--pink-900);
+  border-color: var(--pink-900);
+  color: white ;
+}
+
+.fc-event {
+  background-color: var(--pink-300);
+  border-color:  var(--pink-300);
+  height: 36px;
+  padding: 8px;
+}
+
+.fc-h-event .fc-event-main {
+  color: var(--pink-900);
+  font-weight: 700;
+}

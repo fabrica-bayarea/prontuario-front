@@ -22,6 +22,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    gap: 0.7rem;
     max-width:fit-content;
 }
 

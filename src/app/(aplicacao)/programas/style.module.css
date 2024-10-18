@@ -19,6 +19,14 @@
     box-sizing: border-box;
 }
 
+.containerApresentacao {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.7rem;
+    max-width:fit-content;
+}
+
 .containerApresentacao h1{
     font-family: var(--font-inter);
     font-size: 2.5rem;
