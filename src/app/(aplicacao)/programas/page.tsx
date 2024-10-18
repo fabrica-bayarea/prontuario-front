@@ -25,7 +25,7 @@ const events: Event[] = [
   {
     id: 1,
     nome: "Projeto Observatório Social e Fiscal",
-    inicio: "12/10/2024",
+    inicio: "01/10/2024",
     horario: "15:00",
     cursos: [
       {
@@ -37,12 +37,12 @@ const events: Event[] = [
     ],
     descricao: "O Observatório Social e Fiscal é um projeto que visa monitorar a aplicação dos recursos públicos e fiscalizar a execução de políticas públicas.",
     publico_alvo: "Estudantes de Ciências Contábeis",
-    termino: "30/10/2024",
+    termino: "10/10/2024",
   },
   {
     id: 2,
     nome: "Projeto Núcleo de Apoio Contábil",
-    inicio: "10/09/2024",
+    inicio: "14/10/2024",
     horario: "11:00",
     cursos: [
       {
@@ -54,7 +54,7 @@ const events: Event[] = [
     ],
     descricao: "O Núcleo de Apoio Contábil e Fiscal (NAF) é um projeto que visa oferecer serviços contábeis e fiscais gratuitos para pessoas físicas e jurídicas.",
     publico_alvo: "Estudantes de Ciências Contábeis",
-    termino: "22/09/2024",
+    termino: "19/10/2024",
   },
   {
     id: 3,
