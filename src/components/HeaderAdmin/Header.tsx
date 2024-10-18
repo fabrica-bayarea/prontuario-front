@@ -60,7 +60,7 @@ export function HeaderAdmin() {
                     onClick={menu === 'Sair' ? signOut : undefined}
                   >
                     {menu === 'Conta' ? (
-                      <Link href="/profille" className={style.dropdownMenuButtonLink}>
+                      <Link href="/Administrador/profileAdm" className={style.dropdownMenuButtonLink}>
                         {menu}
                       </Link>
                     ) : (

@@ -63,7 +63,7 @@ export function Header() {
                     onClick={menu === 'Sair' ? signOut : undefined}
                   >
                     {menu === 'Conta' ? (
-                      <Link href="/conta" className={style.dropdownMenuButtonLink}>
+                      <Link href="/profile" className={style.dropdownMenuButtonLink}>
                         {menu}
                       </Link>
                     ) : (
