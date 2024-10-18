@@ -2,10 +2,10 @@
 
 import style from "./page.module.css";
 import React, { useState, useEffect, useContext } from "react";
-import ModalDelete from "@/components/modalDelete/modalDelete";
-import ModalEdit from "@/components/modalEditProgram/modalEditProgram";
+import ModalDelete from "@/components/Modals/modalDelete/modalDelete";
+import ModalEdit from "@/components/Modals/modalEditProgram/modalEditProgram";
 import TableProgramsAdmin from "@/components/Tables/Admin/TableProgramsAdmin/TableProgramsAdmin";
-import ModalViewInfo from "@/components/modalView/modalView";
+import ModalViewInfo from "@/components/Modals/modalViewProgram/modalViewProgram";
 import { api } from "@/services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
