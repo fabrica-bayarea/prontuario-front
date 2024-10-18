@@ -1,6 +1,6 @@
 "use client";
 import { AuthProvider } from '@/contexts/AuthContext';
-import { Header } from '@/components/Header/Header';
+import { HeaderAdmin } from '@/components/HeaderAdmin/Header';
 import { Can } from "@/components/Can/Can";
 import "../../app/globals.css";
 
@@ -14,7 +14,7 @@ export default function LoginLayout({
 }) {
   return (
     <Can tipo={["ADMINISTRADOR"]}>
-      <Header />
+      <HeaderAdmin/>
       <main>
       <ToastContainer />
         <AuthProvider>{children}</AuthProvider>

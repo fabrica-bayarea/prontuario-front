@@ -98,7 +98,7 @@ export function AuthProvider({ children }: AuthProviderProps){
         toast.dismiss(loadingToast);
         
         if (tipo === 'ADMINISTRADOR') {
-          router.push('/Administrador/dashboard');
+          router.push('/Administrador/dashboard-programas');
         }
         
         if (tipo === 'BENEFICIARIO') {
@@ -146,7 +146,7 @@ export function AuthProvider({ children }: AuthProviderProps){
         toast.dismiss(loadingToast);
 
         if (tipo === 'ADMINISTRADOR') {
-          router.push('/Administrador/dashboard');
+          router.push('/Administrador/dashboard-programas');
         } 
         
         if (tipo === 'BENEFICIARIO') {
