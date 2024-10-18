@@ -13,10 +13,7 @@ interface ModalViewInfoProps {
         coordenador: string;
         turno: string;
       }[];
-      inicio: string;
-      termino: string;
-      horario: string;
-      publicoAlvo: string;
+      publico_alvo: string;
     } | null;
   }
 
@@ -75,7 +72,7 @@ const ModalViewInfo: React.FC<ModalViewInfoProps> = ({
         <div className = {style.conteudoSobre}>
             <h2 className = {style.tituloPublico}>Público</h2>
             <p className={style.item}>
-                {programInfo.publicoAlvo}
+                {programInfo.publico_alvo}
             </p>
         </div>
       </div>
